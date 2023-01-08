@@ -279,6 +279,7 @@ struct material_point {
   vec3f         scattering   = {0, 0, 0};
   float         scanisotropy = 0;
   float         trdepth      = 0.01f;
+  bool          htvolume     = false;  // NSPI
 };
 
 // Eval material to obtain emission, brdf and opacity.

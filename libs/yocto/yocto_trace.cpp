@@ -315,6 +315,11 @@ static float sample_delta_pdf(const material_point& material,
   }
 }
 
+// OUR CODE FOR EVAL VOLUME NSPI
+static material_point eval_volume() {
+  // INSERIRE CODICE NSPI
+}
+
 static vec3f eval_scattering(const material_point& material,
     const vec3f& outgoing, const vec3f& incoming) {
   if (material.density == vec3f{0, 0, 0}) return {0, 0, 0};
@@ -479,7 +484,7 @@ static trace_result trace_path(const scene_data& scene, const trace_bvh& bvh,
     if (!volume_stack.empty()) {
       auto& vsdf     = volume_stack.back();
       auto  distance = sample_transmittance(
-           vsdf.density, intersection.distance, rand1f(rng), rand1f(rng));
+          vsdf.density, intersection.distance, rand1f(rng), rand1f(rng));
       weight *= eval_transmittance(vsdf.density, distance) /
                 sample_transmittance_pdf(
                     vsdf.density, distance, intersection.distance);
@@ -626,7 +631,7 @@ static trace_result trace_pathdirect(const scene_data& scene,
     if (!volume_stack.empty()) {
       auto& vsdf     = volume_stack.back();
       auto  distance = sample_transmittance(
-           vsdf.density, intersection.distance, rand1f(rng), rand1f(rng));
+          vsdf.density, intersection.distance, rand1f(rng), rand1f(rng));
       weight *= eval_transmittance(vsdf.density, distance) /
                 sample_transmittance_pdf(
                     vsdf.density, distance, intersection.distance);
@@ -805,7 +810,7 @@ static trace_result trace_pathmis(const scene_data& scene, const trace_bvh& bvh,
     if (!volume_stack.empty()) {
       auto& vsdf     = volume_stack.back();
       auto  distance = sample_transmittance(
-           vsdf.density, intersection.distance, rand1f(rng), rand1f(rng));
+          vsdf.density, intersection.distance, rand1f(rng), rand1f(rng));
       weight *= eval_transmittance(vsdf.density, distance) /
                 sample_transmittance_pdf(
                     vsdf.density, distance, intersection.distance);
