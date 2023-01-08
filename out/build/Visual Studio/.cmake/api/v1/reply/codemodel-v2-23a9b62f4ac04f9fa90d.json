@@ -1,0 +1,2360 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						11,
+						13
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						1,
+						9
+					]
+				},
+				{
+					"build" : "exts",
+					"childIndexes" : 
+					[
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						9,
+						10
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-exts-Debug-47c3398cee991796348b.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "exts"
+				},
+				{
+					"build" : "exts/fast_float",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-exts.fast_float-Debug-00ad51624c78c49e60cc.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.9"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 1,
+					"source" : "exts/fast_float",
+					"targetIndexes" : 
+					[
+						6
+					]
+				},
+				{
+					"build" : "exts/nlohmann_json",
+					"jsonFile" : "directory-exts.nlohmann_json-Debug-9cc9722ebe1e5504f262.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.1"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 2,
+					"source" : "exts/nlohmann_json",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "exts/stb_image",
+					"jsonFile" : "directory-exts.stb_image-Debug-5ee05a83b8296932f39f.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12.0"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 3,
+					"source" : "exts/stb_image",
+					"targetIndexes" : 
+					[
+						4,
+						14
+					]
+				},
+				{
+					"build" : "exts/tinyexr",
+					"jsonFile" : "directory-exts.tinyexr-Debug-7159f40eb11b9fa81cee.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12.0"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 4,
+					"source" : "exts/tinyexr",
+					"targetIndexes" : 
+					[
+						8,
+						15
+					]
+				},
+				{
+					"build" : "exts/cgltf",
+					"jsonFile" : "directory-exts.cgltf-Debug-321a6b0636007d600607.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12.0"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 5,
+					"source" : "exts/cgltf",
+					"targetIndexes" : 
+					[
+						7,
+						10
+					]
+				},
+				{
+					"build" : "exts/glfw",
+					"childIndexes" : 
+					[
+						8
+					],
+					"jsonFile" : "directory-exts.glfw-Debug-900a36c47712aa177352.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 6,
+					"source" : "exts/glfw",
+					"targetIndexes" : 
+					[
+						3
+					]
+				},
+				{
+					"build" : "exts/glfw/src",
+					"jsonFile" : "directory-exts.glfw.src-Debug-eaba0fb8309f44642ec6.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0"
+					},
+					"parentIndex" : 7,
+					"projectIndex" : 6,
+					"source" : "exts/glfw/src",
+					"targetIndexes" : 
+					[
+						12,
+						16
+					]
+				},
+				{
+					"build" : "exts/glad",
+					"jsonFile" : "directory-exts.glad-Debug-b5f8515bfc04c2033aa6.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12.0"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 7,
+					"source" : "exts/glad",
+					"targetIndexes" : 
+					[
+						2,
+						11
+					]
+				},
+				{
+					"build" : "exts/imgui",
+					"jsonFile" : "directory-exts.imgui-Debug-fbfb4339e703958e612f.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12.0"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 8,
+					"source" : "exts/imgui",
+					"targetIndexes" : 
+					[
+						5,
+						13
+					]
+				},
+				{
+					"build" : "libs",
+					"childIndexes" : 
+					[
+						12
+					],
+					"jsonFile" : "directory-libs-Debug-dd7a5ca29a7a50124f40.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "libs"
+				},
+				{
+					"build" : "libs/yocto",
+					"jsonFile" : "directory-libs.yocto-Debug-0dcebd34edbb50c950ad.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 11,
+					"projectIndex" : 0,
+					"source" : "libs/yocto",
+					"targetIndexes" : 
+					[
+						22
+					]
+				},
+				{
+					"build" : "apps",
+					"jsonFile" : "directory-apps-Debug-12c899f314185723a34a.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "apps",
+					"targetIndexes" : 
+					[
+						17,
+						18,
+						19,
+						20,
+						21,
+						23,
+						24,
+						25,
+						26
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8
+					],
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						11,
+						12,
+						13
+					],
+					"name" : "yocto_gl",
+					"targetIndexes" : 
+					[
+						1,
+						9,
+						17,
+						18,
+						19,
+						20,
+						21,
+						22,
+						23,
+						24,
+						25,
+						26
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						2
+					],
+					"name" : "fast_float",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						6
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						3
+					],
+					"name" : "nlohmann_json",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						4
+					],
+					"name" : "stb_image",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						4,
+						14
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						5
+					],
+					"name" : "tinyexr",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						8,
+						15
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						6
+					],
+					"name" : "cgltf",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						7,
+						10
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						7,
+						8
+					],
+					"name" : "GLFW",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						3,
+						12,
+						16
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						9
+					],
+					"name" : "glad",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						2,
+						11
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						10
+					],
+					"name" : "imgui",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						5,
+						13
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 3,
+					"id" : "ALL_BUILD::@b1f1c4c9aea9327ba432",
+					"jsonFile" : "target-ALL_BUILD-Debug-04aefb0c259cb0d513fa.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ALL_BUILD::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ALL_BUILD-Debug-7eefa22e170f1e757742.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 9,
+					"id" : "ALL_BUILD::@2ba0b748c973a1201b92",
+					"jsonFile" : "target-ALL_BUILD-Debug-1339a064463815254c91.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 7
+				},
+				{
+					"directoryIndex" : 7,
+					"id" : "ALL_BUILD::@c7ea66bf90c920b4aebb",
+					"jsonFile" : "target-ALL_BUILD-Debug-9b467273813d90fa4699.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 6
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "ALL_BUILD::@683f4c7068497808246b",
+					"jsonFile" : "target-ALL_BUILD-Debug-5651c28df564ff1620ef.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 3
+				},
+				{
+					"directoryIndex" : 10,
+					"id" : "ALL_BUILD::@9c4eb95cd3a3d7bf80cd",
+					"jsonFile" : "target-ALL_BUILD-Debug-a6532c156e98865ae77d.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 8
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "ALL_BUILD::@169ef9e37bb62f460196",
+					"jsonFile" : "target-ALL_BUILD-Debug-d78afa8fc1fc1a867f78.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "ALL_BUILD::@9246e2ad785add283ca0",
+					"jsonFile" : "target-ALL_BUILD-Debug-ea10e3466c40c42410e8.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 5
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "ALL_BUILD::@6aeaa1044282890768d8",
+					"jsonFile" : "target-ALL_BUILD-Debug-99711cc3ce9c0514379e.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ZERO_CHECK-Debug-d9e6ac1521aa20a0a872.json",
+					"name" : "ZERO_CHECK",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "cgltf::@9246e2ad785add283ca0",
+					"jsonFile" : "target-cgltf-Debug-cdf4cf4fc7e9e5888550.json",
+					"name" : "cgltf",
+					"projectIndex" : 5
+				},
+				{
+					"directoryIndex" : 9,
+					"id" : "glad::@2ba0b748c973a1201b92",
+					"jsonFile" : "target-glad-Debug-783d57b8e1095556dedf.json",
+					"name" : "glad",
+					"projectIndex" : 7
+				},
+				{
+					"directoryIndex" : 8,
+					"id" : "glfw::@766e2fc5a7847ac43afc",
+					"jsonFile" : "target-glfw-Debug-d0e3f59317b8e792e5b5.json",
+					"name" : "glfw",
+					"projectIndex" : 6
+				},
+				{
+					"directoryIndex" : 10,
+					"id" : "imgui::@9c4eb95cd3a3d7bf80cd",
+					"jsonFile" : "target-imgui-Debug-5b52604ede70a858ed55.json",
+					"name" : "imgui",
+					"projectIndex" : 8
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "stb_image::@683f4c7068497808246b",
+					"jsonFile" : "target-stb_image-Debug-302d7d4ac1835b85a1f2.json",
+					"name" : "stb_image",
+					"projectIndex" : 3
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "tinyexr::@6aeaa1044282890768d8",
+					"jsonFile" : "target-tinyexr-Debug-bfcfd943189c7c7a9b2f.json",
+					"name" : "tinyexr",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 8,
+					"id" : "update_mappings::@766e2fc5a7847ac43afc",
+					"jsonFile" : "target-update_mappings-Debug-3f5de7dd7d7ac6430053.json",
+					"name" : "update_mappings",
+					"projectIndex" : 6
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "ycolorgrade::@9e189ee61a034fc9b705",
+					"jsonFile" : "target-ycolorgrade-Debug-d9aedd29044c6ef88c38.json",
+					"name" : "ycolorgrade",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "yconvert::@9e189ee61a034fc9b705",
+					"jsonFile" : "target-yconvert-Debug-68660760a24fbe5bb4cc.json",
+					"name" : "yconvert",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "yconverts::@9e189ee61a034fc9b705",
+					"jsonFile" : "target-yconverts-Debug-b5252ea526cb39f29614.json",
+					"name" : "yconverts",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "yimalpha::@9e189ee61a034fc9b705",
+					"jsonFile" : "target-yimalpha-Debug-92a0a1eddec7e2159626.json",
+					"name" : "yimalpha",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "yimdiff::@9e189ee61a034fc9b705",
+					"jsonFile" : "target-yimdiff-Debug-189bc79671e70ea801f4.json",
+					"name" : "yimdiff",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 12,
+					"id" : "yocto::@e229a39159fb9a4cdeaa",
+					"jsonFile" : "target-yocto-Debug-ee28c93cb76b66aca890.json",
+					"name" : "yocto",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "ysamples::@9e189ee61a034fc9b705",
+					"jsonFile" : "target-ysamples-Debug-9d3dbacb1dd0e052ae49.json",
+					"name" : "ysamples",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "ytonemap::@9e189ee61a034fc9b705",
+					"jsonFile" : "target-ytonemap-Debug-0154714c63c9b7e1892c.json",
+					"name" : "ytonemap",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "ytrace::@9e189ee61a034fc9b705",
+					"jsonFile" : "target-ytrace-Debug-bb60d1a692c8b9178f25.json",
+					"name" : "ytrace",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "yview::@9e189ee61a034fc9b705",
+					"jsonFile" : "target-yview-Debug-fb5c54fdf5d58a7d4b8d.json",
+					"name" : "yview",
+					"projectIndex" : 0
+				}
+			]
+		},
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						11,
+						13
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Release-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						1,
+						9
+					]
+				},
+				{
+					"build" : "exts",
+					"childIndexes" : 
+					[
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						9,
+						10
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-exts-Release-47c3398cee991796348b.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "exts"
+				},
+				{
+					"build" : "exts/fast_float",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-exts.fast_float-Release-00ad51624c78c49e60cc.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.9"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 1,
+					"source" : "exts/fast_float",
+					"targetIndexes" : 
+					[
+						6
+					]
+				},
+				{
+					"build" : "exts/nlohmann_json",
+					"jsonFile" : "directory-exts.nlohmann_json-Release-9cc9722ebe1e5504f262.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.1"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 2,
+					"source" : "exts/nlohmann_json",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "exts/stb_image",
+					"jsonFile" : "directory-exts.stb_image-Release-5ee05a83b8296932f39f.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12.0"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 3,
+					"source" : "exts/stb_image",
+					"targetIndexes" : 
+					[
+						4,
+						14
+					]
+				},
+				{
+					"build" : "exts/tinyexr",
+					"jsonFile" : "directory-exts.tinyexr-Release-7159f40eb11b9fa81cee.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12.0"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 4,
+					"source" : "exts/tinyexr",
+					"targetIndexes" : 
+					[
+						8,
+						15
+					]
+				},
+				{
+					"build" : "exts/cgltf",
+					"jsonFile" : "directory-exts.cgltf-Release-321a6b0636007d600607.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12.0"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 5,
+					"source" : "exts/cgltf",
+					"targetIndexes" : 
+					[
+						7,
+						10
+					]
+				},
+				{
+					"build" : "exts/glfw",
+					"childIndexes" : 
+					[
+						8
+					],
+					"jsonFile" : "directory-exts.glfw-Release-900a36c47712aa177352.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 6,
+					"source" : "exts/glfw",
+					"targetIndexes" : 
+					[
+						3
+					]
+				},
+				{
+					"build" : "exts/glfw/src",
+					"jsonFile" : "directory-exts.glfw.src-Release-eaba0fb8309f44642ec6.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0"
+					},
+					"parentIndex" : 7,
+					"projectIndex" : 6,
+					"source" : "exts/glfw/src",
+					"targetIndexes" : 
+					[
+						12,
+						16
+					]
+				},
+				{
+					"build" : "exts/glad",
+					"jsonFile" : "directory-exts.glad-Release-b5f8515bfc04c2033aa6.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12.0"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 7,
+					"source" : "exts/glad",
+					"targetIndexes" : 
+					[
+						2,
+						11
+					]
+				},
+				{
+					"build" : "exts/imgui",
+					"jsonFile" : "directory-exts.imgui-Release-fbfb4339e703958e612f.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12.0"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 8,
+					"source" : "exts/imgui",
+					"targetIndexes" : 
+					[
+						5,
+						13
+					]
+				},
+				{
+					"build" : "libs",
+					"childIndexes" : 
+					[
+						12
+					],
+					"jsonFile" : "directory-libs-Release-dd7a5ca29a7a50124f40.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "libs"
+				},
+				{
+					"build" : "libs/yocto",
+					"jsonFile" : "directory-libs.yocto-Release-0dcebd34edbb50c950ad.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 11,
+					"projectIndex" : 0,
+					"source" : "libs/yocto",
+					"targetIndexes" : 
+					[
+						22
+					]
+				},
+				{
+					"build" : "apps",
+					"jsonFile" : "directory-apps-Release-12c899f314185723a34a.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "apps",
+					"targetIndexes" : 
+					[
+						17,
+						18,
+						19,
+						20,
+						21,
+						23,
+						24,
+						25,
+						26
+					]
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8
+					],
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						11,
+						12,
+						13
+					],
+					"name" : "yocto_gl",
+					"targetIndexes" : 
+					[
+						1,
+						9,
+						17,
+						18,
+						19,
+						20,
+						21,
+						22,
+						23,
+						24,
+						25,
+						26
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						2
+					],
+					"name" : "fast_float",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						6
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						3
+					],
+					"name" : "nlohmann_json",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						4
+					],
+					"name" : "stb_image",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						4,
+						14
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						5
+					],
+					"name" : "tinyexr",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						8,
+						15
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						6
+					],
+					"name" : "cgltf",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						7,
+						10
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						7,
+						8
+					],
+					"name" : "GLFW",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						3,
+						12,
+						16
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						9
+					],
+					"name" : "glad",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						2,
+						11
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						10
+					],
+					"name" : "imgui",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						5,
+						13
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 3,
+					"id" : "ALL_BUILD::@b1f1c4c9aea9327ba432",
+					"jsonFile" : "target-ALL_BUILD-Release-04aefb0c259cb0d513fa.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ALL_BUILD::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ALL_BUILD-Release-7eefa22e170f1e757742.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 9,
+					"id" : "ALL_BUILD::@2ba0b748c973a1201b92",
+					"jsonFile" : "target-ALL_BUILD-Release-1339a064463815254c91.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 7
+				},
+				{
+					"directoryIndex" : 7,
+					"id" : "ALL_BUILD::@c7ea66bf90c920b4aebb",
+					"jsonFile" : "target-ALL_BUILD-Release-9b467273813d90fa4699.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 6
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "ALL_BUILD::@683f4c7068497808246b",
+					"jsonFile" : "target-ALL_BUILD-Release-5651c28df564ff1620ef.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 3
+				},
+				{
+					"directoryIndex" : 10,
+					"id" : "ALL_BUILD::@9c4eb95cd3a3d7bf80cd",
+					"jsonFile" : "target-ALL_BUILD-Release-a6532c156e98865ae77d.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 8
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "ALL_BUILD::@169ef9e37bb62f460196",
+					"jsonFile" : "target-ALL_BUILD-Release-d78afa8fc1fc1a867f78.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "ALL_BUILD::@9246e2ad785add283ca0",
+					"jsonFile" : "target-ALL_BUILD-Release-ea10e3466c40c42410e8.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 5
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "ALL_BUILD::@6aeaa1044282890768d8",
+					"jsonFile" : "target-ALL_BUILD-Release-99711cc3ce9c0514379e.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ZERO_CHECK-Release-d9e6ac1521aa20a0a872.json",
+					"name" : "ZERO_CHECK",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "cgltf::@9246e2ad785add283ca0",
+					"jsonFile" : "target-cgltf-Release-1a57f5dfcb6a6fc594a3.json",
+					"name" : "cgltf",
+					"projectIndex" : 5
+				},
+				{
+					"directoryIndex" : 9,
+					"id" : "glad::@2ba0b748c973a1201b92",
+					"jsonFile" : "target-glad-Release-dc8c996ce54a03436df4.json",
+					"name" : "glad",
+					"projectIndex" : 7
+				},
+				{
+					"directoryIndex" : 8,
+					"id" : "glfw::@766e2fc5a7847ac43afc",
+					"jsonFile" : "target-glfw-Release-5f67c4f0dca1e5581261.json",
+					"name" : "glfw",
+					"projectIndex" : 6
+				},
+				{
+					"directoryIndex" : 10,
+					"id" : "imgui::@9c4eb95cd3a3d7bf80cd",
+					"jsonFile" : "target-imgui-Release-1167115c572a9d511a1c.json",
+					"name" : "imgui",
+					"projectIndex" : 8
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "stb_image::@683f4c7068497808246b",
+					"jsonFile" : "target-stb_image-Release-b184af188a7e7842d9cf.json",
+					"name" : "stb_image",
+					"projectIndex" : 3
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "tinyexr::@6aeaa1044282890768d8",
+					"jsonFile" : "target-tinyexr-Release-b99d7c090189e7ea3fd0.json",
+					"name" : "tinyexr",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 8,
+					"id" : "update_mappings::@766e2fc5a7847ac43afc",
+					"jsonFile" : "target-update_mappings-Release-3f5de7dd7d7ac6430053.json",
+					"name" : "update_mappings",
+					"projectIndex" : 6
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "ycolorgrade::@9e189ee61a034fc9b705",
+					"jsonFile" : "target-ycolorgrade-Release-4956bb1399d09c45cab5.json",
+					"name" : "ycolorgrade",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "yconvert::@9e189ee61a034fc9b705",
+					"jsonFile" : "target-yconvert-Release-4e5837677fb975c7dc45.json",
+					"name" : "yconvert",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "yconverts::@9e189ee61a034fc9b705",
+					"jsonFile" : "target-yconverts-Release-ffdfd72faf80dbc11b13.json",
+					"name" : "yconverts",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "yimalpha::@9e189ee61a034fc9b705",
+					"jsonFile" : "target-yimalpha-Release-911f26eec21995cf8fdf.json",
+					"name" : "yimalpha",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "yimdiff::@9e189ee61a034fc9b705",
+					"jsonFile" : "target-yimdiff-Release-5fba67a32922417e598c.json",
+					"name" : "yimdiff",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 12,
+					"id" : "yocto::@e229a39159fb9a4cdeaa",
+					"jsonFile" : "target-yocto-Release-6da7b0d3d77925869e27.json",
+					"name" : "yocto",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "ysamples::@9e189ee61a034fc9b705",
+					"jsonFile" : "target-ysamples-Release-98f48da321f64605be08.json",
+					"name" : "ysamples",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "ytonemap::@9e189ee61a034fc9b705",
+					"jsonFile" : "target-ytonemap-Release-1b290730412a00a6ef71.json",
+					"name" : "ytonemap",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "ytrace::@9e189ee61a034fc9b705",
+					"jsonFile" : "target-ytrace-Release-c08d238027136396bb83.json",
+					"name" : "ytrace",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "yview::@9e189ee61a034fc9b705",
+					"jsonFile" : "target-yview-Release-ef4babc182463127e3f0.json",
+					"name" : "yview",
+					"projectIndex" : 0
+				}
+			]
+		},
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						11,
+						13
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-MinSizeRel-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						1,
+						9
+					]
+				},
+				{
+					"build" : "exts",
+					"childIndexes" : 
+					[
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						9,
+						10
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-exts-MinSizeRel-47c3398cee991796348b.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "exts"
+				},
+				{
+					"build" : "exts/fast_float",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-exts.fast_float-MinSizeRel-00ad51624c78c49e60cc.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.9"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 1,
+					"source" : "exts/fast_float",
+					"targetIndexes" : 
+					[
+						6
+					]
+				},
+				{
+					"build" : "exts/nlohmann_json",
+					"jsonFile" : "directory-exts.nlohmann_json-MinSizeRel-9cc9722ebe1e5504f262.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.1"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 2,
+					"source" : "exts/nlohmann_json",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "exts/stb_image",
+					"jsonFile" : "directory-exts.stb_image-MinSizeRel-5ee05a83b8296932f39f.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12.0"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 3,
+					"source" : "exts/stb_image",
+					"targetIndexes" : 
+					[
+						4,
+						14
+					]
+				},
+				{
+					"build" : "exts/tinyexr",
+					"jsonFile" : "directory-exts.tinyexr-MinSizeRel-7159f40eb11b9fa81cee.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12.0"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 4,
+					"source" : "exts/tinyexr",
+					"targetIndexes" : 
+					[
+						8,
+						15
+					]
+				},
+				{
+					"build" : "exts/cgltf",
+					"jsonFile" : "directory-exts.cgltf-MinSizeRel-321a6b0636007d600607.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12.0"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 5,
+					"source" : "exts/cgltf",
+					"targetIndexes" : 
+					[
+						7,
+						10
+					]
+				},
+				{
+					"build" : "exts/glfw",
+					"childIndexes" : 
+					[
+						8
+					],
+					"jsonFile" : "directory-exts.glfw-MinSizeRel-900a36c47712aa177352.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 6,
+					"source" : "exts/glfw",
+					"targetIndexes" : 
+					[
+						3
+					]
+				},
+				{
+					"build" : "exts/glfw/src",
+					"jsonFile" : "directory-exts.glfw.src-MinSizeRel-eaba0fb8309f44642ec6.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0"
+					},
+					"parentIndex" : 7,
+					"projectIndex" : 6,
+					"source" : "exts/glfw/src",
+					"targetIndexes" : 
+					[
+						12,
+						16
+					]
+				},
+				{
+					"build" : "exts/glad",
+					"jsonFile" : "directory-exts.glad-MinSizeRel-b5f8515bfc04c2033aa6.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12.0"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 7,
+					"source" : "exts/glad",
+					"targetIndexes" : 
+					[
+						2,
+						11
+					]
+				},
+				{
+					"build" : "exts/imgui",
+					"jsonFile" : "directory-exts.imgui-MinSizeRel-fbfb4339e703958e612f.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12.0"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 8,
+					"source" : "exts/imgui",
+					"targetIndexes" : 
+					[
+						5,
+						13
+					]
+				},
+				{
+					"build" : "libs",
+					"childIndexes" : 
+					[
+						12
+					],
+					"jsonFile" : "directory-libs-MinSizeRel-dd7a5ca29a7a50124f40.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "libs"
+				},
+				{
+					"build" : "libs/yocto",
+					"jsonFile" : "directory-libs.yocto-MinSizeRel-0dcebd34edbb50c950ad.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 11,
+					"projectIndex" : 0,
+					"source" : "libs/yocto",
+					"targetIndexes" : 
+					[
+						22
+					]
+				},
+				{
+					"build" : "apps",
+					"jsonFile" : "directory-apps-MinSizeRel-12c899f314185723a34a.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "apps",
+					"targetIndexes" : 
+					[
+						17,
+						18,
+						19,
+						20,
+						21,
+						23,
+						24,
+						25,
+						26
+					]
+				}
+			],
+			"name" : "MinSizeRel",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8
+					],
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						11,
+						12,
+						13
+					],
+					"name" : "yocto_gl",
+					"targetIndexes" : 
+					[
+						1,
+						9,
+						17,
+						18,
+						19,
+						20,
+						21,
+						22,
+						23,
+						24,
+						25,
+						26
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						2
+					],
+					"name" : "fast_float",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						6
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						3
+					],
+					"name" : "nlohmann_json",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						4
+					],
+					"name" : "stb_image",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						4,
+						14
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						5
+					],
+					"name" : "tinyexr",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						8,
+						15
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						6
+					],
+					"name" : "cgltf",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						7,
+						10
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						7,
+						8
+					],
+					"name" : "GLFW",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						3,
+						12,
+						16
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						9
+					],
+					"name" : "glad",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						2,
+						11
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						10
+					],
+					"name" : "imgui",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						5,
+						13
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 3,
+					"id" : "ALL_BUILD::@b1f1c4c9aea9327ba432",
+					"jsonFile" : "target-ALL_BUILD-MinSizeRel-04aefb0c259cb0d513fa.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ALL_BUILD::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ALL_BUILD-MinSizeRel-7eefa22e170f1e757742.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 9,
+					"id" : "ALL_BUILD::@2ba0b748c973a1201b92",
+					"jsonFile" : "target-ALL_BUILD-MinSizeRel-1339a064463815254c91.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 7
+				},
+				{
+					"directoryIndex" : 7,
+					"id" : "ALL_BUILD::@c7ea66bf90c920b4aebb",
+					"jsonFile" : "target-ALL_BUILD-MinSizeRel-9b467273813d90fa4699.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 6
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "ALL_BUILD::@683f4c7068497808246b",
+					"jsonFile" : "target-ALL_BUILD-MinSizeRel-5651c28df564ff1620ef.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 3
+				},
+				{
+					"directoryIndex" : 10,
+					"id" : "ALL_BUILD::@9c4eb95cd3a3d7bf80cd",
+					"jsonFile" : "target-ALL_BUILD-MinSizeRel-a6532c156e98865ae77d.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 8
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "ALL_BUILD::@169ef9e37bb62f460196",
+					"jsonFile" : "target-ALL_BUILD-MinSizeRel-d78afa8fc1fc1a867f78.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "ALL_BUILD::@9246e2ad785add283ca0",
+					"jsonFile" : "target-ALL_BUILD-MinSizeRel-ea10e3466c40c42410e8.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 5
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "ALL_BUILD::@6aeaa1044282890768d8",
+					"jsonFile" : "target-ALL_BUILD-MinSizeRel-99711cc3ce9c0514379e.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ZERO_CHECK-MinSizeRel-d9e6ac1521aa20a0a872.json",
+					"name" : "ZERO_CHECK",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "cgltf::@9246e2ad785add283ca0",
+					"jsonFile" : "target-cgltf-MinSizeRel-33f5fbee6a7fde6344a7.json",
+					"name" : "cgltf",
+					"projectIndex" : 5
+				},
+				{
+					"directoryIndex" : 9,
+					"id" : "glad::@2ba0b748c973a1201b92",
+					"jsonFile" : "target-glad-MinSizeRel-b19cd6d2e54829fd41fd.json",
+					"name" : "glad",
+					"projectIndex" : 7
+				},
+				{
+					"directoryIndex" : 8,
+					"id" : "glfw::@766e2fc5a7847ac43afc",
+					"jsonFile" : "target-glfw-MinSizeRel-aa77c9bdc32e0c55c2ed.json",
+					"name" : "glfw",
+					"projectIndex" : 6
+				},
+				{
+					"directoryIndex" : 10,
+					"id" : "imgui::@9c4eb95cd3a3d7bf80cd",
+					"jsonFile" : "target-imgui-MinSizeRel-bde56a7d07a1471e4fef.json",
+					"name" : "imgui",
+					"projectIndex" : 8
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "stb_image::@683f4c7068497808246b",
+					"jsonFile" : "target-stb_image-MinSizeRel-6fffe84b90bd0ebe0af6.json",
+					"name" : "stb_image",
+					"projectIndex" : 3
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "tinyexr::@6aeaa1044282890768d8",
+					"jsonFile" : "target-tinyexr-MinSizeRel-7a27fea73bc9db7bdc83.json",
+					"name" : "tinyexr",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 8,
+					"id" : "update_mappings::@766e2fc5a7847ac43afc",
+					"jsonFile" : "target-update_mappings-MinSizeRel-3f5de7dd7d7ac6430053.json",
+					"name" : "update_mappings",
+					"projectIndex" : 6
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "ycolorgrade::@9e189ee61a034fc9b705",
+					"jsonFile" : "target-ycolorgrade-MinSizeRel-3de39e0059d0183a9fc4.json",
+					"name" : "ycolorgrade",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "yconvert::@9e189ee61a034fc9b705",
+					"jsonFile" : "target-yconvert-MinSizeRel-21480e532db267b73ce3.json",
+					"name" : "yconvert",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "yconverts::@9e189ee61a034fc9b705",
+					"jsonFile" : "target-yconverts-MinSizeRel-f849d5555bdbea30a32c.json",
+					"name" : "yconverts",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "yimalpha::@9e189ee61a034fc9b705",
+					"jsonFile" : "target-yimalpha-MinSizeRel-b7f5eb6fba14f077219e.json",
+					"name" : "yimalpha",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "yimdiff::@9e189ee61a034fc9b705",
+					"jsonFile" : "target-yimdiff-MinSizeRel-48d1b9a534fd2070f000.json",
+					"name" : "yimdiff",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 12,
+					"id" : "yocto::@e229a39159fb9a4cdeaa",
+					"jsonFile" : "target-yocto-MinSizeRel-a5ba23ebe4db9777fe4c.json",
+					"name" : "yocto",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "ysamples::@9e189ee61a034fc9b705",
+					"jsonFile" : "target-ysamples-MinSizeRel-e8d354a42e5acec93ae5.json",
+					"name" : "ysamples",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "ytonemap::@9e189ee61a034fc9b705",
+					"jsonFile" : "target-ytonemap-MinSizeRel-2a7606a51ce64d3d2bb9.json",
+					"name" : "ytonemap",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "ytrace::@9e189ee61a034fc9b705",
+					"jsonFile" : "target-ytrace-MinSizeRel-6eda3371387d181914d6.json",
+					"name" : "ytrace",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "yview::@9e189ee61a034fc9b705",
+					"jsonFile" : "target-yview-MinSizeRel-dc1d7b060280f7fbd27e.json",
+					"name" : "yview",
+					"projectIndex" : 0
+				}
+			]
+		},
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						11,
+						13
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-RelWithDebInfo-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						1,
+						9
+					]
+				},
+				{
+					"build" : "exts",
+					"childIndexes" : 
+					[
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						9,
+						10
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-exts-RelWithDebInfo-47c3398cee991796348b.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "exts"
+				},
+				{
+					"build" : "exts/fast_float",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-exts.fast_float-RelWithDebInfo-00ad51624c78c49e60cc.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.9"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 1,
+					"source" : "exts/fast_float",
+					"targetIndexes" : 
+					[
+						6
+					]
+				},
+				{
+					"build" : "exts/nlohmann_json",
+					"jsonFile" : "directory-exts.nlohmann_json-RelWithDebInfo-9cc9722ebe1e5504f262.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.1"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 2,
+					"source" : "exts/nlohmann_json",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "exts/stb_image",
+					"jsonFile" : "directory-exts.stb_image-RelWithDebInfo-5ee05a83b8296932f39f.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12.0"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 3,
+					"source" : "exts/stb_image",
+					"targetIndexes" : 
+					[
+						4,
+						14
+					]
+				},
+				{
+					"build" : "exts/tinyexr",
+					"jsonFile" : "directory-exts.tinyexr-RelWithDebInfo-7159f40eb11b9fa81cee.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12.0"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 4,
+					"source" : "exts/tinyexr",
+					"targetIndexes" : 
+					[
+						8,
+						15
+					]
+				},
+				{
+					"build" : "exts/cgltf",
+					"jsonFile" : "directory-exts.cgltf-RelWithDebInfo-321a6b0636007d600607.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12.0"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 5,
+					"source" : "exts/cgltf",
+					"targetIndexes" : 
+					[
+						7,
+						10
+					]
+				},
+				{
+					"build" : "exts/glfw",
+					"childIndexes" : 
+					[
+						8
+					],
+					"jsonFile" : "directory-exts.glfw-RelWithDebInfo-900a36c47712aa177352.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 6,
+					"source" : "exts/glfw",
+					"targetIndexes" : 
+					[
+						3
+					]
+				},
+				{
+					"build" : "exts/glfw/src",
+					"jsonFile" : "directory-exts.glfw.src-RelWithDebInfo-eaba0fb8309f44642ec6.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0"
+					},
+					"parentIndex" : 7,
+					"projectIndex" : 6,
+					"source" : "exts/glfw/src",
+					"targetIndexes" : 
+					[
+						12,
+						16
+					]
+				},
+				{
+					"build" : "exts/glad",
+					"jsonFile" : "directory-exts.glad-RelWithDebInfo-b5f8515bfc04c2033aa6.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12.0"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 7,
+					"source" : "exts/glad",
+					"targetIndexes" : 
+					[
+						2,
+						11
+					]
+				},
+				{
+					"build" : "exts/imgui",
+					"jsonFile" : "directory-exts.imgui-RelWithDebInfo-fbfb4339e703958e612f.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12.0"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 8,
+					"source" : "exts/imgui",
+					"targetIndexes" : 
+					[
+						5,
+						13
+					]
+				},
+				{
+					"build" : "libs",
+					"childIndexes" : 
+					[
+						12
+					],
+					"jsonFile" : "directory-libs-RelWithDebInfo-dd7a5ca29a7a50124f40.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "libs"
+				},
+				{
+					"build" : "libs/yocto",
+					"jsonFile" : "directory-libs.yocto-RelWithDebInfo-0dcebd34edbb50c950ad.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 11,
+					"projectIndex" : 0,
+					"source" : "libs/yocto",
+					"targetIndexes" : 
+					[
+						22
+					]
+				},
+				{
+					"build" : "apps",
+					"jsonFile" : "directory-apps-RelWithDebInfo-12c899f314185723a34a.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "apps",
+					"targetIndexes" : 
+					[
+						17,
+						18,
+						19,
+						20,
+						21,
+						23,
+						24,
+						25,
+						26
+					]
+				}
+			],
+			"name" : "RelWithDebInfo",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8
+					],
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						11,
+						12,
+						13
+					],
+					"name" : "yocto_gl",
+					"targetIndexes" : 
+					[
+						1,
+						9,
+						17,
+						18,
+						19,
+						20,
+						21,
+						22,
+						23,
+						24,
+						25,
+						26
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						2
+					],
+					"name" : "fast_float",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						6
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						3
+					],
+					"name" : "nlohmann_json",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						4
+					],
+					"name" : "stb_image",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						4,
+						14
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						5
+					],
+					"name" : "tinyexr",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						8,
+						15
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						6
+					],
+					"name" : "cgltf",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						7,
+						10
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						7,
+						8
+					],
+					"name" : "GLFW",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						3,
+						12,
+						16
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						9
+					],
+					"name" : "glad",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						2,
+						11
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						10
+					],
+					"name" : "imgui",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						5,
+						13
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 3,
+					"id" : "ALL_BUILD::@b1f1c4c9aea9327ba432",
+					"jsonFile" : "target-ALL_BUILD-RelWithDebInfo-04aefb0c259cb0d513fa.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ALL_BUILD::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ALL_BUILD-RelWithDebInfo-7eefa22e170f1e757742.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 9,
+					"id" : "ALL_BUILD::@2ba0b748c973a1201b92",
+					"jsonFile" : "target-ALL_BUILD-RelWithDebInfo-1339a064463815254c91.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 7
+				},
+				{
+					"directoryIndex" : 7,
+					"id" : "ALL_BUILD::@c7ea66bf90c920b4aebb",
+					"jsonFile" : "target-ALL_BUILD-RelWithDebInfo-9b467273813d90fa4699.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 6
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "ALL_BUILD::@683f4c7068497808246b",
+					"jsonFile" : "target-ALL_BUILD-RelWithDebInfo-5651c28df564ff1620ef.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 3
+				},
+				{
+					"directoryIndex" : 10,
+					"id" : "ALL_BUILD::@9c4eb95cd3a3d7bf80cd",
+					"jsonFile" : "target-ALL_BUILD-RelWithDebInfo-a6532c156e98865ae77d.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 8
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "ALL_BUILD::@169ef9e37bb62f460196",
+					"jsonFile" : "target-ALL_BUILD-RelWithDebInfo-d78afa8fc1fc1a867f78.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "ALL_BUILD::@9246e2ad785add283ca0",
+					"jsonFile" : "target-ALL_BUILD-RelWithDebInfo-ea10e3466c40c42410e8.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 5
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "ALL_BUILD::@6aeaa1044282890768d8",
+					"jsonFile" : "target-ALL_BUILD-RelWithDebInfo-99711cc3ce9c0514379e.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ZERO_CHECK-RelWithDebInfo-d9e6ac1521aa20a0a872.json",
+					"name" : "ZERO_CHECK",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "cgltf::@9246e2ad785add283ca0",
+					"jsonFile" : "target-cgltf-RelWithDebInfo-e29bd14281d5cfcb14a9.json",
+					"name" : "cgltf",
+					"projectIndex" : 5
+				},
+				{
+					"directoryIndex" : 9,
+					"id" : "glad::@2ba0b748c973a1201b92",
+					"jsonFile" : "target-glad-RelWithDebInfo-7df4eea3d8bfef659799.json",
+					"name" : "glad",
+					"projectIndex" : 7
+				},
+				{
+					"directoryIndex" : 8,
+					"id" : "glfw::@766e2fc5a7847ac43afc",
+					"jsonFile" : "target-glfw-RelWithDebInfo-f361a9090d6975670b82.json",
+					"name" : "glfw",
+					"projectIndex" : 6
+				},
+				{
+					"directoryIndex" : 10,
+					"id" : "imgui::@9c4eb95cd3a3d7bf80cd",
+					"jsonFile" : "target-imgui-RelWithDebInfo-ea3ec7692d0456ec6fe8.json",
+					"name" : "imgui",
+					"projectIndex" : 8
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "stb_image::@683f4c7068497808246b",
+					"jsonFile" : "target-stb_image-RelWithDebInfo-eea03418fd4fbf521819.json",
+					"name" : "stb_image",
+					"projectIndex" : 3
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "tinyexr::@6aeaa1044282890768d8",
+					"jsonFile" : "target-tinyexr-RelWithDebInfo-d1522f62fcf1609ad47d.json",
+					"name" : "tinyexr",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 8,
+					"id" : "update_mappings::@766e2fc5a7847ac43afc",
+					"jsonFile" : "target-update_mappings-RelWithDebInfo-3f5de7dd7d7ac6430053.json",
+					"name" : "update_mappings",
+					"projectIndex" : 6
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "ycolorgrade::@9e189ee61a034fc9b705",
+					"jsonFile" : "target-ycolorgrade-RelWithDebInfo-a909e6107338f9c8a752.json",
+					"name" : "ycolorgrade",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "yconvert::@9e189ee61a034fc9b705",
+					"jsonFile" : "target-yconvert-RelWithDebInfo-3579bda745d9ef9a6fa7.json",
+					"name" : "yconvert",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "yconverts::@9e189ee61a034fc9b705",
+					"jsonFile" : "target-yconverts-RelWithDebInfo-1ed55d4a59f69ca0b25d.json",
+					"name" : "yconverts",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "yimalpha::@9e189ee61a034fc9b705",
+					"jsonFile" : "target-yimalpha-RelWithDebInfo-993863f55e847030e5b6.json",
+					"name" : "yimalpha",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "yimdiff::@9e189ee61a034fc9b705",
+					"jsonFile" : "target-yimdiff-RelWithDebInfo-5fa9573b2f7dd9c29a65.json",
+					"name" : "yimdiff",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 12,
+					"id" : "yocto::@e229a39159fb9a4cdeaa",
+					"jsonFile" : "target-yocto-RelWithDebInfo-13564c35b1872753093f.json",
+					"name" : "yocto",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "ysamples::@9e189ee61a034fc9b705",
+					"jsonFile" : "target-ysamples-RelWithDebInfo-40ad02be19409ad88633.json",
+					"name" : "ysamples",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "ytonemap::@9e189ee61a034fc9b705",
+					"jsonFile" : "target-ytonemap-RelWithDebInfo-90480c3bbcdc8484beec.json",
+					"name" : "ytonemap",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "ytrace::@9e189ee61a034fc9b705",
+					"jsonFile" : "target-ytrace-RelWithDebInfo-c9d9248bf148ff0e8dc7.json",
+					"name" : "ytrace",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "yview::@9e189ee61a034fc9b705",
+					"jsonFile" : "target-yview-RelWithDebInfo-1de3b3d99a7988d1891b.json",
+					"name" : "yview",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/danie/Computer_Graphics/yocto-gl/out/build/Visual Studio",
+		"source" : "C:/Users/danie/Computer_Graphics/yocto-gl"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\danie\Computer_Graphics\yocto-gl\out\build\Visual Studio\CMakeFiles\22f0eb43b3fd2fcdbd5efe4fd63d8efa\update_mappings.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\danie\Computer_Graphics\yocto-gl\exts\glfw\src\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\danie\Computer_Graphics\yocto-gl\exts\glfw\src\mappings.h.in">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="C:\Users\danie\Computer_Graphics\yocto-gl\exts\glfw\CMake\GenerateMappings.cmake" />
+    <None Include="C:\Users\danie\Computer_Graphics\yocto-gl\out\build\Visual Studio\exts\glfw\src\CMakeFiles\update_mappings" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{69F63BD0-E6EF-3F81-AC3B-A78C95B4B401}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{07AB1D99-77CE-3283-988A-5FA921C876C8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,85 @@
+{
+	"backtrace" : 0,
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : 
+		[
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			}
+		]
+	},
+	"dependencies" : 
+	[
+		{
+			"id" : "stb_image::@683f4c7068497808246b"
+		},
+		{
+			"id" : "tinyexr::@6aeaa1044282890768d8"
+		},
+		{
+			"id" : "yocto::@e229a39159fb9a4cdeaa"
+		},
+		{
+			"id" : "cgltf::@9246e2ad785add283ca0"
+		},
+		{
+			"id" : "glfw::@766e2fc5a7847ac43afc"
+		},
+		{
+			"id" : "glad::@2ba0b748c973a1201b92"
+		},
+		{
+			"id" : "imgui::@9c4eb95cd3a3d7bf80cd"
+		},
+		{
+			"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df"
+		},
+		{
+			"id" : "ycolorgrade::@9e189ee61a034fc9b705"
+		},
+		{
+			"id" : "yconvert::@9e189ee61a034fc9b705"
+		},
+		{
+			"id" : "ytonemap::@9e189ee61a034fc9b705"
+		},
+		{
+			"id" : "yview::@9e189ee61a034fc9b705"
+		},
+		{
+			"id" : "yimalpha::@9e189ee61a034fc9b705"
+		},
+		{
+			"id" : "ytrace::@9e189ee61a034fc9b705"
+		},
+		{
+			"id" : "yconverts::@9e189ee61a034fc9b705"
+		},
+		{
+			"id" : "ysamples::@9e189ee61a034fc9b705"
+		},
+		{
+			"id" : "yimdiff::@9e189ee61a034fc9b705"
+		}
+	],
+	"folder" : 
+	{
+		"name" : "CMakePredefinedTargets"
+	},
+	"id" : "ALL_BUILD::@6890427a1f51a3e7e1df",
+	"isGeneratorProvided" : true,
+	"name" : "ALL_BUILD",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sources" : [],
+	"type" : "UTILITY"
+}

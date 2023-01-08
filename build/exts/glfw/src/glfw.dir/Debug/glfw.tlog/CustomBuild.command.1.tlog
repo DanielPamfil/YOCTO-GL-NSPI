@@ -1,0 +1,10 @@
+^C:\USERS\DANIE\COMPUTER_GRAPHICS\YOCTO-GL\EXTS\GLFW\SRC\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/danie/Computer_Graphics/yocto-gl -BC:/Users/danie/Computer_Graphics/yocto-gl/build --check-stamp-file C:/Users/danie/Computer_Graphics/yocto-gl/build/exts/glfw/src/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
