@@ -185,9 +185,11 @@ struct subdiv_data {
 // Volume data struct // NSPI
 struct volume_data {
   // hash_grid grid = make_hash_grid(positions, cell_size);
-  vec3f         upper_bound = {};  // NSPI
-  vec3f         lower_bound = {};  // NSPI
-  vector<float> density     = {};  // NSPI
+  vec3f         bbox       = {};  // NSPI
+  vec3f         max        = {};  // NSPI
+  vec3f         min        = {};  // NSPI
+  int           components = 1;   // NSPI
+  vector<float> density    = {};  // NSPI
 };
 
 // Scene comprised an array of objects whose memory is owened by the scene.

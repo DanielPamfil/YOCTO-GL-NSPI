@@ -873,13 +873,13 @@ bool make_image_preset(
 }  // namespace yocto
 
 // -----------------------------------------------------------------------------
-// IMPLEMENTATION FOR VOLUME IMAGE IO (TO DO: fix) NSPI
+// IMPLEMENTATION FOR VOLUME IMAGE IO - NSPI
 // -----------------------------------------------------------------------------
 namespace yocto {
 
 // Volume load
-static bool load_yvol(const string& filename, int& width, int& height,
-    int& depth, int& components, vector<float>& voxels, string& error) {
+static bool load_yvol(const string& filename, vec3f& bbox, vec3f& min,
+    vec3f& max, int& components, vector<float>& voxels, string& error) {
   // error helpers
   auto open_error = [filename, &error]() {
     error = "cannot open " + filename;
@@ -925,26 +925,33 @@ static bool load_yvol(const string& filename, int& width, int& height,
   toks = split_string(buffer.data());
   if (toks[0] != "VOL") return parse_error();
 
-  // read width, height   TO DO:fix
+  // read width, height
   if (!fgets(buffer.data(), (int)buffer.size(), fs)) return parse_error();
   toks       = split_string(buffer.data());
-  width      = atoi(toks[0].c_str());
-  height     = atoi(toks[1].c_str());
-  depth      = atoi(toks[2].c_str());
+  bbox.x     = atoi(toks[0].c_str());
+  bbox.y     = atoi(toks[1].c_str());
+  bbox.z     = atoi(toks[2].c_str());
   components = atoi(toks[3].c_str());
+  min.x      = atoi(toks[4].c_str());
+  min.y      = atoi(toks[5].c_str());
+  min.z      = atoi(toks[6].c_str());
+  max.x      = atoi(toks[7].c_str());
+  max.y      = atoi(toks[8].c_str());
+  max.z      = atoi(toks[9].c_str());
 
   // read data
-  auto nvoxels = (size_t)width * (size_t)height * (size_t)depth;
+  auto nvoxels = (size_t)bbox.x * (size_t)bbox.y * (size_t)bbox.z;
   auto nvalues = nvoxels * (size_t)components;
   voxels       = vector<float>(nvalues);
-  if (!read_values(fs, voxels.data(), nvalues)) return read_error();
+  if (fread(voxels.data(), sizeof(float), nvalues, fs) != nvalues)
+    return read_error();
 
   // done
   return true;
 }
 
 // save pfm
-static bool save_yvol(const string& filename, int width, int height, int depth,
+static bool save_yvol(const string& filename, vec3f bbox, vec3f min, vec3f max,
     int components, const vector<float>& voxels, string& error) {
   // error helpers
   auto open_error = [filename, &error]() {
@@ -960,36 +967,40 @@ static bool save_yvol(const string& filename, int width, int height, int depth,
   auto fs_guard = unique_ptr<FILE, int (*)(FILE*)>(fs, &fclose);
   if (!fs) return open_error();
 
-  if (!write_text(fs, "YVOL\n")) return write_error();
-  if (!write_text(fs, std::to_string(width) + " " + std::to_string(height) +
-                          " " + std::to_string(depth) + " " +
-                          std::to_string(components) + "\n"))
+  if (fprintf(fs, "VOL\n") < 0) return write_error();
+  if (fprintf(fs, "%d %d %d %d %d %d %d %d %d %d\n", std::to_string(bbox.x),
+          std::to_string(bbox.y), std::to_string(bbox.z),
+          std::to_string(components), std::to_string(min.x),
+          std::to_string(min.y), std::to_string(min.z), std::to_string(max.x),
+          std::to_string(max.y), std::to_string(max.z)) < 0)
     return write_error();
-  auto nvalues = (size_t)width * (size_t)height * (size_t)depth *
+  auto nvalues = (size_t)bbox.x * (size_t)bbox.y * (size_t)bbox.z *
                  (size_t)components;
-  if (!write_values(fs, voxels.data(), nvalues)) return write_error();
+  if (fwrite(voxels.data(), sizeof(float), nvalues, fs) != nvalues)
+    return write_error();
   return true;
 }
 
 // Loads volume data from binary format.
-bool load_volume(const string& filename, volume& vol, string& error) {
+bool load_volume(const string& filename, volume_data& vol, string& error) {
   auto read_error = [filename, &error]() {
     error = "cannot read " + filename;
     return false;
   };
-  auto width = 0, height = 0, depth = 0, ncomp = 0;
-  auto voxels = vector<float>{};
-  if (!load_yvol(filename, width, height, depth, ncomp, voxels, error))
-    return false;
-  if (ncomp != 1) voxels = convert_components(voxels, ncomp, 1);
-  vol = volume{{width, height, depth}, (const float*)voxels.data()};
+  auto  ncomp = 0;
+  vec3f bbox = {0, 0, 0}, min = {0, 0, 0}, max = {0, 0, 0};
+  auto  voxels = vector<float>{};
+  if (!load_yvol(filename, bbox, min, max, ncomp, voxels, error)) return false;
+  // usually ncomp is always =1
+  // if (ncomp != 1) voxels = convert_components(voxels, ncomp, 1);
+  vol = volume_data{bbox, min, max, ncomp, voxels};
   return true;
 }
 
 // Saves volume data in binary format.
-bool save_volume(const string& filename, const volume& vol, string& error) {
-  return save_yvol(filename, vol.width(), vol.height(), vol.depth(), 1,
-      {vol.data(), vol.data() + vol.count()}, error);
+bool save_volume(
+    const string& filename, const volume_data& vol, string& error) {
+  return save_yvol(filename, vol.bbox, vol.min, vol.max, 1, vol.density, error);
 }
 
 }  // namespace yocto
@@ -3308,8 +3319,7 @@ static bool load_json_scene_version40(const string& filename,
     // load volumes NSPI
     for (auto& volume : scene.volumes) {
       auto path = find_path(get_volume_name(scene, volume), "shapes", {".vol"});
-      if (!load_volume(path_join(dirname, path), volume, error,
-              true))  // TO DO: load_volume
+      if (!load_volume(path_join(dirname, path), volume, error))
         return dependent_error();
     }
 
@@ -3351,7 +3361,7 @@ static bool load_json_scene_version40(const string& filename,
             scene.volumes, error, [&](auto& volume, string& error) {
               auto path = find_path(
                   get_volume_name(scene, volume), "volume", {".vol"});
-              return load_volume(path_join(dirname, path), volume, error, true);
+              return load_volume(path_join(dirname, path), volume, error);
             }))
       return dependent_error();
   }

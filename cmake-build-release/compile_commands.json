@@ -1,0 +1,232 @@
+[
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\G__~1.EXE -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/stb_image/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/stb_image/stb_image -O3 -DNDEBUG -fdiagnostics-color=always -std=gnu++11 -o exts\\stb_image\\CMakeFiles\\stb_image.dir\\stb_image\\stb_image.cpp.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\stb_image\\stb_image\\stb_image.cpp",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\stb_image\\stb_image\\stb_image.cpp"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\G__~1.EXE -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/tinyexr/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/tinyexr/tinyexr -O3 -DNDEBUG -fdiagnostics-color=always -std=gnu++11 -o exts\\tinyexr\\CMakeFiles\\tinyexr.dir\\tinyexr\\tinyexr.cpp.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\tinyexr\\tinyexr\\tinyexr.cpp",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\tinyexr\\tinyexr\\tinyexr.cpp"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\gcc.exe -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/cgltf/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/cgltf/cgltf -O3 -DNDEBUG -fdiagnostics-color=always -o exts\\cgltf\\CMakeFiles\\cgltf.dir\\cgltf\\cgltf.c.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\cgltf\\cgltf\\cgltf.c",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\cgltf\\cgltf\\cgltf.c"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\gcc.exe -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/cgltf/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/cgltf/cgltf -O3 -DNDEBUG -fdiagnostics-color=always -o exts\\cgltf\\CMakeFiles\\cgltf.dir\\cgltf\\cgltf_write.c.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\cgltf\\cgltf\\cgltf_write.c",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\cgltf\\cgltf\\cgltf_write.c"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\gcc.exe -DUNICODE -DWINVER=0x0501 -D_GLFW_USE_CONFIG_H -D_UNICODE -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/src -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release/exts/glfw/src -O3 -DNDEBUG -fdiagnostics-color=always -Wall -std=gnu99 -Wdeclaration-after-statement -o exts\\glfw\\src\\CMakeFiles\\glfw.dir\\context.c.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\glfw\\src\\context.c",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\glfw\\src\\context.c"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\gcc.exe -DUNICODE -DWINVER=0x0501 -D_GLFW_USE_CONFIG_H -D_UNICODE -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/src -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release/exts/glfw/src -O3 -DNDEBUG -fdiagnostics-color=always -Wall -std=gnu99 -Wdeclaration-after-statement -o exts\\glfw\\src\\CMakeFiles\\glfw.dir\\init.c.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\glfw\\src\\init.c",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\glfw\\src\\init.c"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\gcc.exe -DUNICODE -DWINVER=0x0501 -D_GLFW_USE_CONFIG_H -D_UNICODE -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/src -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release/exts/glfw/src -O3 -DNDEBUG -fdiagnostics-color=always -Wall -std=gnu99 -Wdeclaration-after-statement -o exts\\glfw\\src\\CMakeFiles\\glfw.dir\\input.c.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\glfw\\src\\input.c",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\glfw\\src\\input.c"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\gcc.exe -DUNICODE -DWINVER=0x0501 -D_GLFW_USE_CONFIG_H -D_UNICODE -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/src -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release/exts/glfw/src -O3 -DNDEBUG -fdiagnostics-color=always -Wall -std=gnu99 -Wdeclaration-after-statement -o exts\\glfw\\src\\CMakeFiles\\glfw.dir\\monitor.c.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\glfw\\src\\monitor.c",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\glfw\\src\\monitor.c"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\gcc.exe -DUNICODE -DWINVER=0x0501 -D_GLFW_USE_CONFIG_H -D_UNICODE -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/src -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release/exts/glfw/src -O3 -DNDEBUG -fdiagnostics-color=always -Wall -std=gnu99 -Wdeclaration-after-statement -o exts\\glfw\\src\\CMakeFiles\\glfw.dir\\vulkan.c.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\glfw\\src\\vulkan.c",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\glfw\\src\\vulkan.c"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\gcc.exe -DUNICODE -DWINVER=0x0501 -D_GLFW_USE_CONFIG_H -D_UNICODE -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/src -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release/exts/glfw/src -O3 -DNDEBUG -fdiagnostics-color=always -Wall -std=gnu99 -Wdeclaration-after-statement -o exts\\glfw\\src\\CMakeFiles\\glfw.dir\\window.c.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\glfw\\src\\window.c",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\glfw\\src\\window.c"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\gcc.exe -DUNICODE -DWINVER=0x0501 -D_GLFW_USE_CONFIG_H -D_UNICODE -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/src -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release/exts/glfw/src -O3 -DNDEBUG -fdiagnostics-color=always -Wall -std=gnu99 -Wdeclaration-after-statement -o exts\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_init.c.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\glfw\\src\\win32_init.c",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\glfw\\src\\win32_init.c"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\gcc.exe -DUNICODE -DWINVER=0x0501 -D_GLFW_USE_CONFIG_H -D_UNICODE -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/src -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release/exts/glfw/src -O3 -DNDEBUG -fdiagnostics-color=always -Wall -std=gnu99 -Wdeclaration-after-statement -o exts\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_joystick.c.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\glfw\\src\\win32_joystick.c",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\glfw\\src\\win32_joystick.c"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\gcc.exe -DUNICODE -DWINVER=0x0501 -D_GLFW_USE_CONFIG_H -D_UNICODE -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/src -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release/exts/glfw/src -O3 -DNDEBUG -fdiagnostics-color=always -Wall -std=gnu99 -Wdeclaration-after-statement -o exts\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_monitor.c.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\glfw\\src\\win32_monitor.c",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\glfw\\src\\win32_monitor.c"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\gcc.exe -DUNICODE -DWINVER=0x0501 -D_GLFW_USE_CONFIG_H -D_UNICODE -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/src -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release/exts/glfw/src -O3 -DNDEBUG -fdiagnostics-color=always -Wall -std=gnu99 -Wdeclaration-after-statement -o exts\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_time.c.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\glfw\\src\\win32_time.c",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\glfw\\src\\win32_time.c"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\gcc.exe -DUNICODE -DWINVER=0x0501 -D_GLFW_USE_CONFIG_H -D_UNICODE -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/src -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release/exts/glfw/src -O3 -DNDEBUG -fdiagnostics-color=always -Wall -std=gnu99 -Wdeclaration-after-statement -o exts\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_thread.c.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\glfw\\src\\win32_thread.c",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\glfw\\src\\win32_thread.c"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\gcc.exe -DUNICODE -DWINVER=0x0501 -D_GLFW_USE_CONFIG_H -D_UNICODE -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/src -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release/exts/glfw/src -O3 -DNDEBUG -fdiagnostics-color=always -Wall -std=gnu99 -Wdeclaration-after-statement -o exts\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_window.c.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\glfw\\src\\win32_window.c",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\glfw\\src\\win32_window.c"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\gcc.exe -DUNICODE -DWINVER=0x0501 -D_GLFW_USE_CONFIG_H -D_UNICODE -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/src -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release/exts/glfw/src -O3 -DNDEBUG -fdiagnostics-color=always -Wall -std=gnu99 -Wdeclaration-after-statement -o exts\\glfw\\src\\CMakeFiles\\glfw.dir\\wgl_context.c.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\glfw\\src\\wgl_context.c",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\glfw\\src\\wgl_context.c"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\gcc.exe -DUNICODE -DWINVER=0x0501 -D_GLFW_USE_CONFIG_H -D_UNICODE -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/src -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release/exts/glfw/src -O3 -DNDEBUG -fdiagnostics-color=always -Wall -std=gnu99 -Wdeclaration-after-statement -o exts\\glfw\\src\\CMakeFiles\\glfw.dir\\egl_context.c.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\glfw\\src\\egl_context.c",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\glfw\\src\\egl_context.c"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\gcc.exe -DUNICODE -DWINVER=0x0501 -D_GLFW_USE_CONFIG_H -D_UNICODE -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/src -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release/exts/glfw/src -O3 -DNDEBUG -fdiagnostics-color=always -Wall -std=gnu99 -Wdeclaration-after-statement -o exts\\glfw\\src\\CMakeFiles\\glfw.dir\\osmesa_context.c.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\glfw\\src\\osmesa_context.c",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\glfw\\src\\osmesa_context.c"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\gcc.exe -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/glad -O3 -DNDEBUG -fdiagnostics-color=always -o exts\\glad\\CMakeFiles\\glad.dir\\glad\\glad.c.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\glad\\glad\\glad.c",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\glad\\glad\\glad.c"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\G__~1.EXE -DIMGUI_IMPL_OPENGL_LOADER_GLAD -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui/backends -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/glad -O3 -DNDEBUG -fdiagnostics-color=always -std=gnu++11 -o exts\\imgui\\CMakeFiles\\imgui.dir\\imgui\\imgui.cpp.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\imgui\\imgui\\imgui.cpp",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\imgui\\imgui\\imgui.cpp"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\G__~1.EXE -DIMGUI_IMPL_OPENGL_LOADER_GLAD -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui/backends -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/glad -O3 -DNDEBUG -fdiagnostics-color=always -std=gnu++11 -o exts\\imgui\\CMakeFiles\\imgui.dir\\imgui\\imgui_draw.cpp.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\imgui\\imgui\\imgui_draw.cpp",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\imgui\\imgui\\imgui_draw.cpp"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\G__~1.EXE -DIMGUI_IMPL_OPENGL_LOADER_GLAD -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui/backends -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/glad -O3 -DNDEBUG -fdiagnostics-color=always -std=gnu++11 -o exts\\imgui\\CMakeFiles\\imgui.dir\\imgui\\imgui_tables.cpp.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\imgui\\imgui\\imgui_tables.cpp",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\imgui\\imgui\\imgui_tables.cpp"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\G__~1.EXE -DIMGUI_IMPL_OPENGL_LOADER_GLAD -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui/backends -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/glad -O3 -DNDEBUG -fdiagnostics-color=always -std=gnu++11 -o exts\\imgui\\CMakeFiles\\imgui.dir\\imgui\\imgui_widgets.cpp.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\imgui\\imgui\\imgui_widgets.cpp",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\imgui\\imgui\\imgui_widgets.cpp"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\G__~1.EXE -DIMGUI_IMPL_OPENGL_LOADER_GLAD -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui/backends -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/glad -O3 -DNDEBUG -fdiagnostics-color=always -std=gnu++11 -o exts\\imgui\\CMakeFiles\\imgui.dir\\imgui\\imgui_demo.cpp.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\imgui\\imgui\\imgui_demo.cpp",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\imgui\\imgui\\imgui_demo.cpp"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\G__~1.EXE -DIMGUI_IMPL_OPENGL_LOADER_GLAD -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui/backends -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/glad -O3 -DNDEBUG -fdiagnostics-color=always -std=gnu++11 -o exts\\imgui\\CMakeFiles\\imgui.dir\\imgui\\backends\\imgui_impl_glfw.cpp.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\imgui\\imgui\\backends\\imgui_impl_glfw.cpp",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\imgui\\imgui\\backends\\imgui_impl_glfw.cpp"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\G__~1.EXE -DIMGUI_IMPL_OPENGL_LOADER_GLAD -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui/backends -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/glad -O3 -DNDEBUG -fdiagnostics-color=always -std=gnu++11 -o exts\\imgui\\CMakeFiles\\imgui.dir\\imgui\\backends\\imgui_impl_opengl3.cpp.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\imgui\\imgui\\backends\\imgui_impl_opengl3.cpp",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\exts\\imgui\\imgui\\backends\\imgui_impl_opengl3.cpp"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\G__~1.EXE -DJSON_DIAGNOSTICS=0 -DJSON_USE_IMPLICIT_CONVERSIONS=1 -DYOCTO_OPENGL -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/libs/yocto/ext -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/libs/yocto/.. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/fast_float/include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/nlohmann_json/single_include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/stb_image/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/stb_image/stb_image -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/tinyexr/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/tinyexr/tinyexr -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/cgltf/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/cgltf/cgltf -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/glad -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui/backends -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -O3 -DNDEBUG -fdiagnostics-color=always -std=gnu++17 -o libs\\yocto\\CMakeFiles\\yocto.dir\\yocto_bvh.cpp.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\libs\\yocto\\yocto_bvh.cpp",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\libs\\yocto\\yocto_bvh.cpp"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\G__~1.EXE -DJSON_DIAGNOSTICS=0 -DJSON_USE_IMPLICIT_CONVERSIONS=1 -DYOCTO_OPENGL -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/libs/yocto/ext -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/libs/yocto/.. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/fast_float/include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/nlohmann_json/single_include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/stb_image/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/stb_image/stb_image -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/tinyexr/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/tinyexr/tinyexr -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/cgltf/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/cgltf/cgltf -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/glad -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui/backends -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -O3 -DNDEBUG -fdiagnostics-color=always -std=gnu++17 -o libs\\yocto\\CMakeFiles\\yocto.dir\\yocto_shape.cpp.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\libs\\yocto\\yocto_shape.cpp",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\libs\\yocto\\yocto_shape.cpp"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\G__~1.EXE -DJSON_DIAGNOSTICS=0 -DJSON_USE_IMPLICIT_CONVERSIONS=1 -DYOCTO_OPENGL -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/libs/yocto/ext -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/libs/yocto/.. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/fast_float/include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/nlohmann_json/single_include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/stb_image/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/stb_image/stb_image -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/tinyexr/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/tinyexr/tinyexr -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/cgltf/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/cgltf/cgltf -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/glad -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui/backends -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -O3 -DNDEBUG -fdiagnostics-color=always -std=gnu++17 -o libs\\yocto\\CMakeFiles\\yocto.dir\\yocto_image.cpp.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\libs\\yocto\\yocto_image.cpp",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\libs\\yocto\\yocto_image.cpp"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\G__~1.EXE -DJSON_DIAGNOSTICS=0 -DJSON_USE_IMPLICIT_CONVERSIONS=1 -DYOCTO_OPENGL -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/libs/yocto/ext -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/libs/yocto/.. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/fast_float/include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/nlohmann_json/single_include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/stb_image/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/stb_image/stb_image -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/tinyexr/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/tinyexr/tinyexr -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/cgltf/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/cgltf/cgltf -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/glad -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui/backends -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -O3 -DNDEBUG -fdiagnostics-color=always -std=gnu++17 -o libs\\yocto\\CMakeFiles\\yocto.dir\\yocto_scene.cpp.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\libs\\yocto\\yocto_scene.cpp",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\libs\\yocto\\yocto_scene.cpp"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\G__~1.EXE -DJSON_DIAGNOSTICS=0 -DJSON_USE_IMPLICIT_CONVERSIONS=1 -DYOCTO_OPENGL -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/libs/yocto/ext -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/libs/yocto/.. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/fast_float/include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/nlohmann_json/single_include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/stb_image/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/stb_image/stb_image -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/tinyexr/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/tinyexr/tinyexr -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/cgltf/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/cgltf/cgltf -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/glad -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui/backends -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -O3 -DNDEBUG -fdiagnostics-color=always -std=gnu++17 -o libs\\yocto\\CMakeFiles\\yocto.dir\\yocto_trace.cpp.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\libs\\yocto\\yocto_trace.cpp",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\libs\\yocto\\yocto_trace.cpp"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\G__~1.EXE -DJSON_DIAGNOSTICS=0 -DJSON_USE_IMPLICIT_CONVERSIONS=1 -DYOCTO_OPENGL -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/libs/yocto/ext -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/libs/yocto/.. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/fast_float/include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/nlohmann_json/single_include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/stb_image/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/stb_image/stb_image -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/tinyexr/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/tinyexr/tinyexr -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/cgltf/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/cgltf/cgltf -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/glad -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui/backends -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -O3 -DNDEBUG -fdiagnostics-color=always -std=gnu++17 -o libs\\yocto\\CMakeFiles\\yocto.dir\\yocto_modelio.cpp.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\libs\\yocto\\yocto_modelio.cpp",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\libs\\yocto\\yocto_modelio.cpp"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\G__~1.EXE -DJSON_DIAGNOSTICS=0 -DJSON_USE_IMPLICIT_CONVERSIONS=1 -DYOCTO_OPENGL -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/libs/yocto/ext -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/libs/yocto/.. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/fast_float/include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/nlohmann_json/single_include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/stb_image/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/stb_image/stb_image -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/tinyexr/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/tinyexr/tinyexr -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/cgltf/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/cgltf/cgltf -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/glad -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui/backends -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -O3 -DNDEBUG -fdiagnostics-color=always -std=gnu++17 -o libs\\yocto\\CMakeFiles\\yocto.dir\\yocto_pbrtio.cpp.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\libs\\yocto\\yocto_pbrtio.cpp",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\libs\\yocto\\yocto_pbrtio.cpp"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\G__~1.EXE -DJSON_DIAGNOSTICS=0 -DJSON_USE_IMPLICIT_CONVERSIONS=1 -DYOCTO_OPENGL -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/libs/yocto/ext -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/libs/yocto/.. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/fast_float/include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/nlohmann_json/single_include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/stb_image/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/stb_image/stb_image -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/tinyexr/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/tinyexr/tinyexr -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/cgltf/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/cgltf/cgltf -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/glad -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui/backends -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -O3 -DNDEBUG -fdiagnostics-color=always -std=gnu++17 -o libs\\yocto\\CMakeFiles\\yocto.dir\\yocto_sceneio.cpp.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\libs\\yocto\\yocto_sceneio.cpp",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\libs\\yocto\\yocto_sceneio.cpp"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\G__~1.EXE -DJSON_DIAGNOSTICS=0 -DJSON_USE_IMPLICIT_CONVERSIONS=1 -DYOCTO_OPENGL -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/libs/yocto/ext -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/libs/yocto/.. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/fast_float/include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/nlohmann_json/single_include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/stb_image/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/stb_image/stb_image -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/tinyexr/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/tinyexr/tinyexr -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/cgltf/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/cgltf/cgltf -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/glad -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui/backends -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -O3 -DNDEBUG -fdiagnostics-color=always -std=gnu++17 -o libs\\yocto\\CMakeFiles\\yocto.dir\\yocto_gui.cpp.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\libs\\yocto\\yocto_gui.cpp",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\libs\\yocto\\yocto_gui.cpp"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\G__~1.EXE -DJSON_DIAGNOSTICS=0 -DJSON_USE_IMPLICIT_CONVERSIONS=1 -DYOCTO_OPENGL -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/libs/yocto/ext -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/libs/yocto/.. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/fast_float/include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/nlohmann_json/single_include -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/stb_image/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/stb_image/stb_image -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/tinyexr/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/tinyexr/tinyexr -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/cgltf/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/cgltf/cgltf -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/glad -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui/backends -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -O3 -DNDEBUG -fdiagnostics-color=always -std=gnu++17 -o libs\\yocto\\CMakeFiles\\yocto.dir\\yocto_cutrace.cpp.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\libs\\yocto\\yocto_cutrace.cpp",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\libs\\yocto\\yocto_cutrace.cpp"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\G__~1.EXE -DYOCTO_OPENGL -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/libs -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/libs/yocto/.. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/glad -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui/backends -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -O3 -DNDEBUG -fdiagnostics-color=always -std=gnu++17 -o apps\\CMakeFiles\\ytonemap.dir\\ytonemap.cpp.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\apps\\ytonemap.cpp",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\apps\\ytonemap.cpp"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\G__~1.EXE -DYOCTO_OPENGL -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/libs -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/libs/yocto/.. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/glad -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui/backends -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -O3 -DNDEBUG -fdiagnostics-color=always -std=gnu++17 -o apps\\CMakeFiles\\ycolorgrade.dir\\ycolorgrade.cpp.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\apps\\ycolorgrade.cpp",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\apps\\ycolorgrade.cpp"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\G__~1.EXE -DYOCTO_OPENGL -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/libs -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/libs/yocto/.. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/glad -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui/backends -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -O3 -DNDEBUG -fdiagnostics-color=always -std=gnu++17 -o apps\\CMakeFiles\\ytrace.dir\\ytrace.cpp.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\apps\\ytrace.cpp",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\apps\\ytrace.cpp"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\G__~1.EXE -DYOCTO_OPENGL -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/libs -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/libs/yocto/.. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/glad -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui/backends -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -O3 -DNDEBUG -fdiagnostics-color=always -std=gnu++17 -o apps\\CMakeFiles\\yview.dir\\yview.cpp.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\apps\\yview.cpp",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\apps\\yview.cpp"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\G__~1.EXE -DYOCTO_OPENGL -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/libs -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/libs/yocto/.. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/glad -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui/backends -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -O3 -DNDEBUG -fdiagnostics-color=always -std=gnu++17 -o apps\\CMakeFiles\\yimdiff.dir\\yimdiff.cpp.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\apps\\yimdiff.cpp",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\apps\\yimdiff.cpp"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\G__~1.EXE -DYOCTO_OPENGL -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/libs -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/libs/yocto/.. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/glad -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui/backends -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -O3 -DNDEBUG -fdiagnostics-color=always -std=gnu++17 -o apps\\CMakeFiles\\yimalpha.dir\\yimalpha.cpp.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\apps\\yimalpha.cpp",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\apps\\yimalpha.cpp"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\G__~1.EXE -DYOCTO_OPENGL -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/libs -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/libs/yocto/.. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/glad -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui/backends -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -O3 -DNDEBUG -fdiagnostics-color=always -std=gnu++17 -o apps\\CMakeFiles\\yconvert.dir\\yconvert.cpp.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\apps\\yconvert.cpp",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\apps\\yconvert.cpp"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\G__~1.EXE -DYOCTO_OPENGL -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/libs -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/libs/yocto/.. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/glad -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui/backends -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -O3 -DNDEBUG -fdiagnostics-color=always -std=gnu++17 -o apps\\CMakeFiles\\yconverts.dir\\yconverts.cpp.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\apps\\yconverts.cpp",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\apps\\yconverts.cpp"
+},
+{
+  "directory": "C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/cmake-build-release",
+  "command": "C:\\PROGRA~1\\JETBRA~1\\CLION2~1.1\\bin\\mingw\\bin\\G__~1.EXE -DYOCTO_OPENGL -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/libs -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/libs/yocto/.. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glad/glad -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/. -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/imgui/imgui/backends -IC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/glfw/include -O3 -DNDEBUG -fdiagnostics-color=always -std=gnu++17 -o apps\\CMakeFiles\\ysamples.dir\\ysamples.cpp.obj -c C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\apps\\ysamples.cpp",
+  "file": "C:\\Users\\danie\\Computer_Graphics\\YOCTO-GL-NSPI\\apps\\ysamples.cpp"
+}
+]
