@@ -38,6 +38,7 @@
 #include "yocto_color.h"
 #include "yocto_geometry.h"
 #include "yocto_sampling.h"
+#include "yocto_scene.h"
 #include "yocto_shading.h"
 #include "yocto_shape.h"
 
@@ -315,10 +316,22 @@ static float sample_delta_pdf(const material_point& material,
   }
 }
 
-// OUR CODE FOR EVAL VOLUME NSPI
-static material_point eval_volume() {
+/**
+// OUR CODE FOR EVALUATE VOLUME NSPI
+static material_point eval_volume(const material_point& material){
   // INSERIRE CODICE NSPI
+  auto volume = material_point{};
+
+  }
+
 }
+
+
+bool has_vpt_volume(const material_point& material) {
+    return (material.density != nullptr ||
+            object->emission_vol != nullptr);
+}
+*/
 
 static vec3f eval_scattering(const material_point& material,
     const vec3f& outgoing, const vec3f& incoming) {
