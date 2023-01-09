@@ -281,7 +281,7 @@ bool has_volume(const material_point& material) {
 
 // In case of error verify the emission parameter assignement
 bool has_emission(const material_point& material) {
-  return (material.volume.emission_vol != {});  // NSPI
+  return (!material.volume.emission_vol.empty());  // NSPI
 }
 
 }  // namespace yocto

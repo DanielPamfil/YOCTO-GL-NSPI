@@ -1174,9 +1174,10 @@ static trace_result trace_volume(const scene_data& scene, const trace_bvh& bvh,
                 vsdf, outgoing, rand1f(rng), rand2f(rng));
           if (vsdf.event == material_event::absorb) {
             auto er = zero3f;
+            /*  Check about emission
             if (has_emission(vsdf)) {
               er = blackbody_to_rgb(eval_vpt_emission(vsdf, position) * 40e3);
-            }
+            */
             radiance += weight * er * vsdf.volume.radiance_mult;
             break;
           }

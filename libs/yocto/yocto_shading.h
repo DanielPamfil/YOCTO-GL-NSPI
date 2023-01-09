@@ -295,8 +295,7 @@ float eval_vpt_density(const material_point& vsdf, const vec3f& uvw) {
   auto offset = volume.offset_vol;
 
   auto uvl = transform_point(inverse(oframe), uvw) + offset;
-  // TO DO: eval volume
-  return eval_volume(*vol, uvl * scale, true, false, true) *
+  return eval_volume(volume, uvl * scale, true, false, true) *
          volume.density_mult;
 }
 

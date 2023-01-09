@@ -993,7 +993,7 @@ bool load_volume(const string& filename, volume_data& vol, string& error) {
   if (!load_yvol(filename, bbox, min, max, ncomp, voxels, error)) return false;
   // usually ncomp is always =1
   // if (ncomp != 1) voxels = convert_components(voxels, ncomp, 1);
-  vol = volume_data{bbox, min, max, ncomp, voxels};
+  vol = volume_data{bbox, min, max, ncomp, voxels};  // TO DO: fix
   return true;
 }
 
@@ -1002,6 +1002,58 @@ bool save_volume(
     const string& filename, const volume_data& vol, string& error) {
   return save_yvol(
       filename, vol.bbox, vol.min, vol.max, 1, vol.density_vol, error);  // NSPI
+}
+
+// Our volume evaluation NSPI
+float eval_volume(const volume_data& vol, const vec3f& uvw, bool ldr_as_linear,
+    bool no_interpolation, bool clamp_to_edge) {
+  if (vol.density_vol.empty()) return 0;
+
+  // get coordinates normalized for tiling
+  auto s = clamp((uvw.x + 1.0f) * 0.5f, 0.0f, 1.0f) * vol.bbox.x;
+  auto t = clamp((uvw.y + 1.0f) * 0.5f, 0.0f, 1.0f) * vol.bbox.y;
+  auto r = clamp((uvw.z + 1.0f) * 0.5f, 0.0f, 1.0f) * vol.bbox.z;
+
+  // get image coordinates and residuals
+  auto i  = clamp((int)s, 0, (int)vol.bbox.x - 1);
+  auto j  = clamp((int)t, 0, (int)vol.bbox.y - 1);
+  auto k  = clamp((int)r, 0, (int)vol.bbox.z - 1);
+  auto ii = (i + 1) % (int)vol.bbox.x, jj = (j + 1) % (int)vol.bbox.y,
+       kk = (k + 1) % (int)vol.bbox.z;
+  auto u = s - i, v = t - j, w = r - k;
+
+  // nearest-neighbor interpolation
+  if (no_interpolation) {
+    i = u < 0.5 ? i : min(i + 1, (int)vol.bbox.x - 1);
+    j = v < 0.5 ? j : min(j + 1, (int)vol.bbox.y - 1);
+    k = w < 0.5 ? k : min(k + 1, (int)vol.bbox.z - 1);
+    return lookup_volume(vol.density_vol, {i, j, k}, vol.bbox, ldr_as_linear);
+  }
+
+  // trilinear interpolation
+  return lookup_volume(vol.density_vol, {i, j, k}, vol.bbox, ldr_as_linear) *
+             (1 - u) * (1 - v) * (1 - w) +
+         lookup_volume(vol.density_vol, {ii, j, k}, vol.bbox, ldr_as_linear) *
+             u * (1 - v) * (1 - w) +
+         lookup_volume(vol.density_vol, {i, jj, k}, vol.bbox, ldr_as_linear) *
+             (1 - u) * v * (1 - w) +
+         lookup_volume(vol.density_vol, {i, j, kk}, vol.bbox, ldr_as_linear) *
+             (1 - u) * (1 - v) * w +
+         lookup_volume(vol.density_vol, {i, jj, kk}, vol.bbox, ldr_as_linear) *
+             (1 - u) * v * w +
+         lookup_volume(vol.density_vol, {ii, j, kk}, vol.bbox, ldr_as_linear) *
+             u * (1 - v) * w +
+         lookup_volume(vol.density_vol, {ii, jj, k}, vol.bbox, ldr_as_linear) *
+             u * v * (1 - w) +
+         lookup_volume(vol.density_vol, {ii, jj, kk}, vol.bbox, ldr_as_linear) *
+             u * v * w;
+}
+
+// Lookup volume
+float lookup_volume(const vector<float>& density_vol, const vec3i& ijk,
+    const vec3f& bbox, bool as_linear) {
+  return density_vol[ijk.x + ijk.y * bbox.x +
+                     ijk.z * bbox.x * bbox.y];  // NSPI RICONTROLLARE
 }
 
 }  // namespace yocto
