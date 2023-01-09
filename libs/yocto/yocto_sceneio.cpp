@@ -1000,7 +1000,8 @@ bool load_volume(const string& filename, volume_data& vol, string& error) {
 // Saves volume data in binary format.
 bool save_volume(
     const string& filename, const volume_data& vol, string& error) {
-  return save_yvol(filename, vol.bbox, vol.min, vol.max, 1, vol.density, error);
+  return save_yvol(
+      filename, vol.bbox, vol.min, vol.max, 1, vol.density_vol, error);  // NSPI
 }
 
 }  // namespace yocto
@@ -3820,7 +3821,7 @@ static bool load_json_scene(
         }
       }
     }
-    // JSON VOLUME NSPI (DRAFT)
+    // JSON VOLUME NSPI (TO DO: add values)
     if (json.contains("volumes")) {
       auto& group = json.at("volumes");
       scene.volumes.reserve(group.size());

@@ -284,6 +284,22 @@ inline vec3f sample_phasefunction(
 inline float sample_phasefunction_pdf(
     float anisotropy, const vec3f& outgoing, const vec3f& incoming);
 
+// Evaluate emission  NSPI
+float eval_vpt_density(const material_point& vsdf, const vec3f& uvw) {
+  auto volume = vsdf.volume;
+  if (volume.density_vol.empty()) return 0.0f;  // Give a check later
+
+  auto oframe = volume.frame;
+  auto vol    = volume.density_vol;
+  auto scale  = volume.scale_vol;
+  auto offset = volume.offset_vol;
+
+  auto uvl = transform_point(inverse(oframe), uvw) + offset;
+  // TO DO: eval volume
+  return eval_volume(*vol, uvl * scale, true, false, true) *
+         volume.density_mult;
+}
+
 }  // namespace yocto
 
 // -----------------------------------------------------------------------------
@@ -582,7 +598,7 @@ inline vec3f eval_glossy(const vec3f& color, float ior, float roughness,
   auto F         = fresnel_dielectric(ior, halfway, incoming);
   auto D         = microfacet_distribution(roughness, up_normal, halfway);
   auto G         = microfacet_shadowing(
-              roughness, up_normal, halfway, outgoing, incoming);
+      roughness, up_normal, halfway, outgoing, incoming);
   return color * (1 - F1) / pif * abs(dot(up_normal, incoming)) +
          vec3f{1, 1, 1} * F * D * G /
              (4 * dot(up_normal, outgoing) * dot(up_normal, incoming)) *
@@ -622,7 +638,7 @@ inline vec3f eval_reflective(const vec3f& color, float roughness,
   auto up_normal = dot(normal, outgoing) <= 0 ? -normal : normal;
   auto halfway   = normalize(incoming + outgoing);
   auto F         = fresnel_conductor(
-              reflectivity_to_eta(color), {0, 0, 0}, halfway, incoming);
+      reflectivity_to_eta(color), {0, 0, 0}, halfway, incoming);
   auto D = microfacet_distribution(roughness, up_normal, halfway);
   auto G = microfacet_shadowing(
       roughness, up_normal, halfway, outgoing, incoming);
@@ -660,7 +676,7 @@ inline vec3f eval_reflective(const vec3f& eta, const vec3f& etak,
   auto F         = fresnel_conductor(eta, etak, halfway, incoming);
   auto D         = microfacet_distribution(roughness, up_normal, halfway);
   auto G         = microfacet_shadowing(
-              roughness, up_normal, halfway, outgoing, incoming);
+      roughness, up_normal, halfway, outgoing, incoming);
   return F * D * G / (4 * dot(up_normal, outgoing) * dot(up_normal, incoming)) *
          abs(dot(up_normal, incoming));
 }
@@ -743,7 +759,7 @@ inline vec3f eval_gltfpbr(const vec3f& color, float ior, float roughness,
   auto F         = fresnel_schlick(reflectivity, halfway, incoming);
   auto D         = microfacet_distribution(roughness, up_normal, halfway);
   auto G         = microfacet_shadowing(
-              roughness, up_normal, halfway, outgoing, incoming);
+      roughness, up_normal, halfway, outgoing, incoming);
   return color * (1 - metallic) * (1 - F1) / pif *
              abs(dot(up_normal, incoming)) +
          F * D * G / (4 * dot(up_normal, outgoing) * dot(up_normal, incoming)) *
@@ -791,7 +807,7 @@ inline vec3f eval_transparent(const vec3f& color, float ior, float roughness,
     auto F       = fresnel_dielectric(ior, halfway, outgoing);
     auto D       = microfacet_distribution(roughness, up_normal, halfway);
     auto G       = microfacet_shadowing(
-              roughness, up_normal, halfway, outgoing, incoming);
+        roughness, up_normal, halfway, outgoing, incoming);
     return vec3f{1, 1, 1} * F * D * G /
            (4 * dot(up_normal, outgoing) * dot(up_normal, incoming)) *
            abs(dot(up_normal, incoming));
@@ -801,7 +817,7 @@ inline vec3f eval_transparent(const vec3f& color, float ior, float roughness,
     auto F         = fresnel_dielectric(ior, halfway, outgoing);
     auto D         = microfacet_distribution(roughness, up_normal, halfway);
     auto G         = microfacet_shadowing(
-                roughness, up_normal, halfway, outgoing, reflected);
+        roughness, up_normal, halfway, outgoing, reflected);
     return color * (1 - F) * D * G /
            (4 * dot(up_normal, outgoing) * dot(up_normal, reflected)) *
            (abs(dot(up_normal, reflected)));
@@ -888,7 +904,7 @@ inline vec3f eval_refractive(const vec3f& color, float ior, float roughness,
     auto F       = fresnel_dielectric(rel_ior, halfway, outgoing);
     auto D       = microfacet_distribution(roughness, up_normal, halfway);
     auto G       = microfacet_shadowing(
-              roughness, up_normal, halfway, outgoing, incoming);
+        roughness, up_normal, halfway, outgoing, incoming);
     return vec3f{1, 1, 1} * F * D * G /
            abs(4 * dot(normal, outgoing) * dot(normal, incoming)) *
            abs(dot(normal, incoming));

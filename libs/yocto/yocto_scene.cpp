@@ -225,12 +225,14 @@ material_point eval_material(const scene_data& scene,
   point.scattering   = material.scattering * xyz(scattering_tex);
   point.scanisotropy = material.scanisotropy;
   point.trdepth      = material.trdepth;
+  point.volume       = material.volume;
 
   // volume density
   if (material.type == material_type::refractive ||
       material.type == material_type::volumetric ||
       material.type == material_type::subsurface) {
-    point.density = -log(clamp(point.color, 0.0001f, 1.0f)) / point.trdepth;
+    point.htvolume = true;  // NSPI
+    point.density  = -log(clamp(point.color, 0.0001f, 1.0f)) / point.trdepth;
   } else {
     point.density = {0, 0, 0};
   }
@@ -275,6 +277,11 @@ bool has_volume(const material_point& material) {
   return material.type == material_type::refractive ||
          material.type == material_type::volumetric ||
          material.type == material_type::subsurface;
+}
+
+// In case of error verify the emission parameter assignement
+bool has_emission(const material_point& material) {
+  return (material.volume.emission_vol != {});  // NSPI
 }
 
 }  // namespace yocto

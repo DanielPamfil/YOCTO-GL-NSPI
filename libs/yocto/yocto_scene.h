@@ -110,12 +110,21 @@ enum struct material_type {
   // clang-format on
 };
 
+// NSPI
+enum struct material_event {
+  // clang-format off
+  null, scatter, absorb
+  // clang-format on
+};
+
 // Enum labels
 inline const auto material_type_names = std::vector<std::string>{"matte",
     "glossy", "reflective", "transparent", "refractive", "subsurface",
     "volumetric", "gltfpbr"};
 
-// Material for surfaces, lines and triangles.
+// inline const auto material_event = std::vector<std::string>{"null",
+// "scatter", "absorb"};
+
 // For surfaces, uses a microfacet model with thin sheet transmission.
 // The model is based on OBJ, but contains glTF compatibility.
 // For the documentation on the values, please see the OBJ format.
@@ -131,6 +140,7 @@ struct material_data {
   float         scanisotropy = 0;
   float         trdepth      = 0.01f;
   float         opacity      = 1;
+  volume_data   volume       = volume_data();  // NSPI TO DO: assign volume
 
   // textures
   int emission_tex   = invalidid;
@@ -185,11 +195,17 @@ struct subdiv_data {
 // Volume data struct // NSPI
 struct volume_data {
   // hash_grid grid = make_hash_grid(positions, cell_size);
-  vec3f         bbox       = {};  // NSPI
-  vec3f         max        = {};  // NSPI
-  vec3f         min        = {};  // NSPI
-  int           components = 1;   // NSPI
-  vector<float> density    = {};  // NSPI
+  frame3f       frame         = {};         // NSPI
+  vec3f         bbox          = {};         // NSPI
+  vec3f         max           = {};         // NSPI
+  vec3f         min           = {};         // NSPI
+  int           components    = 1;          // NSPI
+  vector<float> density_vol   = {};         // NSPI
+  vector<float> emission_vol  = {};         // NSPI
+  vec3f         scale_vol     = {1, 1, 1};  // NSPI
+  vec3f         offset_vol    = {0, 0, 0};  // NSPI
+  float         density_mult  = 1.0f;       // NSPI
+  float         radiance_mult = 1.0f;       // NSPI
 };
 
 // Scene comprised an array of objects whose memory is owened by the scene.
@@ -268,18 +284,20 @@ namespace yocto {
 
 // Material parameters evaluated at a point on the surface
 struct material_point {
-  material_type type         = material_type::gltfpbr;
-  vec3f         emission     = {0, 0, 0};
-  vec3f         color        = {0, 0, 0};
-  float         opacity      = 1;
-  float         roughness    = 0;
-  float         metallic     = 0;
-  float         ior          = 1;
-  vec3f         density      = {0, 0, 0};
-  vec3f         scattering   = {0, 0, 0};
-  float         scanisotropy = 0;
-  float         trdepth      = 0.01f;
-  bool          htvolume     = false;  // NSPI
+  material_type  type         = material_type::gltfpbr;
+  vec3f          emission     = {0, 0, 0};
+  vec3f          color        = {0, 0, 0};
+  float          opacity      = 1;
+  float          roughness    = 0;
+  float          metallic     = 0;
+  float          ior          = 1;
+  vec3f          density      = {0, 0, 0};
+  vec3f          scattering   = {0, 0, 0};
+  float          scanisotropy = 0;
+  float          trdepth      = 0.01f;
+  bool           htvolume     = false;                 // NSPI
+  material_event event        = material_event::null;  // NSPI
+  volume_data    volume       = volume_data();         // NSPI
 };
 
 // Eval material to obtain emission, brdf and opacity.
@@ -295,6 +313,8 @@ bool is_delta(const material_point& material);
 bool is_volumetric(const material_data& material);
 bool is_volumetric(const material_point& material);
 bool is_volumetric(const scene_data& scene, const instance_data& instance);
+
+bool has_emission(const material_point& material);  // NSPI
 
 }  // namespace yocto
 
