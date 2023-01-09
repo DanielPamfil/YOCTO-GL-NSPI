@@ -993,7 +993,7 @@ bool load_volume(const string& filename, volume_data& vol, string& error) {
   if (!load_yvol(filename, bbox, min, max, ncomp, voxels, error)) return false;
   // usually ncomp is always =1
   // if (ncomp != 1) voxels = convert_components(voxels, ncomp, 1);
-  vol = volume_data{bbox, min, max, ncomp, voxels};  // TO DO: fix
+  vol = volume_data{bbox, max, min, ncomp, voxels};  // TO DO: fix
   return true;
 }
 

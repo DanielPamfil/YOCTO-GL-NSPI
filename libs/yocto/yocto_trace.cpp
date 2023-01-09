@@ -1162,6 +1162,7 @@ static trace_result trace_volume(const scene_data& scene, const trace_bvh& bvh,
       auto& vsdf = volume_stack.back();
       // heterogeneus volumes NSPI
       if (vsdf.htvolume) {
+        // TO DO: implement eval_unidirectional_spectral_mis
         auto [t, w] = eval_unidirectional_spectral_mis(
             vsdf, intersection.distance, rng, ray);
         weight *= w;
