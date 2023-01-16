@@ -335,6 +335,15 @@ bool has_vpt_volume(const material_point& material) {
 }
 */
 
+/**
+// Implementation of sample functione ispire by Mitsuba3 VolumeMIS NSPI
+// Sampler parameter and medium are missing, trace_params used instead
+static vec3f sample_volume_nspi(const scene_data& scene, const ray3f& ray_,
+const trace_params& params, rng_state& rng){
+
+}
+*/
+
 static vec3f eval_scattering(const material_point& material,
     const vec3f& outgoing, const vec3f& incoming) {
   if (material.density == vec3f{0, 0, 0}) return {0, 0, 0};
@@ -468,6 +477,41 @@ struct trace_result {
   vec3f albedo   = {0, 0, 0};
   vec3f normal   = {0, 0, 0};
 };
+
+// Volumetric path tracing function NSPI
+static trace_result vol_path_tracing(const scene_data& scene, const ray3f& ray_,
+    const trace_params& params, rng_state& rng(), const trace_bvh& bvh) {
+  // initialize
+  auto   ray      = ray_;
+  auto   radiance = vec3f{0, 0, 0};
+  auto   weight   = vec3f{1, 1, 1};  // (current_path_throughput )
+  int    bounces  = 0;
+  double dir_pdf  = 0;
+  vec3f  nee_p_cache;
+  double eta_scale       = 1;
+  vec3f  multi_trans_pdf = vec3f{1, 1, 1};
+
+  auto volume_stack = vector<material_point>{};
+
+  while (true) {
+    bool scatter      = false;
+    auto intersection = intersect_scene(bvh, scene, ray);
+    auto t_hit        = INFINITY;
+    if (intersection.hit) {
+      t_hit = intersection.distance;
+    }
+
+    auto transmittance = vec3f{1, 1, 1};
+    auto trans_dir_pdf = vec3f{1, 1, 1};
+    auto trans_nee_pdf = vec3f{1, 1, 1};
+
+    if (!volume_stack.empty()) {
+      auto& vsdf        = volume_stack.back();
+      auto  max_density = vsdf.volume.max_voxel * vsdf.volume.density_mult;
+      auto  majorant    = mean(vsdf.scattering * max_density);
+    }
+  }
+}
 
 // Recursive path tracing.
 static trace_result trace_path(const scene_data& scene, const trace_bvh& bvh,
@@ -1128,9 +1172,9 @@ static trace_result trace_naive(const scene_data& scene, const trace_bvh& bvh,
 }
 
 // Volume Path tracing NSPI
-static trace_result trace_volume(const scene_data& scene, const trace_bvh& bvh,
-    const trace_lights& lights, const ray3f& ray_, rng_state& rng,
-    const trace_params& params) {
+static trace_result trace_path_volume(const scene_data& scene,
+    const trace_bvh& bvh, const trace_lights& lights, const ray3f& ray_,
+    rng_state& rng, const trace_params& params) {
   // initialize
   auto radiance      = vec3f{0, 0, 0};
   auto weight        = vec3f{1, 1, 1};

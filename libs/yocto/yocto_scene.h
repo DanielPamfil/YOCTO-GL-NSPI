@@ -206,6 +206,7 @@ struct volume_data {
   vec3f         offset_vol    = {0, 0, 0};  // NSPI
   float         density_mult  = 1.0f;       // NSPI
   float         radiance_mult = 1.0f;       // NSPI
+  float         max_voxel     = 1.0f;       // NSPI   to adjust
 };
 
 // Scene comprised an array of objects whose memory is owened by the scene.
