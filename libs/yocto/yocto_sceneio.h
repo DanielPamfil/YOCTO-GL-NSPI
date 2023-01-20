@@ -87,6 +87,9 @@ image_data load_image(const string& filename);
 void       load_image(const string& filename, image_data& image);
 void       save_image(const string& filename, const image_data& image);
 
+float eval_volume(const volume_data& vol, const vec3f& uvw, bool ldr_as_linear,
+    bool no_interpolation, bool clamp_to_edge);
+
 // Make presets. Supported mostly in IO.
 image_data make_image_preset(const string& type);
 

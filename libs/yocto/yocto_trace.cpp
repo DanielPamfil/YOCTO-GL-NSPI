@@ -480,7 +480,7 @@ struct trace_result {
 
 // Volumetric path tracing function NSPI
 static trace_result vol_path_tracing(const scene_data& scene, const ray3f& ray_,
-    const trace_params& params, rng_state& rng(), const trace_bvh& bvh) {
+    const trace_params& params, rng_state& rng, const trace_bvh& bvh) {
   // initialize
   auto   ray      = ray_;
   auto   radiance = vec3f{0, 0, 0};
@@ -488,8 +488,10 @@ static trace_result vol_path_tracing(const scene_data& scene, const ray3f& ray_,
   int    bounces  = 0;
   double dir_pdf  = 0;
   vec3f  nee_p_cache;
-  double eta_scale       = 1;
-  vec3f  multi_trans_pdf = vec3f{1, 1, 1};
+  double eta_scale           = 1;
+  vec3f  multi_trans_pdf     = vec3f{1, 1, 1};
+  int    max_null_collisions = 1000;  // to check if needs to be a parameter
+  auto   hit_albedo          = vec3f{0, 0, 0};
 
   auto volume_stack = vector<material_point>{};
 
@@ -508,8 +510,90 @@ static trace_result vol_path_tracing(const scene_data& scene, const ray3f& ray_,
     if (!volume_stack.empty()) {
       auto& vsdf        = volume_stack.back();
       auto  max_density = vsdf.volume.max_voxel * vsdf.volume.density_mult;
-      auto  majorant    = mean(vsdf.scattering * max_density);
+      auto  majorant    = mean(
+          vsdf.scattering *
+          max_density);  // to check and implement a get_majorant function if
+                             // needed NSPI
+
+      // to get majorant[channel] if majorant is a vec3f
+      auto u       = rand1f(rng);
+      int  channel = clamp(int(u * 3), 0, 2);
+
+      float accum_t   = 0;
+      int   iteration = 0;
+
+      while (true) {
+        if (majorant <= 0) break;
+
+        if (iteration >= max_null_collisions) break;
+
+        auto t  = -log(1 - rand1f(rng)) / majorant;
+        auto dt = t_hit - accum_t;
+
+        accum_t = min(accum_t + t, t_hit);
+
+        if (t < dt) {
+          vec3f p = ray.o + ray.d * accum_t;
+
+          auto density = eval_vpt_density(vsdf, p);  // Give a second check
+          auto sigma_s = density * vsdf.scattering;  // Give a second check
+          auto sigma_a = density *
+                         (1 - vsdf.scattering);  // Give a second check
+          auto sigma_t = sigma_s + sigma_a;      // Give a second check
+          auto sigma_n = majorant *
+                         (1 - sigma_t / majorant);  // Give a second check
+
+          auto real_prob = sigma_t / majorant;
+
+          if (rand1f(rng) < real_prob[channel]) {
+            scatter = true;
+            transmittance *= exp(-majorant * t) /
+                             majorant;  // Use m exp(-majorant * t) /
+                                        // max(majorant) instead if problems
+            trans_dir_pdf *= exp(-majorant * t) * majorant * real_prob /
+                             majorant;  // use max instead: exp(-majorant * t) *
+                                        // majorant * real_prob / max(majorant)
+
+            ray.o = p;
+
+            break;
+          } else {
+            transmittance *= exp(-majorant * t) * sigma_n / majorant;
+            trans_dir_pdf *= exp(-majorant * t) * majorant * (1 - real_prob) /
+                             majorant;
+            trans_nee_pdf *= exp(-majorant * t) * majorant / majorant;
+          }
+        } else {
+          transmittance *= exp(-majorant * dt);
+          trans_dir_pdf *= exp(-majorant * dt);
+          trans_nee_pdf *= exp(-majorant * dt);
+          auto position = ray.o + ray.d * intersection.distance;
+          ray.o = position;  // Give a second check in order to give a proper
+                             // position as vertex.position
+
+          break;
+        }
+
+        iteration++;
+      }
+
+      multi_trans_pdf *= trans_dir_pdf;
+
+    } else {
+      if (!intersection.hit) {
+        auto position = ray.o + ray.d * intersection.distance;
+        ray.o         = position;
+      } else {
+        return {{0, 0, 0}, false, {0, 0, 0},
+            {0, 0, 0}};  // give a second check since it should be a 0 spectrum
+      }
     }
+
+    weight *= transmittance / mean(trans_dir_pdf);
+    // Check if there is a relationship between is_lights and has_vpt_emission
+    // if (has_vpt_emission(vsdf.object))
+    // if ( !scatter && intersection.hit &&
+    // is_light(scene.shapes[vertex.shape_id]) ) {
   }
 }
 
