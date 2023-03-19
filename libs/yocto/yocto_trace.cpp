@@ -320,15 +320,15 @@ static float sample_delta_pdf(const material_point& material,
 
 // NSPI
 // Give a second check to our
-std::vector<float> sample_lights_pmf(const scene_data& scene) {
+std::vector<float> sample_lights_pmf(const scene_data& scene, const trace_lights& lights) {
     // Initialize PMF to have one entry per light in the scene
     //std::vector<float> pmf(scene->lights.size());
-    std::vector<float> pmf(scene..size());
+    std::vector<float> pmf(lights.lights.size());
 
     // Calculate the total power of all lights in the scene
     float total_power = 0;
-    for (auto& light : scene->lights) {
-        total_power += light->intensity.x + light->intensity.y + light->intensity.z;
+    for (auto& light : lights.lights) {
+        total_power += light.e + light->intensity.y + light->intensity.z;
     }
 
     // Calculate the PMF for each light
@@ -339,6 +339,7 @@ std::vector<float> sample_lights_pmf(const scene_data& scene) {
 
     return pmf;
 }
+
 
 
 /**
@@ -493,6 +494,35 @@ static float sample_lights_pdf(const scene_data& scene, const trace_bvh& bvh,
   pdf *= sample_uniform_pdf((int)lights.lights.size());
   return pdf;
 }
+
+std::vector<float> calculate_light_pmf(const scene_data& scene, const trace_bvh& bvh, const trace_lights& lights) {
+    std::vector<float> pmf(lights.lights.size());
+    float sum = 0.0f;
+    for (int i = 0; i < lights.lights.size(); i++) {
+        const auto& light = lights.lights[i];
+        if (light.instance != invalidid) {
+            auto& instance = scene.instances[light.instance];
+            //auto area = instance.shape->elements_cdf.back();
+            auto area = light.elements_cdf.back();
+            pmf[i] = area / lights.total_area;
+        } else if (light.environment != invalidid) {
+            auto& environment = scene.environments[light.environment];
+            if (environment.emission_tex != invalidid) {
+                auto& emission_tex = scene.textures[environment.emission_tex];
+                auto area = 4 * pif;
+                pmf[i] = area / lights.total_area;
+            } else {
+                pmf[i] = 1 / lights.lights.size();
+            }
+        }
+        sum += pmf[i];
+    }
+    for (auto& p : pmf) {
+        p /= sum;
+    }
+    return pmf;
+}
+
 
 struct trace_result {
   vec3f radiance = {0, 0, 0};
