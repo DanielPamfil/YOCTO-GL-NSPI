@@ -318,6 +318,29 @@ static float sample_delta_pdf(const material_point& material,
   }
 }
 
+// NSPI
+// Give a second check to our
+std::vector<float> sample_lights_pmf(const scene_data& scene) {
+    // Initialize PMF to have one entry per light in the scene
+    //std::vector<float> pmf(scene->lights.size());
+    std::vector<float> pmf(scene..size());
+
+    // Calculate the total power of all lights in the scene
+    float total_power = 0;
+    for (auto& light : scene->lights) {
+        total_power += light->intensity.x + light->intensity.y + light->intensity.z;
+    }
+
+    // Calculate the PMF for each light
+    for (int i = 0; i < scene->lights.size(); i++) {
+        auto& light = scene->lights[i];
+        pmf[i] = (light->intensity.x + light->intensity.y + light->intensity.z) / total_power;
+    }
+
+    return pmf;
+}
+
+
 /**
 // OUR CODE FOR EVALUATE VOLUME NSPI
 static material_point eval_volume(const material_point& material){
@@ -480,7 +503,7 @@ struct trace_result {
 
 // Volumetric path tracing function NSPI
 static trace_result vol_path_tracing(const scene_data& scene, const ray3f& ray_,
-    const trace_params& params, rng_state& rng, const trace_bvh& bvh) {
+    const trace_params& params, const trace_lights& lights, rng_state& rng, const trace_bvh& bvh) {
   // initialize
   auto   ray      = ray_;
   auto   radiance = vec3f{0, 0, 0};
@@ -492,23 +515,45 @@ static trace_result vol_path_tracing(const scene_data& scene, const ray3f& ray_,
   vec3f  multi_trans_pdf     = vec3f{1, 1, 1};
   int    max_null_collisions = 1000;  // to check if needs to be a parameter
   auto   hit_albedo          = vec3f{0, 0, 0};
+  auto   hit_normal    = vec3f{0, 0, 0};
+  auto hit           = false;
 
   auto volume_stack = vector<material_point>{};
 
-  while (true) {
+  // trace  path
+  // Give a second check in case is needed a while true
+  for (auto bounce = 0; bounce < params.bounces; bounce++) {
     bool scatter      = false;
     auto intersection = intersect_scene(bvh, scene, ray);
+    auto vertex       = intersection;
     auto t_hit        = INFINITY;
     if (intersection.hit) {
       t_hit = intersection.distance;
+    }
+    else {
+      if (bounce > 0 || !params.envhidden)
+        radiance += weight * eval_environment(scene, ray.d);
+      break;
     }
 
     auto transmittance = vec3f{1, 1, 1};
     auto trans_dir_pdf = vec3f{1, 1, 1};
     auto trans_nee_pdf = vec3f{1, 1, 1};
 
+    // handle transmission if inside a volume
+    auto in_volume = false;
+
+    // If there are volumes in the stack, perform volume path tracing
     if (!volume_stack.empty()) {
       auto& vsdf        = volume_stack.back();
+      auto  distance = sample_transmittance(
+        vsdf.density, intersection.distance, rand1f(rng), rand1f(rng));
+      weight *= eval_transmittance(vsdf.density, distance) /
+                sample_transmittance_pdf(
+                    vsdf.density, distance, intersection.distance);
+      in_volume             = distance < intersection.distance;
+      intersection.distance = distance;
+
       auto  max_density = vsdf.volume.max_voxel * vsdf.volume.density_mult;
       auto  majorant    = mean(
           vsdf.scattering *
@@ -589,7 +634,69 @@ static trace_result vol_path_tracing(const scene_data& scene, const ray3f& ray_,
       }
     }
 
-    weight *= transmittance / mean(trans_dir_pdf);
+    // Give a second check to this part
+    //weight *= transmittance / mean(trans_dir_pdf);
+
+    // Give a second check to this part
+    // next direction 
+    auto incoming = vec3f{0, 0, 0};
+    auto outgoing = -ray.d;
+    auto position = eval_shading_position(scene, intersection, outgoing);
+    auto normal   = eval_shading_normal(scene, intersection, outgoing);
+    auto material = eval_material(scene, intersection);
+    if (!is_delta(material)) {
+        if (rand1f(rng) < 0.5f) {
+          incoming = sample_bsdfcos(
+              material, normal, outgoing, rand1f(rng), rand2f(rng));
+        } else {
+          incoming = sample_lights(
+              scene, lights, position, rand1f(rng), rand1f(rng), rand2f(rng));
+        }
+        if (incoming == vec3f{0, 0, 0}) break;
+        weight *=
+            eval_bsdfcos(material, normal, outgoing, incoming) /
+            (0.5f * sample_bsdfcos_pdf(material, normal, outgoing, incoming) +
+                0.5f *
+                    sample_lights_pdf(scene, bvh, lights, position, incoming));
+      } else {
+        incoming = sample_delta(material, normal, outgoing, rand1f(rng));
+        weight *= eval_delta(material, normal, outgoing, incoming) /
+                  sample_delta_pdf(material, normal, outgoing, incoming);
+      }
+
+    // Hit a light source.
+    // Add light contribution.
+    // Fix this part by adding the id
+    // If it doesn't work try with has_lights from yocto_scene.cpp
+    auto id = 0;
+    if (!scatter && t_hit != INFINITY && scene.materials[id].emission != vec3f({0,0,0})){
+      auto Le = eval_emission(material, normal, outgoing);
+
+      if (bounces == 0)
+      {
+        hit        = true;
+        hit_albedo = material.color;
+        hit_normal = normal;
+        // This is the only way we can see the light source, so
+        // we don’t need multiple importance sampling.
+        radiance += weight * Le;
+
+        return {radiance, hit, hit_albedo, hit_normal};
+      } else {
+        // Need to account for next event estimation
+
+        
+        // Add light contribution only if the surface is emissive
+
+        // Compute the probability of sampling the current intersected light point
+        // from the point the next event estimation was issued 
+
+         ligth_point 
+      }
+      
+    }
+
+
     // Check if there is a relationship between is_lights and has_vpt_emission
     // if (has_vpt_emission(vsdf.object))
     // if ( !scatter && intersection.hit &&

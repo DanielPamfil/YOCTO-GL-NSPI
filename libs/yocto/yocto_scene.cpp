@@ -681,6 +681,7 @@ int find_camera(const scene_data& scene, const string& name) {
   return 0;
 }
 
+// NSPI is_light
 // check if it has lights
 bool has_lights(const scene_data& scene) {
   for (auto& environment : scene.environments) {
