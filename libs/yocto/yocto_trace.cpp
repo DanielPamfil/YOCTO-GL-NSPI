@@ -318,27 +318,6 @@ static float sample_delta_pdf(const material_point& material,
   }
 }
 
-// NSPI
-// Give a second check to our
-std::vector<float> sample_lights_pmf(const scene_data& scene, const trace_lights& lights) {
-    // Initialize PMF to have one entry per light in the scene
-    //std::vector<float> pmf(scene->lights.size());
-    std::vector<float> pmf(lights.lights.size());
-
-    // Calculate the total power of all lights in the scene
-    float total_power = 0;
-    for (auto& light : lights.lights) {
-        total_power += light.e + light->intensity.y + light->intensity.z;
-    }
-
-    // Calculate the PMF for each light
-    for (int i = 0; i < scene->lights.size(); i++) {
-        auto& light = scene->lights[i];
-        pmf[i] = (light->intensity.x + light->intensity.y + light->intensity.z) / total_power;
-    }
-
-    return pmf;
-}
 
 
 
@@ -495,34 +474,6 @@ static float sample_lights_pdf(const scene_data& scene, const trace_bvh& bvh,
   return pdf;
 }
 
-std::vector<float> calculate_light_pmf(const scene_data& scene, const trace_bvh& bvh, const trace_lights& lights) {
-    std::vector<float> pmf(lights.lights.size());
-    float sum = 0.0f;
-    for (int i = 0; i < lights.lights.size(); i++) {
-        const auto& light = lights.lights[i];
-        if (light.instance != invalidid) {
-            auto& instance = scene.instances[light.instance];
-            //auto area = instance.shape->elements_cdf.back();
-            auto area = light.elements_cdf.back();
-            pmf[i] = area / lights.total_area;
-        } else if (light.environment != invalidid) {
-            auto& environment = scene.environments[light.environment];
-            if (environment.emission_tex != invalidid) {
-                auto& emission_tex = scene.textures[environment.emission_tex];
-                auto area = 4 * pif;
-                pmf[i] = area / lights.total_area;
-            } else {
-                pmf[i] = 1 / lights.lights.size();
-            }
-        }
-        sum += pmf[i];
-    }
-    for (auto& p : pmf) {
-        p /= sum;
-    }
-    return pmf;
-}
-
 
 struct trace_result {
   vec3f radiance = {0, 0, 0};
@@ -552,7 +503,7 @@ static trace_result vol_path_tracing(const scene_data& scene, const ray3f& ray_,
 
   // trace  path
   // Give a second check in case is needed a while true
-  for (auto bounce = 0; bounce < params.bounces; bounce++) {
+  while (true) {
     bool scatter      = false;
     auto intersection = intersect_scene(bvh, scene, ray);
     auto vertex       = intersection;
@@ -561,7 +512,7 @@ static trace_result vol_path_tracing(const scene_data& scene, const ray3f& ray_,
       t_hit = intersection.distance;
     }
     else {
-      if (bounce > 0 || !params.envhidden)
+      if (bounces > 0 || !params.envhidden)
         radiance += weight * eval_environment(scene, ray.d);
       break;
     }
@@ -642,7 +593,10 @@ static trace_result vol_path_tracing(const scene_data& scene, const ray3f& ray_,
           transmittance *= exp(-majorant * dt);
           trans_dir_pdf *= exp(-majorant * dt);
           trans_nee_pdf *= exp(-majorant * dt);
-          auto position = ray.o + ray.d * intersection.distance;
+          //auto position = ray.o + ray.d * intersection.distance;
+          auto outgoing = -ray.d;
+          auto position = eval_shading_position(scene, intersection, outgoing);
+          auto normal   = eval_shading_normal(scene, intersection, outgoing);
           ray.o = position;  // Give a second check in order to give a proper
                              // position as vertex.position
 
@@ -721,11 +675,46 @@ static trace_result vol_path_tracing(const scene_data& scene, const ray3f& ray_,
         // Compute the probability of sampling the current intersected light point
         // from the point the next event estimation was issued 
 
-         ligth_point 
+        auto light_pmf = sample_discrete_pdf(lights.lights[id].elements_cdf, id);
+
+        // Compute the pdf of the nee only when at least one nee has been issued
+        // TODO: use is_nee_issued condition if error
+        vec3f pdf_nee =  light_pmf * sample_lights_pdf(scene, bvh, lights, position, incoming) * trans_nee_pdf;
+
+        // Next, compute the PDF for sampling the current intersected light point
+        // using the latest phase function sampling + the all trasmittance sampling
+        // after the last phase function sampling.
+
+
+        // The geometry term (=jacobian)
+        float jacobian = max(-dot(-ray.d, normal), float(0)) /
+                                distance_squared(nee_p_cache, position);
+
+        auto pdf_phase = dir_pdf * multi_trans_pdf * jacobian;
+
+        // Compute the multi importance sampling between
+        // the next event estimation and the phase function sampling
+        auto w = (pdf_phase * pdf_phase) / (pdf_phase * pdf_phase + pdf_nee * pdf_nee);
+
+        // Add the emission weighted by the multi importance sampling
+        radiance += weight * Le * w;
+
       }
       
     }
+    // Hit a index-matchcing surface
+    // Give a seocond check to this part on the in_volume==material_id=-1
+    if (!scatter && t_hit != INFINITY && in_volume) {
+       // If the intersected surface is a index-matching surface
+      // update the current medium index and 
+      // pass through without scattering
+      // Give a second check to this part
+      //current_medium = update_medium(vertex, ray, current_medium);
+      ray.o = position;
+      bounces++;
+      continue;
 
+    }
 
     // Check if there is a relationship between is_lights and has_vpt_emission
     // if (has_vpt_emission(vsdf.object))
