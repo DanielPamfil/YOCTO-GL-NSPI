@@ -192,22 +192,7 @@ struct subdiv_data {
   int shape = invalidid;
 };
 
-// Volume data struct // NSPI
-struct volume_data {
-  // hash_grid grid = make_hash_grid(positions, cell_size);
-  frame3f       frame         = {};         // NSPI
-  vec3f         bbox          = {};         // NSPI
-  vec3f         max           = {};         // NSPI
-  vec3f         min           = {};         // NSPI
-  int           components    = 1;          // NSPI
-  vector<float> density_vol   = {};         // NSPI
-  vector<float> emission_vol  = {};         // NSPI
-  vec3f         scale_vol     = {1, 1, 1};  // NSPI
-  vec3f         offset_vol    = {0, 0, 0};  // NSPI
-  float         density_mult  = 1.0f;       // NSPI
-  float         radiance_mult = 1.0f;       // NSPI
-  float         max_voxel     = 1.0f;       // NSPI   to adjust
-};
+
 
 // Scene comprised an array of objects whose memory is owened by the scene.
 // All members are optional,Scene objects (camera, instances, environments)
@@ -298,8 +283,26 @@ struct material_point {
   float          trdepth      = 0.01f;
   bool           htvolume     = false;                 // NSPI
   material_event event        = material_event::null;  // NSPI
-  volume_data    volume       = volume_data();         // NSPI
+  //volume_data    volume       = volume_data();         // NSPI
 };
+
+// Volume data struct // NSPI
+    struct volume_data {
+        // hash_grid grid = make_hash_grid(positions, cell_size);
+        frame3f       frame         = {};         // NSPI
+        vec3f         bbox          = {};         // NSPI
+        vec3f         max           = {};         // NSPI
+        vec3f         min           = {};         // NSPI
+        int           components    = 1;          // NSPI
+        vector<float> density_vol   = {};         // NSPI
+        vector<float> emission_vol  = {};         // NSPI
+        vec3f         scale_vol     = {1, 1, 1};  // NSPI
+        vec3f         offset_vol    = {0, 0, 0};  // NSPI
+        float         density_mult  = 1.0f;       // NSPI
+        float         radiance_mult = 1.0f;       // NSPI
+        float         max_voxel     = 1.0f;       // NSPI   to adjust
+        vector<material_point> points = vector<material_point>{};
+    };
 
 // Eval material to obtain emission, brdf and opacity.
 material_point eval_material(const scene_data& scene,

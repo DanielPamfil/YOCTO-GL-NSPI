@@ -499,7 +499,7 @@ static trace_result vol_path_tracing(const scene_data& scene, const ray3f& ray_,
   auto   hit_normal    = vec3f{0, 0, 0};
   auto hit           = false;
 
-  auto volume_stack = vector<material_point>{};
+  auto volume_stack = vector<volume_data>{};
 
   // trace  path
   // Give a second check in case is needed a while true
@@ -535,7 +535,7 @@ static trace_result vol_path_tracing(const scene_data& scene, const ray3f& ray_,
       in_volume             = distance < intersection.distance;
       intersection.distance = distance;
 
-      auto  max_density = vsdf.volume.max_voxel * vsdf.volume.density_mult;
+      auto  max_density = vsdf.max_voxel * vsdf.volume.density_mult;
       auto  majorant    = mean(
           vsdf.scattering *
           max_density);  // to check and implement a get_majorant function if
@@ -714,6 +714,19 @@ static trace_result vol_path_tracing(const scene_data& scene, const ray3f& ray_,
       bounces++;
       continue;
 
+    }
+    if ( bounces >= params.bounces - 1 && params.bounces != -1) break;
+
+    if(scatter && !in_volume){
+      // prepare shading point
+      
+      auto  outgoing = -ray.d;
+      auto  position = ray.o + ray.d * intersection.distance;
+      auto& vsdf     = volume_stack.back();
+      vec3f p = ray.o + ray.d * accum_t;
+
+      auto density = eval_vpt_density(vsdf, p);  // Give a second check
+      auto sigma_s = density * vsdf.scattering;  // Give a second check
     }
 
     // Check if there is a relationship between is_lights and has_vpt_emission

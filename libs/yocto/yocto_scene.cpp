@@ -225,7 +225,7 @@ material_point eval_material(const scene_data& scene,
   point.scattering   = material.scattering * xyz(scattering_tex);
   point.scanisotropy = material.scanisotropy;
   point.trdepth      = material.trdepth;
-  point.volume       = material.volume;
+  //point.volume       = material.volume;
 
   // volume density
   if (material.type == material_type::refractive ||
@@ -281,7 +281,7 @@ bool has_volume(const material_point& material) {
 
 // In case of error verify the emission parameter assignement
 bool has_emission(const material_point& material) {
-  return (!material.volume.emission_vol.empty());  // NSPI
+  return (material.emission != vec3f{0, 0, 0});  // NSPI
 }
 
 }  // namespace yocto
