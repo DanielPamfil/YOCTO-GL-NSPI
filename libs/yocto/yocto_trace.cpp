@@ -318,6 +318,89 @@ static float sample_delta_pdf(const material_point& material,
   }
 }
 
+/*
+Compute transmittance to light. Skip through index-matching shapes.
+TO Be COMPLETED
+*/
+vec3f next_event_estimation_final(const scene_data& scene, 
+                           rng_state& rng, 
+                           vec3f p,
+                           int bounces,
+                           vec3f dir_view, // previous vertex to current point
+                           bool is_surface,
+                           scene_intersection vertex
+                           ) {
+    // Sample a point on light
+    // p' (p_prime) is the point on the light source
+    return {0, 0, 0};
+
+
+}
+
+// NSPI: eval heterogeneus volume - TO DO: fix
+std::pair<float, vec3f> eval_unidirectional_spectral_mis_NSPI(material_point& vsdf, float max_distance, rng_state& rng, const ray3f& ray) {
+    auto volume           = vsdf.volume;
+    auto density_vol      = volume.density_vol;
+    auto emission_vol     = volume.emission_vol;
+    auto max_density      = volume.max_voxel * volume.density_mult;
+    auto imax_density     = 1.0f / max_density;
+    auto path_length      = 0.0f;
+    auto f                = one3f;
+    auto p                = one3f;
+    auto cc               = clamp((int)(rand1f(rng) * 3), 0, 2);
+    auto current_pos      = ray.o; 
+    auto majorant_density = max_density;
+    auto tr               = one3f;
+    
+    while (true) {
+      path_length     -= majorant_density == 0.0f ? -flt_max :	log(1 - rand1f(rng)) / majorant_density;
+      if (path_length >= max_distance)
+	    break;
+      current_pos = ray.o + path_length * ray.d;
+      auto d = eval_vpt_density(vsdf, current_pos);
+      auto sigma_t     = vec3f{d, d, d};
+      auto sigma_s     = sigma_t * vsdf.scattering;
+      auto sigma_a     = sigma_t - sigma_s;
+      auto sigma_n     = vec3f{max_density, max_density, max_density} - sigma_t;
+      vec3f sigma[3] = { sigma_n, sigma_s, sigma_a };
+ 
+      tr *= exp(-sigma_t * path_length); 
+      // Sample event 
+      auto e = sample_event(sigma_a[cc] * imax_density,  sigma_s[cc] * imax_density, sigma_n[cc] * imax_density, rand1f(rng));
+
+      if (e == material_event::null) continue;  // TO DO: double check questo if che non mi convice
+
+      if (e == material_event::null) f *= sigma[0];
+      else if (e == material_event::scatter) f *= sigma[1];
+      else if (e == material_event::absorb) f *= sigma[2];
+      p  = f;
+      
+      // Populate vsdf with medium interaction information and return
+      vsdf.event = e;
+      vsdf.density = sigma_t;
+      f *= tr;
+      f = f / mean(p);       
+      break;
+    }    
+    return {path_length, f };
+}
+  
+static material_event sample_event(float pa, float ps, float pn, float rn) {
+  // https://stackoverflow.com/a/26751752
+  auto weights = vec3f{pa, ps, pn};
+  auto numbers = vector<material_event>{material_event::absorb, material_event::scatter, material_event::null};
+  float sum = 0.0f;
+  for (int i = 0; i < 3; ++i) {
+    sum += weights[i];
+    if(rn < sum) {
+      //printf("weights: pa: %f\tps: %f\tpn: %f\tsum: %i\n", pa, ps, pn, numbers[i]);
+      return numbers[i];
+    }
+  }
+  // Can reach this point only if |weights| < 1 (WRONG)
+  //printf("I should not be here : %f\n", pa + ps + pn);
+  return material_event::null;
+}
 
 
 
@@ -499,7 +582,18 @@ static trace_result vol_path_tracing(const scene_data& scene, const ray3f& ray_,
   auto   hit_normal    = vec3f{0, 0, 0};
   auto hit           = false;
 
-  auto volume_stack = vector<volume_data>{};
+  // Give a second check in case we have more volumes
+  /*
+  auto volume = scene.volumes[0];
+  auto density_vol = volume.density_vol;
+  auto max_density = volume.max_voxel * volume.density_mult;
+  */
+
+  auto volume_stack = vector<material_point>{};
+
+  // flag to record if nee is issued to avoid including nee pdf contribution
+  // when no nee has been issued
+  bool is_nee_issued = false;
 
   // trace  path
   // Give a second check in case is needed a while true
@@ -526,6 +620,7 @@ static trace_result vol_path_tracing(const scene_data& scene, const ray3f& ray_,
 
     // If there are volumes in the stack, perform volume path tracing
     if (!volume_stack.empty()) {
+      /*
       auto& vsdf        = volume_stack.back();
       auto  distance = sample_transmittance(
         vsdf.density, intersection.distance, rand1f(rng), rand1f(rng));
@@ -534,12 +629,11 @@ static trace_result vol_path_tracing(const scene_data& scene, const ray3f& ray_,
                     vsdf.density, distance, intersection.distance);
       in_volume             = distance < intersection.distance;
       intersection.distance = distance;
-
-      auto  max_density = vsdf.max_voxel * vsdf.volume.density_mult;
-      auto  majorant    = mean(
-          vsdf.scattering *
-          max_density);  // to check and implement a get_majorant function if
-                             // needed NSPI
+      */
+      auto& vsdf        = volume_stack.back();
+      auto volume = vsdf.volume;
+      auto  max_density = volume.max_voxel * volume.density_mult;
+      auto  majorant    = mean(vsdf.scattering * max_density);  // to check and implement a get_majorant function if needed NSPI
 
       // to get majorant[channel] if majorant is a vec3f
       auto u       = rand1f(rng);
@@ -548,45 +642,38 @@ static trace_result vol_path_tracing(const scene_data& scene, const ray3f& ray_,
       float accum_t   = 0;
       int   iteration = 0;
 
+
       while (true) {
         if (majorant <= 0) break;
-
         if (iteration >= max_null_collisions) break;
 
         auto t  = -log(1 - rand1f(rng)) / majorant;
         auto dt = t_hit - accum_t;
-
         accum_t = min(accum_t + t, t_hit);
 
         if (t < dt) {
           vec3f p = ray.o + ray.d * accum_t;
 
-          auto density = eval_vpt_density(vsdf, p);  // Give a second check
+          auto density = eval_vpt_density(vsdf.volume, p);  // Give a second check
           auto sigma_s = density * vsdf.scattering;  // Give a second check
-          auto sigma_a = density *
-                         (1 - vsdf.scattering);  // Give a second check
+          auto sigma_a = density * (1 - vsdf.scattering);  // Give a second check
           auto sigma_t = sigma_s + sigma_a;      // Give a second check
-          auto sigma_n = majorant *
-                         (1 - sigma_t / majorant);  // Give a second check
+          auto sigma_n = majorant * (1 - sigma_t / majorant);  // Give a second check
 
           auto real_prob = sigma_t / majorant;
 
           if (rand1f(rng) < real_prob[channel]) {
             scatter = true;
-            transmittance *= exp(-majorant * t) /
-                             majorant;  // Use m exp(-majorant * t) /
+            transmittance *= exp(-majorant * t) / majorant;  // Use m exp(-majorant * t) /
                                         // max(majorant) instead if problems
-            trans_dir_pdf *= exp(-majorant * t) * majorant * real_prob /
-                             majorant;  // use max instead: exp(-majorant * t) *
+            trans_dir_pdf *= exp(-majorant * t) * majorant * real_prob / majorant;  // use max instead: exp(-majorant * t) *
                                         // majorant * real_prob / max(majorant)
-
             ray.o = p;
-
             break;
+
           } else {
             transmittance *= exp(-majorant * t) * sigma_n / majorant;
-            trans_dir_pdf *= exp(-majorant * t) * majorant * (1 - real_prob) /
-                             majorant;
+            trans_dir_pdf *= exp(-majorant * t) * majorant * (1 - real_prob) / majorant;
             trans_nee_pdf *= exp(-majorant * t) * majorant / majorant;
           }
         } else {
@@ -719,16 +806,48 @@ static trace_result vol_path_tracing(const scene_data& scene, const ray3f& ray_,
 
     if(scatter && !in_volume){
       // prepare shading point
-      
-      auto  outgoing = -ray.d;
-      auto  position = ray.o + ray.d * intersection.distance;
       auto& vsdf     = volume_stack.back();
-      vec3f p = ray.o + ray.d * accum_t;
 
-      auto density = eval_vpt_density(vsdf, p);  // Give a second check
+      auto density = eval_vpt_density(vsdf.volume, ray.o);  // Give a second check
       auto sigma_s = density * vsdf.scattering;  // Give a second check
-    }
 
+      vec3f nee = next_event_estimation_final(scene, 
+                                                rng, 
+                                                ray.o, 
+                                                bounces, 
+                                                -ray.d,
+                                                false,
+                                                vertex);
+                              
+      radiance += weight * sigma_s * nee;
+    
+      // Record the last position that can issue a next event estimation
+      // NEE is 0 and invalid if it is blocked by something
+      // or does not reach the surface before the bounce limit
+      if ( max(nee) > 0 ) {
+                  nee_p_cache = ray.o;
+                  is_nee_issued = true;
+      }
+
+      vec2f phase_rnd_param_uv{rand2f(rng)};
+
+      auto next_dir_= sample_phasefunction(material.scanisotropy, outgoing, phase_rnd_param_uv);
+
+      // Give a second check to this part in case is needed a pointer
+      // Vector3 &next_dir = *next_dir_;
+      vec3f next_dir = next_dir_;
+
+      float phase_pdf = sample_phasefunction_pdf(material.scanisotropy, outgoing, incoming);
+
+      weight *= (eval_phasefunction(material.scanisotropy, outgoing, incoming) / phase_pdf) * sigma_s;
+
+      dir_pdf = phase_pdf;
+			nee_p_cache = ray.o;
+			multi_trans_pdf = one3f;
+    }
+    else if (t_hit != INFINITY){
+
+    }
     // Check if there is a relationship between is_lights and has_vpt_emission
     // if (has_vpt_emission(vsdf.object))
     // if ( !scatter && intersection.hit &&
@@ -1430,7 +1549,7 @@ static trace_result trace_path_volume(const scene_data& scene,
       // heterogeneus volumes NSPI
       if (vsdf.htvolume) {
         // TO DO: implement eval_unidirectional_spectral_mis
-        auto [t, w] = eval_unidirectional_spectral_mis(
+        auto [t, w] = eval_unidirectional_spectral_mis_NSPI(
             vsdf, intersection.distance, rng, ray);
         weight *= w;
         position = ray.o + t * ray.d;
@@ -1570,6 +1689,7 @@ static trace_result trace_path_volume(const scene_data& scene,
 
   return {radiance, hit, hit_albedo, hit_normal};
 }
+
 
 // Eyelight for quick previewing.
 static trace_result trace_eyelight(const scene_data& scene,

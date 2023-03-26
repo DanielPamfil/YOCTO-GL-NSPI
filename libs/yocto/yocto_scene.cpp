@@ -592,6 +592,7 @@ bool is_volumetric(const scene_data& scene, const instance_data& instance) {
   return is_volumetric(scene.materials[instance.material]);
 }
 
+
 }  // namespace yocto
 
 // -----------------------------------------------------------------------------

@@ -285,8 +285,8 @@ inline float sample_phasefunction_pdf(
     float anisotropy, const vec3f& outgoing, const vec3f& incoming);
 
 // Evaluate density  NSPI
-float eval_vpt_density(const material_point& vsdf, const vec3f& uvw) {
-  auto volume = vsdf.volume;
+float eval_vpt_density(const volume_data& vsdf, const vec3f& uvw) {
+  auto volume = vsdf;
   if (volume.density_vol.empty()) return 0.0f;  // Give a check later
 
   auto oframe = volume.frame;
