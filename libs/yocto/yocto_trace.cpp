@@ -846,13 +846,68 @@ static trace_result vol_path_tracing(const scene_data& scene, const ray3f& ray_,
 			multi_trans_pdf = one3f;
     }
     else if (t_hit != INFINITY){
+      // do NEE when we hit a surface
+			// what if it is a light source? We don't care we still do NEE. The radiance from the light source will
+			// dominate radiance of other bounces.
+			// We don't need to check for `current_medium_id != -1` because in that case scatter is set to false.
+			// do next event estimation for every scatter
+      vec3f nee = next_event_estimation_final(scene, 
+                                                rng, 
+                                                ray.o, 
+                                                bounces, 
+                                                -ray.d,
+                                                true,
+                                                vertex);
+      radiance += weight * nee;
+      // Record the last position that can issue a next event estimation
+      // NEE is 0 and invalid if it is blocked by something
+      // or does not reach the surface before the bounce limit
+      if ( max(nee) > 0 ) {
+                  nee_p_cache = ray.o;
+                  is_nee_issued = true;
+      }
 
+      auto material = eval_material(scene, vertex);
+      vec3f dir_view = -ray.d;
+      vec2f bsdf_rnd_param_uv{rand2f(rng)};
+      float bsdf_rnd_param_w = rand1f(rng);
+      auto bsdf_sample_ = sample_bsdfcos(material, normal, outgoing, bsdf_rnd_param_w, bsdf_rnd_param_uv);
+
+      if (!bsdf_sample_) {
+          // BSDF sampling failed. Abort the loop.
+          break;
+      }
+      const auto bsdf_sample = bsdf_sample_;
+
+      ray.d = bsdf_sample;
+      // Give a second check to this part and add it if needed
+      // Update ray differentials & eta_scale
+      /*
+      if (material.type == material_type::reflective) {
+        eval_reflective(material.color, normal, outgoing, incoming);
+
+      }
+      */
+      ray = {position, incoming};
+
+      vec3f bsdf_eval = eval_bsdfcos(material, normal, outgoing, incoming);
+      float pdf_bsdf = sample_bsdfcos_pdf(material, normal, outgoing, incoming);
+      
+      weight *= bsdf_eval / pdf_bsdf;
     }
+    // russian roulette
+    if (bounces > 3) {
+      auto rr_prob = min((float)0.99, max(weight));
+      if (rand1f(rng) >= rr_prob) break;
+      weight *= 1 / rr_prob;
+    }
+    bounces++;
     // Check if there is a relationship between is_lights and has_vpt_emission
     // if (has_vpt_emission(vsdf.object))
     // if ( !scatter && intersection.hit &&
     // is_light(scene.shapes[vertex.shape_id]) ) {
   }
+  return {radiance, hit, hit_albedo, hit_normal};
 }
 
 // Recursive path tracing.

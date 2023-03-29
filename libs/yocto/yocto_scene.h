@@ -140,7 +140,7 @@ struct material_data {
   float         scanisotropy = 0;
   float         trdepth      = 0.01f;
   float         opacity      = 1;
-  volume_data   volume       = volume_data();  // NSPI TO DO: assign volume
+  //volume_data   volume       = volume_data();  // NSPI TO DO: assign volume
 
   // textures
   int emission_tex   = invalidid;
@@ -283,26 +283,43 @@ struct material_point {
   float          trdepth      = 0.01f;
   bool           htvolume     = false;                 // NSPI
   material_event event        = material_event::null;  // NSPI
-  volume_data    volume       = nullptr;;         // NSPI
+  volume_data    volume       = volume_data();         // NSPI
 };
 
 // Volume data struct // NSPI
-    struct volume_data {
-        // hash_grid grid = make_hash_grid(positions, cell_size);
-        frame3f       frame         = {};         // NSPI
-        vec3f         bbox          = {};         // NSPI
-        vec3f         max           = {};         // NSPI
-        vec3f         min           = {};         // NSPI
-        int           components    = 1;          // NSPI
-        vector<float> density_vol   = {};         // NSPI
-        vector<float> emission_vol  = {};         // NSPI
-        vec3f         scale_vol     = {1, 1, 1};  // NSPI
-        vec3f         offset_vol    = {0, 0, 0};  // NSPI
-        float         density_mult  = 1.0f;       // NSPI
-        float         radiance_mult = 1.0f;       // NSPI
-        float         max_voxel     = 1.0f;       // NSPI   to adjust
-        //vector<material_point> points = vector<material_point>{};
-    };
+struct volume_data {
+    // hash_grid grid = make_hash_grid(positions, cell_size);
+    frame3f       frame         = {};         // NSPI
+    vec3f         bbox          = {};         // NSPI
+    vec3f         max           = {};         // NSPI
+    vec3f         min           = {};         // NSPI
+    int           components    = 1;          // NSPI
+    vector<float> density_vol   = {};         // NSPI
+    vector<float> emission_vol  = {};         // NSPI
+    vec3f         scale_vol     = {1, 1, 1};  // NSPI
+    vec3f         offset_vol    = {0, 0, 0};  // NSPI
+    float         density_mult  = 1.0f;       // NSPI
+    float         radiance_mult = 1.0f;       // NSPI
+    float         max_voxel     = 1.0f;       // NSPI   to adjust
+    vec3f         scattering    = {0,0,0};    // NSPI
+    vector<material_point> points = vector<material_point>{};
+};
+
+/*
+// vsdf 
+struct vsdf {
+    vec3f density    = {0, 0, 0};
+    vec3f scatter    = {0, 0, 0};
+    float anisotropy = 0;
+    // heterogeneous volume properties
+    bool  htvolume   = false;
+    // new heterogeneous volume properties
+    // object contains density, emission, frame, scale, offset etc
+    const trace::object* object = nullptr;
+    // Collision event (needed for spectral, maybe ?)
+    int event        = 0;
+  };
+  */
 
 // Eval material to obtain emission, brdf and opacity.
 material_point eval_material(const scene_data& scene,
@@ -319,6 +336,7 @@ bool is_volumetric(const material_point& material);
 bool is_volumetric(const scene_data& scene, const instance_data& instance);
 
 bool has_emission(const material_point& material);  // NSPI
+
 
 }  // namespace yocto
 
