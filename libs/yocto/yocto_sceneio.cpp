@@ -993,7 +993,8 @@ bool load_volume(const string& filename, volume_data& vol, string& error) {
   if (!load_yvol(filename, bbox, min, max, ncomp, voxels, error)) return false;
   // usually ncomp is always =1
   // if (ncomp != 1) voxels = convert_components(voxels, ncomp, 1);
-  vol = volume_data{bbox, max, min, ncomp, voxels};  // TO DO: fix
+  //NSPI
+  vol = volume_data{bbox, max, min, ncomp, voxels}; 
   return true;
 }
 
@@ -3885,6 +3886,13 @@ static bool load_json_scene(
         auto&                  uri    = volume_filenames.emplace_back();
         get_opt(element, "name", name);
         get_opt(element, "uri", uri);
+        get_opt(element, "frame", volume.frame);
+        get_opt(element, "scale_vol", volume.scale_vol);
+        get_opt(element, "offset_vol", volume.offset_vol);
+        get_opt(element, "density_mul", volume.density_mult);
+        get_opt(element, "radiance_mul", volume.radiance_mult);
+        get_opt(element, "max_voxel", volume.max_voxel);
+        get_opt(element, "scattering", volume.scattering);
       }
     }
   } catch (...) {

@@ -289,20 +289,21 @@ struct material_point {
 // Volume data struct // NSPI
 struct volume_data {
     // hash_grid grid = make_hash_grid(positions, cell_size);
-    frame3f       frame         = {};         // NSPI
-    vec3f         bbox          = {};         // NSPI
-    vec3f         max           = {};         // NSPI
-    vec3f         min           = {};         // NSPI
-    int           components    = 1;          // NSPI
-    vector<float> density_vol   = {};         // NSPI
-    vector<float> emission_vol  = {};         // NSPI
-    vec3f         scale_vol     = {1, 1, 1};  // NSPI
-    vec3f         offset_vol    = {0, 0, 0};  // NSPI
-    float         density_mult  = 1.0f;       // NSPI
-    float         radiance_mult = 1.0f;       // NSPI
-    float         max_voxel     = 1.0f;       // NSPI   to adjust
-    vec3f         scattering    = {0,0,0};    // NSPI
-    vector<material_point> points = vector<material_point>{};
+    vec3f         bbox          = {};           // NSPI
+    vec3f         max           = {};           // NSPI
+    vec3f         min           = {};           // NSPI
+    int           components    = 1;            // NSPI
+    vector<float> density_vol   = {};           // NSPI - voxels
+    vector<float> emission_vol  = {};           // NSPI - not used now 
+
+    frame3f       frame         = identity3x4f; // NSPI
+    vec3f         scale_vol     = {1, 1, 1};    // NSPI
+    vec3f         offset_vol    = {0, 0, 0};    // NSPI
+    float         density_mult  = 1.0f;         // NSPI
+    float         radiance_mult = 1.0f;         // NSPI
+    float         max_voxel     = 1.0f;         // NSPI   to adjust
+    vec3f         scattering    = {0,0,0};      // NSPI
+    //vector<material_point> points = vector<material_point>{};
 };
 
 /*
