@@ -43,6 +43,7 @@
 
 #include "yocto_math.h"
 #include "yocto_sampling.h"
+#include "yocto_sceneio.h"
 
 // -----------------------------------------------------------------------------
 // USING DIRECTIVES
@@ -285,12 +286,12 @@ inline float sample_phasefunction_pdf(
     float anisotropy, const vec3f& outgoing, const vec3f& incoming);
 
 // Evaluate density  NSPI
-float eval_vpt_density(const volume_data& vsdf, const vec3f& uvw) {
-  auto volume = vsdf;
+inline float eval_vpt_density(const volume_data& volume, const vec3f& uvw) {
+  
   if (volume.density_vol.empty()) return 0.0f;  // Give a check later
 
   auto oframe = volume.frame;
-  auto vol    = volume.density_vol;
+  //auto vol    = volume.density_vol;
   auto scale  = volume.scale_vol;
   auto offset = volume.offset_vol;
 

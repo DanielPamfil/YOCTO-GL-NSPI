@@ -48,6 +48,8 @@
 #include <stdexcept>
 #include <thread>
 #include <unordered_map>
+#include <iostream>
+using namespace std;
 
 #include "yocto_color.h"
 #include "yocto_geometry.h"
@@ -878,8 +880,164 @@ bool make_image_preset(
 namespace yocto {
 
 // Volume load
-static bool load_yvol(const string& filename, vec3f& bbox, vec3f& min,
-    vec3f& max, int& components, vector<float>& voxels, string& error) {
+/*
+static bool load_yvol(const string& filename, int* w, int* h, int* d, int* nc, int req, 
+                        vector<float> voxels, string& error) {
+  cout << "load_yvol ";
+  // error helpers
+  auto open_error = [filename, &error]() {
+    error = "cannot open " + filename;
+    return false;
+  };
+  auto parse_error = [filename, &error]() {
+    error = "cannot parse " + filename;
+    return false;
+  };
+  auto read_error = [filename, &error]() {
+    error = "cannot read " + filename;
+    return false;
+  };
+
+
+  // Split a string
+  auto split_string = [](const string& str) -> vector<string> {
+    auto ret = vector<string>();
+    if (str.empty()) return ret;
+    auto lpos = (size_t)0;
+    while (lpos != string::npos) {
+      auto pos = str.find_first_of(" \t\n\r", lpos);
+      if (pos != string::npos) {
+        if (pos > lpos) ret.push_back(str.substr(lpos, pos - lpos));
+        lpos = pos + 1;
+      } else {
+        if (lpos < str.size()) ret.push_back(str.substr(lpos));
+        lpos = pos;
+      }
+    }
+    return ret;
+  };
+
+  auto fs       = fopen_utf8(filename.c_str(), "rb");
+  auto fs_guard = unique_ptr<FILE, int (*)(FILE*)>(fs, &fclose);
+  if (!fs) return open_error();
+
+  // buffer
+  auto buffer = array<char, 4096>{};
+  auto toks   = vector<string>();
+
+  // read magic
+  if (!fgets(buffer.data(), (int)buffer.size(), fs)) return parse_error();
+  toks = split_string(buffer.data());
+  if (toks[0] != "YVOL") return parse_error();
+  // read width, height
+  if (!fgets(buffer.data(), (int)buffer.size(), fs)) return parse_error();
+  
+  toks = split_string(buffer.data());
+  *w   = atoi(toks[0].c_str());
+  *h   = atoi(toks[1].c_str());
+  *d   = atoi(toks[2].c_str());
+  *nc  = atoi(toks[3].c_str());
+
+  // read data
+  auto nvoxels = (size_t)(*w) * (size_t)(*h) * (size_t)(*d);
+  auto nvalues = nvoxels * (size_t)(*nc);
+  voxels       = vector<float>(nvalues);
+  if (!read_values(fs, voxels.data(), nvalues)) return read_error();
+ 
+
+  // proper number of channels
+  if (!req || *nc == req) return voxels.release();
+
+  // pack into channels
+  if (req < 0 || req > 4) {
+    return nullptr;
+  }
+  auto cvoxels = std::unique_ptr<float[]>(new float[req * nvoxels]);
+  for (auto i = 0; i < nvoxels; i++) {
+    auto vp = voxels.get() + i * (*nc);
+    auto cp = cvoxels.get() + i * req;
+    if (*nc == 1) {
+      switch (req) {
+        case 1: cp[0] = vp[0]; break;
+        case 2:
+          cp[0] = vp[0];
+          cp[1] = vp[0];
+          break;
+        case 3:
+          cp[0] = vp[0];
+          cp[1] = vp[0];
+          cp[2] = vp[0];
+          break;
+        case 4:
+          cp[0] = vp[0];
+          cp[1] = vp[0];
+          cp[2] = vp[0];
+          cp[3] = 1;
+          break;
+      }
+    } else if (*nc == 2) {
+      switch (req) {
+        case 1: cp[0] = vp[0]; break;
+        case 2:
+          cp[0] = vp[0];
+          cp[1] = vp[1];
+          break;
+        case 3:
+          cp[0] = vp[0];
+          cp[1] = vp[1];
+          break;
+        case 4:
+          cp[0] = vp[0];
+          cp[1] = vp[1];
+          break;
+      }
+    } else if (*nc == 3) {
+      switch (req) {
+        case 1: cp[0] = vp[0]; break;
+        case 2:
+          cp[0] = vp[0];
+          cp[1] = vp[1];
+          break;
+        case 3:
+          cp[0] = vp[0];
+          cp[1] = vp[1];
+          cp[2] = vp[2];
+          break;
+        case 4:
+          cp[0] = vp[0];
+          cp[1] = vp[1];
+          cp[2] = vp[2];
+          cp[3] = 1;
+          break;
+      }
+    } else if (*nc == 4) {
+      switch (req) {
+        case 1: cp[0] = vp[0]; break;
+        case 2:
+          cp[0] = vp[0];
+          cp[1] = vp[1];
+          break;
+        case 3:
+          cp[0] = vp[0];
+          cp[1] = vp[1];
+          cp[2] = vp[2];
+          break;
+        case 4:
+          cp[0] = vp[0];
+          cp[1] = vp[1];
+          cp[2] = vp[2];
+          cp[3] = vp[3];
+          break;
+      }
+    }
+  }
+  return cvoxels.release();
+}
+*/
+
+// Volume load
+static bool load_yvol(const string& filename, int& width, int& height,
+    int& depth, int& components, vector<float>& voxels, string& error) {
   // error helpers
   auto open_error = [filename, &error]() {
     error = "cannot open " + filename;
@@ -923,32 +1081,151 @@ static bool load_yvol(const string& filename, vec3f& bbox, vec3f& min,
   // read magic
   if (!fgets(buffer.data(), (int)buffer.size(), fs)) return parse_error();
   toks = split_string(buffer.data());
-  if (toks[0] != "VOL") return parse_error();
+  if (toks[0] != "YVOL") return parse_error();
 
   // read width, height
   if (!fgets(buffer.data(), (int)buffer.size(), fs)) return parse_error();
   toks       = split_string(buffer.data());
-  bbox.x     = atoi(toks[0].c_str());
-  bbox.y     = atoi(toks[1].c_str());
-  bbox.z     = atoi(toks[2].c_str());
+  width      = atoi(toks[0].c_str());
+  height     = atoi(toks[1].c_str());
+  depth      = atoi(toks[2].c_str());
   components = atoi(toks[3].c_str());
-  min.x      = atoi(toks[4].c_str());
-  min.y      = atoi(toks[5].c_str());
-  min.z      = atoi(toks[6].c_str());
-  max.x      = atoi(toks[7].c_str());
-  max.y      = atoi(toks[8].c_str());
-  max.z      = atoi(toks[9].c_str());
 
   // read data
-  auto nvoxels = (size_t)bbox.x * (size_t)bbox.y * (size_t)bbox.z;
+  auto nvoxels = (size_t)width * (size_t)height * (size_t)depth;
   auto nvalues = nvoxels * (size_t)components;
   voxels       = vector<float>(nvalues);
-  if (fread(voxels.data(), sizeof(float), nvalues, fs) != nvalues)
-    return read_error();
+  //if (!read_values(fs, voxels.data(), nvalues)) return read_error();
+  if (fread(voxels.data(), sizeof(float), nvalues, fs) != nvalues) return read_error();
+  
+  
 
   // done
   return true;
 }
+
+// Volume load
+/*
+static inline float* load_yvol_vpt(
+    const char* filename, int* w, int* h, int* d, int* nc, int req) {
+  auto fs = fopen(filename, "rb");
+  if (!fs) return nullptr;
+  auto fs_guard = std::unique_ptr<FILE, void (*)(FILE*)>{
+      fs, [](FILE* f) { fclose(f); }};
+
+  // buffer
+  auto buffer = array<char, 4096>{};
+  auto toks = std::vector<std::string>();
+
+  // read magic
+  if (!fgets(buffer.data(), (int)buffer.size(), fs)) return nullptr;
+  toks = split_string(buffer.data());
+  if (toks[0] != "YVOL") return nullptr;
+
+  // read w, h
+  if (!fgets(buffer.data(), sizeof(buffer), fs)) return nullptr;
+  toks = split_string(buffer);
+  *w   = atoi(toks[0].c_str());
+  *h   = atoi(toks[1].c_str());
+  *d   = atoi(toks[2].c_str());
+  *nc  = atoi(toks[3].c_str());
+
+  // read data
+  auto nvoxels = (size_t)(*w) * (size_t)(*h) * (size_t)(*d);
+  auto nvalues = nvoxels * (size_t)(*nc);
+  auto voxels  = std::unique_ptr<float[]>(new float[nvalues]);
+  if (fread(voxels.get(), sizeof(float), nvalues, fs) != nvalues)
+    return nullptr;
+
+  // proper number of channels
+  if (!req || *nc == req) return voxels.release();
+
+  // pack into channels
+  if (req < 0 || req > 4) {
+    return nullptr;
+  }
+  auto cvoxels = std::unique_ptr<float[]>(new float[req * nvoxels]);
+  for (auto i = 0; i < nvoxels; i++) {
+    auto vp = voxels.get() + i * (*nc);
+    auto cp = cvoxels.get() + i * req;
+    if (*nc == 1) {
+      switch (req) {
+        case 1: cp[0] = vp[0]; break;
+        case 2:
+          cp[0] = vp[0];
+          cp[1] = vp[0];
+          break;
+        case 3:
+          cp[0] = vp[0];
+          cp[1] = vp[0];
+          cp[2] = vp[0];
+          break;
+        case 4:
+          cp[0] = vp[0];
+          cp[1] = vp[0];
+          cp[2] = vp[0];
+          cp[3] = 1;
+          break;
+      }
+    } else if (*nc == 2) {
+      switch (req) {
+        case 1: cp[0] = vp[0]; break;
+        case 2:
+          cp[0] = vp[0];
+          cp[1] = vp[1];
+          break;
+        case 3:
+          cp[0] = vp[0];
+          cp[1] = vp[1];
+          break;
+        case 4:
+          cp[0] = vp[0];
+          cp[1] = vp[1];
+          break;
+      }
+    } else if (*nc == 3) {
+      switch (req) {
+        case 1: cp[0] = vp[0]; break;
+        case 2:
+          cp[0] = vp[0];
+          cp[1] = vp[1];
+          break;
+        case 3:
+          cp[0] = vp[0];
+          cp[1] = vp[1];
+          cp[2] = vp[2];
+          break;
+        case 4:
+          cp[0] = vp[0];
+          cp[1] = vp[1];
+          cp[2] = vp[2];
+          cp[3] = 1;
+          break;
+      }
+    } else if (*nc == 4) {
+      switch (req) {
+        case 1: cp[0] = vp[0]; break;
+        case 2:
+          cp[0] = vp[0];
+          cp[1] = vp[1];
+          break;
+        case 3:
+          cp[0] = vp[0];
+          cp[1] = vp[1];
+          cp[2] = vp[2];
+          break;
+        case 4:
+          cp[0] = vp[0];
+          cp[1] = vp[1];
+          cp[2] = vp[2];
+          cp[3] = vp[3];
+          break;
+      }
+    }
+  }
+  return cvoxels.release();
+}
+*/
 
 // save pfm
 static bool save_yvol(const string& filename, vec3f bbox, vec3f min, vec3f max,
@@ -966,7 +1243,6 @@ static bool save_yvol(const string& filename, vec3f bbox, vec3f min, vec3f max,
   auto fs       = fopen_utf8(filename.c_str(), "wb");
   auto fs_guard = unique_ptr<FILE, int (*)(FILE*)>(fs, &fclose);
   if (!fs) return open_error();
-
   if (fprintf(fs, "VOL\n") < 0) return write_error();
   if (fprintf(fs, "%d %d %d %d %d %d %d %d %d %d\n", std::to_string(bbox.x),
           std::to_string(bbox.y), std::to_string(bbox.z),
@@ -988,21 +1264,33 @@ bool load_volume(const string& filename, volume_data& vol, string& error) {
     return false;
   };
   auto  ncomp = 0;
-  vec3f bbox = {0, 0, 0}, min = {0, 0, 0}, max = {0, 0, 0};
-  auto  voxels = vector<float>{};
-  if (!load_yvol(filename, bbox, min, max, ncomp, voxels, error)) return false;
+  //vec3f bbox = {0, 0, 0}, min = {0, 0, 0}, max = {0, 0, 0};
+  int w, h, d;
+  vector<float>  voxels;
+  if (!load_yvol(filename, w, h, d, ncomp, voxels, error)) return false;
+ 
   // usually ncomp is always =1
   // if (ncomp != 1) voxels = convert_components(voxels, ncomp, 1);
-  //NSPI
-  vol = volume_data{bbox, max, min, ncomp, voxels}; 
+  //NSPI - TO DO: fix this
+  vol = volume_data{{w,h,d}, ncomp, voxels}; 
+  cout << "riga 1001";
+  cout << vol.bbox.x;
   return true;
 }
 
 // Saves volume data in binary format.
+/*
 bool save_volume(
     const string& filename, const volume_data& vol, string& error) {
-  return save_yvol(
-      filename, vol.bbox, vol.min, vol.max, 1, vol.density_vol, error);  // NSPI
+  return save_yvol(filename, vol.bbox, vol.min, vol.max, 1, vol.density_vol, error);  // NSPI
+}
+*/
+
+// Lookup volume
+float lookup_volume(const vector<float>& density_vol, const vec3i& ijk,
+    const vec3i& bbox, bool as_linear) {
+  return density_vol[ijk.x + ijk.y * bbox.x +
+                     ijk.z * bbox.x * bbox.y];  // NSPI RICONTROLLARE
 }
 
 // Our volume evaluation NSPI
@@ -1050,12 +1338,7 @@ float eval_volume(const volume_data& vol, const vec3f& uvw, bool ldr_as_linear,
              u * v * w;
 }
 
-// Lookup volume
-float lookup_volume(const vector<float>& density_vol, const vec3i& ijk,
-    const vec3f& bbox, bool as_linear) {
-  return density_vol[ijk.x + ijk.y * bbox.x +
-                     ijk.z * bbox.x * bbox.y];  // NSPI RICONTROLLARE
-}
+
 
 }  // namespace yocto
 
@@ -2115,7 +2398,7 @@ namespace yocto {
     return get_element_name("instance", idx, scene.instances.size());
   return scene.instance_names[idx];
 }
-[[maybe_unused]] static string get_material_name(
+[[maybe_unused]] static string get_pname(
     const scene_data& scene, int idx) {
   if (idx < 0) return "";
   if (scene.material_names.empty())
@@ -2130,11 +2413,19 @@ namespace yocto {
   return scene.subdiv_names[idx];
 }
 // // NSPI
+[[maybe_unused]] static string get_material_name(
+    const scene_data& scene, int idx) {
+  if (idx < 0) return "";
+  if (scene.material_names.empty())
+    return get_element_name("materials", idx, scene.materials.size());
+  return scene.material_names[idx];
+}
+// // NSPI
 [[maybe_unused]] static string get_volume_name(
     const scene_data& scene, int idx) {
   if (idx < 0) return "";
   if (scene.volume_names.empty() || scene.volume_names[idx].empty())
-    return get_element_name("volume", idx, scene.volumes.size());
+    return get_element_name("volumes", idx, scene.volumes.size());
   return scene.volume_names[idx];
 }
 
@@ -2159,10 +2450,13 @@ namespace yocto {
     const scene_data& scene, const instance_data& instance) {
   return get_instance_name(scene, (int)(&instance - scene.instances.data()));
 }
+
 [[maybe_unused]] static string get_material_name(
     const scene_data& scene, const material_data& material) {
   return get_material_name(scene, (int)(&material - scene.materials.data()));
 }
+
+
 [[maybe_unused]] static string get_subdiv_name(
     const scene_data& scene, const subdiv_data& subdiv) {
   return get_subdiv_name(scene, (int)(&subdiv - scene.subdivs.data()));
@@ -2274,6 +2568,7 @@ static void trim_memory(scene_data& scene) {
   scene.materials.shrink_to_fit();
   scene.textures.shrink_to_fit();
   scene.environments.shrink_to_fit();
+  scene.volumes.shrink_to_fit();        //NSPI
 }
 
 }  // namespace yocto
@@ -3177,6 +3472,24 @@ static bool load_json_scene_version40(const string& filename,
     }
   };
 
+  // parse json reference NSPI
+  auto volume_map = unordered_map<string, int>{};
+  auto get_volume   = [&scene, &volume_map](
+                     const json_value& json, const string& key, int& value) {
+    auto name = json.value(key, string{});
+    if (name.empty()) return;
+    auto it = volume_map.find(name);
+    if (it != volume_map.end()) {
+      value = it->second;
+    } else {
+      scene.shape_names.emplace_back(name);
+      scene.shapes.emplace_back();
+      auto volume_id   = (int)scene.volumes.size() - 1;
+      volume_map[name] = volume_id;
+      value           = volume_id;
+    }
+  };
+
   // load json instance
   struct ply_instance {
     vector<frame3f> frames = {};
@@ -3317,6 +3630,41 @@ static bool load_json_scene_version40(const string& filename,
         get_tex(element, "displacement_tex", subdiv.displacement_tex);
       }
     }
+    /*
+    //JSON VOLUME NSPI (TO DO: add values)
+    if (json.contains("volumes")) {
+      auto& group = json.at("volumes");
+      scene.volumes.reserve(group.size());
+      scene.volume_names.reserve(group.size());
+      //volume_filenames.reserve(group.size());
+      for (auto& element : group) {
+        [[maybe_unused]] auto& volume = scene.volumes.emplace_back();
+        auto&                  name   = scene.volume_names.emplace_back();
+        //auto&                  uri    = scene.volume_filenames.emplace_back();
+        get_opt(element, "name", name);
+        //get_opt(element, "uri", uri);
+        get_opt(element, "frame", volume.frame);
+        get_opt(element, "scale_vol", volume.scale_vol);
+        get_opt(element, "offset_vol", volume.offset_vol);
+        get_opt(element, "density_mul", volume.density_mult);
+        get_opt(element, "radiance_mul", volume.radiance_mult);
+      }
+    }
+    */
+    //JSON VOLUME NSPI VERSO (TO DO: add values)
+     if (json.contains("volumes")) {
+      for (auto& [key, element] : json.at("volumes").items()) {
+        auto& volume = scene.volumes.emplace_back();
+        scene.volume_names.emplace_back(key);
+        volume_map[key] = (int)scene.volumes.size() - 1;
+        //get_opt(element, "uri", uri);
+        get_opt(element, "frame", volume.frame);
+        get_opt(element, "scale_vol", volume.scale_vol);
+        get_opt(element, "offset_vol", volume.offset_vol);
+        get_opt(element, "density_mul", volume.density_mult);
+        get_opt(element, "radiance_mul", volume.radiance_mult);
+      }
+    }
   } catch (...) {
     error = "cannot parse " + filename;
     return false;
@@ -3372,7 +3720,7 @@ static bool load_json_scene_version40(const string& filename,
     }
     // load volumes NSPI
     for (auto& volume : scene.volumes) {
-      auto path = find_path(get_volume_name(scene, volume), "shapes", {".vol"});
+      auto path = find_path(get_volume_name(scene, volume), "volumes", {".vol"});
       if (!load_volume(path_join(dirname, path), volume, error))
         return dependent_error();
     }
@@ -3414,7 +3762,7 @@ static bool load_json_scene_version40(const string& filename,
     if (!parallel_foreach(
             scene.volumes, error, [&](auto& volume, string& error) {
               auto path = find_path(
-                  get_volume_name(scene, volume), "volume", {".vol"});
+                  get_volume_name(scene, volume), "volumes", {".vol"});
               return load_volume(path_join(dirname, path), volume, error);
             }))
       return dependent_error();
@@ -3461,246 +3809,246 @@ static bool load_json_scene_version40(const string& filename,
 }
 
 // Load a scene in the builtin JSON format.
-static bool load_json_scene_version41(const string& filename, json_value& json,
-    scene_data& scene, string& error, bool noparallel) {
-  // check version
-  if (!json.contains("asset") || !json.at("asset").contains("version"))
-    return load_json_scene_version40(filename, json, scene, error, noparallel);
+// static bool load_json_scene_version41(const string& filename, json_value& json,
+//     scene_data& scene, string& error, bool noparallel) {
+//   // check version
+//   if (!json.contains("asset") || !json.at("asset").contains("version"))
+//     return load_json_scene_version40(filename, json, scene, error, noparallel);
 
-  // parse json value
-  auto get_opt = [](const json_value& json, const string& key, auto& value) {
-    value = json.value(key, value);
-  };
-  auto get_ref = [](const json_value& json, const string& key, int& value,
-                     const unordered_map<string, int>& map) {
-    auto values = json.value(key, string{});
-    value       = values.empty() ? -1 : map.at(values);
-  };
+//   // parse json value
+//   auto get_opt = [](const json_value& json, const string& key, auto& value) {
+//     value = json.value(key, value);
+//   };
+//   auto get_ref = [](const json_value& json, const string& key, int& value,
+//                      const unordered_map<string, int>& map) {
+//     auto values = json.value(key, string{});
+//     value       = values.empty() ? -1 : map.at(values);
+//   };
 
-  // references
-  auto shape_map    = unordered_map<string, int>{};
-  auto texture_map  = unordered_map<string, int>{};
-  auto material_map = unordered_map<string, int>{};
+//   // references
+//   auto shape_map    = unordered_map<string, int>{};
+//   auto texture_map  = unordered_map<string, int>{};
+//   auto material_map = unordered_map<string, int>{};
 
-  // filenames
-  auto shape_filenames   = vector<string>{};
-  auto texture_filenames = vector<string>{};
-  auto subdiv_filenames  = vector<string>{};
+//   // filenames
+//   auto shape_filenames   = vector<string>{};
+//   auto texture_filenames = vector<string>{};
+//   auto subdiv_filenames  = vector<string>{};
 
-  // parsing values
-  try {
-    if (json.contains("asset")) {
-      auto& element = json.at("asset");
-      get_opt(element, "copyright", scene.copyright);
-    }
-    if (json.contains("cameras")) {
-      auto& group = json.at("cameras");
-      scene.cameras.reserve(group.size());
-      scene.camera_names.reserve(group.size());
-      for (auto& [key, element] : group.items()) {
-        auto& camera = scene.cameras.emplace_back();
-        scene.camera_names.push_back(key);
-        get_opt(element, "frame", camera.frame);
-        get_opt(element, "orthographic", camera.orthographic);
-        get_opt(element, "ortho", camera.orthographic);
-        get_opt(element, "lens", camera.lens);
-        get_opt(element, "aspect", camera.aspect);
-        get_opt(element, "film", camera.film);
-        get_opt(element, "focus", camera.focus);
-        get_opt(element, "aperture", camera.aperture);
-        if (element.contains("lookat")) {
-          get_opt(element, "lookat", (mat3f&)camera.frame);
-          camera.focus = length(camera.frame.x - camera.frame.y);
-          camera.frame = lookat_frame(
-              camera.frame.x, camera.frame.y, camera.frame.z);
-        }
-      }
-    }
-    if (json.contains("textures")) {
-      auto& group = json.at("textures");
-      scene.textures.reserve(group.size());
-      scene.texture_names.reserve(group.size());
-      texture_filenames.reserve(group.size());
-      for (auto& [key, element] : group.items()) {
-        [[maybe_unused]] auto& texture = scene.textures.emplace_back();
-        scene.texture_names.push_back(key);
-        auto& datafile   = texture_filenames.emplace_back();
-        texture_map[key] = (int)scene.textures.size() - 1;
-        if (element.is_string()) {
-          auto filename       = element.get<string>();
-          element             = json_value::object();
-          element["datafile"] = filename;
-        }
-        get_opt(element, "datafile", datafile);
-      }
-    }
-    if (json.contains("materials")) {
-      auto& group = json.at("materials");
-      scene.materials.reserve(group.size());
-      scene.material_names.reserve(group.size());
-      for (auto& [key, element] : json.at("materials").items()) {
-        auto& material = scene.materials.emplace_back();
-        scene.material_names.push_back(key);
-        material_map[key] = (int)scene.materials.size() - 1;
-        get_opt(element, "type", material.type);
-        get_opt(element, "emission", material.emission);
-        get_opt(element, "color", material.color);
-        get_opt(element, "metallic", material.metallic);
-        get_opt(element, "roughness", material.roughness);
-        get_opt(element, "ior", material.ior);
-        get_opt(element, "trdepth", material.trdepth);
-        get_opt(element, "scattering", material.scattering);
-        get_opt(element, "scanisotropy", material.scanisotropy);
-        get_opt(element, "opacity", material.opacity);
-        get_ref(element, "emission_tex", material.emission_tex, texture_map);
-        get_ref(element, "color_tex", material.color_tex, texture_map);
-        get_ref(element, "roughness_tex", material.roughness_tex, texture_map);
-        get_ref(
-            element, "scattering_tex", material.scattering_tex, texture_map);
-        get_ref(element, "normal_tex", material.normal_tex, texture_map);
-      }
-    }
-    if (json.contains("shapes")) {
-      auto& group = json.at("shapes");
-      scene.shapes.reserve(group.size());
-      scene.shape_names.reserve(group.size());
-      shape_filenames.reserve(group.size());
-      for (auto& [key, element] : group.items()) {
-        [[maybe_unused]] auto& shape = scene.shapes.emplace_back();
-        scene.shape_names.push_back(key);
-        auto& datafile = shape_filenames.emplace_back();
-        shape_map[key] = (int)scene.shapes.size() - 1;
-        if (element.is_string()) {
-          auto filename       = element.get<string>();
-          element             = json_value::object();
-          element["datafile"] = filename;
-        }
-        get_opt(element, "datafile", datafile);
-      }
-    }
-    if (json.contains("subdivs")) {
-      auto& group = json.at("subdivs");
-      scene.subdivs.reserve(group.size());
-      scene.subdiv_names.reserve(group.size());
-      subdiv_filenames.reserve(group.size());
-      for (auto& [key, element] : group.items()) {
-        auto& subdiv = scene.subdivs.emplace_back();
-        scene.subdiv_names.emplace_back(key);
-        auto& datafile = subdiv_filenames.emplace_back();
-        get_opt(element, "datafile", datafile);
-        get_ref(element, "shape", subdiv.shape, shape_map);
-        get_opt(element, "subdivisions", subdiv.subdivisions);
-        get_opt(element, "catmullclark", subdiv.catmullclark);
-        get_opt(element, "smooth", subdiv.smooth);
-        get_opt(element, "displacement", subdiv.displacement);
-        get_ref(
-            element, "displacement_tex", subdiv.displacement_tex, texture_map);
-      }
-    }
-    if (json.contains("instances")) {
-      auto& group = json.at("instances");
-      scene.instances.reserve(group.size());
-      scene.instance_names.reserve(group.size());
-      for (auto& [key, element] : group.items()) {
-        auto& instance = scene.instances.emplace_back();
-        scene.instance_names.emplace_back(key);
-        get_opt(element, "frame", instance.frame);
-        get_ref(element, "shape", instance.shape, shape_map);
-        get_ref(element, "material", instance.material, material_map);
-        if (element.contains("lookat")) {
-          get_opt(element, "lookat", (mat3f&)instance.frame);
-          instance.frame = lookat_frame(
-              instance.frame.x, instance.frame.y, instance.frame.z, false);
-        }
-      }
-    }
-    if (json.contains("environments")) {
-      auto& group = json.at("environments");
-      scene.instances.reserve(group.size());
-      scene.instance_names.reserve(group.size());
-      for (auto& [key, element] : group.items()) {
-        auto& environment = scene.environments.emplace_back();
-        scene.environment_names.push_back(key);
-        get_opt(element, "frame", environment.frame);
-        get_opt(element, "emission", environment.emission);
-        get_ref(element, "emission_tex", environment.emission_tex, texture_map);
-        if (element.contains("lookat")) {
-          get_opt(element, "lookat", (mat3f&)environment.frame);
-          environment.frame = lookat_frame(environment.frame.x,
-              environment.frame.y, environment.frame.z, false);
-        }
-      }
-    }
-  } catch (...) {
-    error = "cannot parse " + filename;
-    return false;
-  }
+//   // parsing values
+//   try {
+//     if (json.contains("asset")) {
+//       auto& element = json.at("asset");
+//       get_opt(element, "copyright", scene.copyright);
+//     }
+//     if (json.contains("cameras")) {
+//       auto& group = json.at("cameras");
+//       scene.cameras.reserve(group.size());
+//       scene.camera_names.reserve(group.size());
+//       for (auto& [key, element] : group.items()) {
+//         auto& camera = scene.cameras.emplace_back();
+//         scene.camera_names.push_back(key);
+//         get_opt(element, "frame", camera.frame);
+//         get_opt(element, "orthographic", camera.orthographic);
+//         get_opt(element, "ortho", camera.orthographic);
+//         get_opt(element, "lens", camera.lens);
+//         get_opt(element, "aspect", camera.aspect);
+//         get_opt(element, "film", camera.film);
+//         get_opt(element, "focus", camera.focus);
+//         get_opt(element, "aperture", camera.aperture);
+//         if (element.contains("lookat")) {
+//           get_opt(element, "lookat", (mat3f&)camera.frame);
+//           camera.focus = length(camera.frame.x - camera.frame.y);
+//           camera.frame = lookat_frame(
+//               camera.frame.x, camera.frame.y, camera.frame.z);
+//         }
+//       }
+//     }
+//     if (json.contains("textures")) {
+//       auto& group = json.at("textures");
+//       scene.textures.reserve(group.size());
+//       scene.texture_names.reserve(group.size());
+//       texture_filenames.reserve(group.size());
+//       for (auto& [key, element] : group.items()) {
+//         [[maybe_unused]] auto& texture = scene.textures.emplace_back();
+//         scene.texture_names.push_back(key);
+//         auto& datafile   = texture_filenames.emplace_back();
+//         texture_map[key] = (int)scene.textures.size() - 1;
+//         if (element.is_string()) {
+//           auto filename       = element.get<string>();
+//           element             = json_value::object();
+//           element["datafile"] = filename;
+//         }
+//         get_opt(element, "datafile", datafile);
+//       }
+//     }
+//     if (json.contains("materials")) {
+//       auto& group = json.at("materials");
+//       scene.materials.reserve(group.size());
+//       scene.material_names.reserve(group.size());
+//       for (auto& [key, element] : json.at("materials").items()) {
+//         auto& material = scene.materials.emplace_back();
+//         scene.material_names.push_back(key);
+//         material_map[key] = (int)scene.materials.size() - 1;
+//         get_opt(element, "type", material.type);
+//         get_opt(element, "emission", material.emission);
+//         get_opt(element, "color", material.color);
+//         get_opt(element, "metallic", material.metallic);
+//         get_opt(element, "roughness", material.roughness);
+//         get_opt(element, "ior", material.ior);
+//         get_opt(element, "trdepth", material.trdepth);
+//         get_opt(element, "scattering", material.scattering);
+//         get_opt(element, "scanisotropy", material.scanisotropy);
+//         get_opt(element, "opacity", material.opacity);
+//         get_ref(element, "emission_tex", material.emission_tex, texture_map);
+//         get_ref(element, "color_tex", material.color_tex, texture_map);
+//         get_ref(element, "roughness_tex", material.roughness_tex, texture_map);
+//         get_ref(
+//             element, "scattering_tex", material.scattering_tex, texture_map);
+//         get_ref(element, "normal_tex", material.normal_tex, texture_map);
+//       }
+//     }
+//     if (json.contains("shapes")) {
+//       auto& group = json.at("shapes");
+//       scene.shapes.reserve(group.size());
+//       scene.shape_names.reserve(group.size());
+//       shape_filenames.reserve(group.size());
+//       for (auto& [key, element] : group.items()) {
+//         [[maybe_unused]] auto& shape = scene.shapes.emplace_back();
+//         scene.shape_names.push_back(key);
+//         auto& datafile = shape_filenames.emplace_back();
+//         shape_map[key] = (int)scene.shapes.size() - 1;
+//         if (element.is_string()) {
+//           auto filename       = element.get<string>();
+//           element             = json_value::object();
+//           element["datafile"] = filename;
+//         }
+//         get_opt(element, "datafile", datafile);
+//       }
+//     }
+//     if (json.contains("subdivs")) {
+//       auto& group = json.at("subdivs");
+//       scene.subdivs.reserve(group.size());
+//       scene.subdiv_names.reserve(group.size());
+//       subdiv_filenames.reserve(group.size());
+//       for (auto& [key, element] : group.items()) {
+//         auto& subdiv = scene.subdivs.emplace_back();
+//         scene.subdiv_names.emplace_back(key);
+//         auto& datafile = subdiv_filenames.emplace_back();
+//         get_opt(element, "datafile", datafile);
+//         get_ref(element, "shape", subdiv.shape, shape_map);
+//         get_opt(element, "subdivisions", subdiv.subdivisions);
+//         get_opt(element, "catmullclark", subdiv.catmullclark);
+//         get_opt(element, "smooth", subdiv.smooth);
+//         get_opt(element, "displacement", subdiv.displacement);
+//         get_ref(
+//             element, "displacement_tex", subdiv.displacement_tex, texture_map);
+//       }
+//     }
+//     if (json.contains("instances")) {
+//       auto& group = json.at("instances");
+//       scene.instances.reserve(group.size());
+//       scene.instance_names.reserve(group.size());
+//       for (auto& [key, element] : group.items()) {
+//         auto& instance = scene.instances.emplace_back();
+//         scene.instance_names.emplace_back(key);
+//         get_opt(element, "frame", instance.frame);
+//         get_ref(element, "shape", instance.shape, shape_map);
+//         get_ref(element, "material", instance.material, material_map);
+//         if (element.contains("lookat")) {
+//           get_opt(element, "lookat", (mat3f&)instance.frame);
+//           instance.frame = lookat_frame(
+//               instance.frame.x, instance.frame.y, instance.frame.z, false);
+//         }
+//       }
+//     }
+//     if (json.contains("environments")) {
+//       auto& group = json.at("environments");
+//       scene.instances.reserve(group.size());
+//       scene.instance_names.reserve(group.size());
+//       for (auto& [key, element] : group.items()) {
+//         auto& environment = scene.environments.emplace_back();
+//         scene.environment_names.push_back(key);
+//         get_opt(element, "frame", environment.frame);
+//         get_opt(element, "emission", environment.emission);
+//         get_ref(element, "emission_tex", environment.emission_tex, texture_map);
+//         if (element.contains("lookat")) {
+//           get_opt(element, "lookat", (mat3f&)environment.frame);
+//           environment.frame = lookat_frame(environment.frame.x,
+//               environment.frame.y, environment.frame.z, false);
+//         }
+//       }
+//     }
+//   } catch (...) {
+//     error = "cannot parse " + filename;
+//     return false;
+//   }
 
-  // prepare data
-  auto dirname         = path_dirname(filename);
-  auto dependent_error = [&filename, &error]() {
-    error = "cannot load " + filename + " since " + error;
-    return false;
-  };
+//   // prepare data
+//   auto dirname         = path_dirname(filename);
+//   auto dependent_error = [&filename, &error]() {
+//     error = "cannot load " + filename + " since " + error;
+//     return false;
+//   };
 
-  // fix paths
-  for (auto& datafile : shape_filenames)
-    datafile = path_join(dirname, "shapes", datafile);
-  for (auto& datafile : texture_filenames)
-    datafile = path_join(dirname, "textures", datafile);
-  for (auto& datafile : subdiv_filenames)
-    datafile = path_join(dirname, "subdivs", datafile);
+//   // fix paths
+//   for (auto& datafile : shape_filenames)
+//     datafile = path_join(dirname, "shapes", datafile);
+//   for (auto& datafile : texture_filenames)
+//     datafile = path_join(dirname, "textures", datafile);
+//   for (auto& datafile : subdiv_filenames)
+//     datafile = path_join(dirname, "subdivs", datafile);
 
-  // load resources
-  if (noparallel) {
-    auto error = string{};
-    // load shapes
-    for (auto idx : range(scene.shapes.size())) {
-      if (!load_shape(shape_filenames[idx], scene.shapes[idx], error, true))
-        return dependent_error();
-    }
-    // load subdivs
-    for (auto idx : range(scene.subdivs.size())) {
-      if (!load_subdiv(subdiv_filenames[idx], scene.subdivs[idx], error))
-        return dependent_error();
-    }
-    // load textures
-    for (auto idx : range(scene.textures.size())) {
-      if (!load_texture(texture_filenames[idx], scene.textures[idx], error))
-        return dependent_error();
-    }
-  } else {
-    // load shapes
-    if (!parallel_for(
-            scene.shapes.size(), error, [&](size_t idx, string& error) {
-              return load_shape(
-                  shape_filenames[idx], scene.shapes[idx], error, true);
-            }))
-      return dependent_error();
-    // load subdivs
-    if (!parallel_for(
-            scene.subdivs.size(), error, [&](size_t idx, string& error) {
-              return load_subdiv(
-                  subdiv_filenames[idx], scene.subdivs[idx], error);
-            }))
-      return dependent_error();
-    // load textures
-    if (!parallel_for(
-            scene.textures.size(), error, [&](size_t idx, string& error) {
-              return load_texture(
-                  texture_filenames[idx], scene.textures[idx], error);
-            }))
-      return dependent_error();
-  }
+//   // load resources
+//   if (noparallel) {
+//     auto error = string{};
+//     // load shapes
+//     for (auto idx : range(scene.shapes.size())) {
+//       if (!load_shape(shape_filenames[idx], scene.shapes[idx], error, true))
+//         return dependent_error();
+//     }
+//     // load subdivs
+//     for (auto idx : range(scene.subdivs.size())) {
+//       if (!load_subdiv(subdiv_filenames[idx], scene.subdivs[idx], error))
+//         return dependent_error();
+//     }
+//     // load textures
+//     for (auto idx : range(scene.textures.size())) {
+//       if (!load_texture(texture_filenames[idx], scene.textures[idx], error))
+//         return dependent_error();
+//     }
+//   } else {
+//     // load shapes
+//     if (!parallel_for(
+//             scene.shapes.size(), error, [&](size_t idx, string& error) {
+//               return load_shape(
+//                   shape_filenames[idx], scene.shapes[idx], error, true);
+//             }))
+//       return dependent_error();
+//     // load subdivs
+//     if (!parallel_for(
+//             scene.subdivs.size(), error, [&](size_t idx, string& error) {
+//               return load_subdiv(
+//                   subdiv_filenames[idx], scene.subdivs[idx], error);
+//             }))
+//       return dependent_error();
+//     // load textures
+//     if (!parallel_for(
+//             scene.textures.size(), error, [&](size_t idx, string& error) {
+//               return load_texture(
+//                   texture_filenames[idx], scene.textures[idx], error);
+//             }))
+//       return dependent_error();
+//   }
 
-  // fix scene
-  add_missing_camera(scene);
-  add_missing_radius(scene);
-  trim_memory(scene);
+//   // fix scene
+//   add_missing_camera(scene);
+//   add_missing_radius(scene);
+//   trim_memory(scene);
 
-  // done
-  return false;
-}
+//   // done
+//   return false;
+// }
 
 // Load a scene in the builtin JSON format.
 static bool load_json_scene(
@@ -3712,9 +4060,9 @@ static bool load_json_scene(
   // check version
   if (!json.contains("asset") || !json.at("asset").contains("version"))
     return load_json_scene_version40(filename, json, scene, error, noparallel);
-  if (json.contains("asset") && json.at("asset").contains("version") &&
-      json.at("asset").at("version") == "4.1")
-    return load_json_scene_version41(filename, json, scene, error, noparallel);
+  // if (json.contains("asset") && json.at("asset").contains("version") &&
+  //     json.at("asset").at("version") == "4.1")
+  //   return load_json_scene_version41(filename, json, scene, error, noparallel);
 
   // parse json value
   auto get_opt = [](const json_value& json, const string& key, auto& value) {
@@ -3874,7 +4222,8 @@ static bool load_json_scene(
         }
       }
     }
-    // JSON VOLUME NSPI (TO DO: add values)
+
+    //JSON VOLUME NSPI (TO DO: add values)
     if (json.contains("volumes")) {
       auto& group = json.at("volumes");
       scene.volumes.reserve(group.size());
@@ -3891,8 +4240,6 @@ static bool load_json_scene(
         get_opt(element, "offset_vol", volume.offset_vol);
         get_opt(element, "density_mul", volume.density_mult);
         get_opt(element, "radiance_mul", volume.radiance_mult);
-        get_opt(element, "max_voxel", volume.max_voxel);
-        get_opt(element, "scattering", volume.scattering);
       }
     }
   } catch (...) {
@@ -4009,6 +4356,8 @@ static bool save_json_scene(const string& filename, const scene_data& scene,
   auto shape_filenames   = vector<string>(scene.shapes.size());
   auto texture_filenames = vector<string>(scene.textures.size());
   auto subdiv_filenames  = vector<string>(scene.subdivs.size());
+  auto volume_filenames  = vector<string>{scene.volumes.size()};  // NSPI
+
   for (auto idx : range(shape_filenames.size())) {
     shape_filenames[idx] = get_filename(
         scene.shape_names, idx, "shape", ".ply");

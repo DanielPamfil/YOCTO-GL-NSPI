@@ -156,6 +156,7 @@ struct instance_data {
   frame3f frame    = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}, {0, 0, 0}};
   int     shape    = invalidid;
   int     material = invalidid;
+  int     volume = invalidid;
 };
 
 // Environment map.
@@ -192,7 +193,28 @@ struct subdiv_data {
   int shape = invalidid;
 };
 
+// Volume data struct // NSPI
+struct volume_data {
+    // hash_grid grid = make_hash_grid(positions, cell_size);
+    //vec3f         bbox          = {};           // NSPI
+    //vec3f         max           = {};           // NSPI
+    //vec3f         min           = {};           // NSPI
+    // from file
+    vec3i         bbox          = {};           // NSPI - contains the size
+    int           components    = 1;            // NSPI
+    vector<float> density_vol   = {};           // NSPI - voxels
+    vector<float> emission_vol  = {};           // NSPI - not used now 
+    // from json
+    frame3f       frame         = identity3x4f; // NSPI
+    vec3f         scale_vol     = {1, 1, 1};    // NSPI
+    vec3f         offset_vol    = {0, 0, 0};    // NSPI
+    float         density_mult  = 1.0f;         // NSPI
+    float         radiance_mult = 1.0f;         // NSPI
+    float         max_voxel     = 1.0f;         // NSPI   to adjust
+    vec3f         scattering    = {0,0,0};      // NSPI
 
+    //vector<material_point> points = vector<material_point>{};
+};
 
 // Scene comprised an array of objects whose memory is owened by the scene.
 // All members are optional,Scene objects (camera, instances, environments)
@@ -268,6 +290,8 @@ texture_data image_to_texture(const image_data& image);
 // -----------------------------------------------------------------------------
 namespace yocto {
 
+
+
 // Material parameters evaluated at a point on the surface
 struct material_point {
   material_type  type         = material_type::gltfpbr;
@@ -283,28 +307,10 @@ struct material_point {
   float          trdepth      = 0.01f;
   bool           htvolume     = false;                 // NSPI
   material_event event        = material_event::null;  // NSPI
-  volume_data    volume       = volume_data();         // NSPI
+  volume_data    volume       = volume_data();         // NSPIS
 };
 
-// Volume data struct // NSPI
-struct volume_data {
-    // hash_grid grid = make_hash_grid(positions, cell_size);
-    vec3f         bbox          = {};           // NSPI
-    vec3f         max           = {};           // NSPI
-    vec3f         min           = {};           // NSPI
-    int           components    = 1;            // NSPI
-    vector<float> density_vol   = {};           // NSPI - voxels
-    vector<float> emission_vol  = {};           // NSPI - not used now 
 
-    frame3f       frame         = identity3x4f; // NSPI
-    vec3f         scale_vol     = {1, 1, 1};    // NSPI
-    vec3f         offset_vol    = {0, 0, 0};    // NSPI
-    float         density_mult  = 1.0f;         // NSPI
-    float         radiance_mult = 1.0f;         // NSPI
-    float         max_voxel     = 1.0f;         // NSPI   to adjust
-    vec3f         scattering    = {0,0,0};      // NSPI
-    //vector<material_point> points = vector<material_point>{};
-};
 
 /*
 // vsdf 

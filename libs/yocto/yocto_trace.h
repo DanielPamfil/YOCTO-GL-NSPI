@@ -78,6 +78,8 @@ enum struct trace_sampler_type {
   diagram,     // diagram rendering
   furnace,     // furnace test
   falsecolor,  // false color rendering
+  volpath,     // NSPI volume rendering
+  vpt,         // VPT rendering
 };
 // Type of false color visualization
 enum struct trace_falsecolor_type {
@@ -233,7 +235,7 @@ namespace yocto {
 
 // trace sampler names
 inline const auto trace_sampler_names = vector<string>{"path", "pathdirect",
-    "pathmis", "pathtest", "naive", "eyelight", "furnace", "falsecolor"};
+    "pathmis", "pathtest", "naive", "eyelight", "furnace", "falsecolor", "volpath", "vpt"};
 
 // false color names
 inline const auto trace_falsecolor_names = vector<string>{"position", "normal",
@@ -251,7 +253,9 @@ inline const auto trace_sampler_labels =
         {trace_sampler_type::eyelight, "eyelight"},
         {trace_sampler_type::diagram, "diagram"},
         {trace_sampler_type::furnace, "furnace"},
-        {trace_sampler_type::falsecolor, "falsecolor"}};
+        {trace_sampler_type::falsecolor, "falsecolor"},
+        {trace_sampler_type::volpath, "volpath"},        //NSPI
+        {trace_sampler_type::vpt, "vpt"}};                //VPT
 
 // false color labels
 inline const auto trace_falsecolor_labels =
