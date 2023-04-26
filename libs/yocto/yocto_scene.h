@@ -307,7 +307,7 @@ struct material_point {
   float          trdepth      = 0.01f;
   bool           htvolume     = false;                 // NSPI
   material_event event        = material_event::null;  // NSPI
-  volume_data    volume       = volume_data();         // NSPIS
+  int            volume_id    = invalidid;         // NSPIS
 };
 
 

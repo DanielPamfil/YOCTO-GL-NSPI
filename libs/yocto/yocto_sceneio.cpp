@@ -1051,7 +1051,6 @@ static bool load_yvol(const string& filename, int& width, int& height,
     error = "cannot read " + filename;
     return false;
   };
-
   // Split a string
   auto split_string = [](const string& str) -> vector<string> {
     auto ret = vector<string>();
@@ -1090,6 +1089,8 @@ static bool load_yvol(const string& filename, int& width, int& height,
   height     = atoi(toks[1].c_str());
   depth      = atoi(toks[2].c_str());
   components = atoi(toks[3].c_str());
+
+  
 
   // read data
   auto nvoxels = (size_t)width * (size_t)height * (size_t)depth;
@@ -1263,16 +1264,21 @@ bool load_volume(const string& filename, volume_data& vol, string& error) {
     error = "cannot read " + filename;
     return false;
   };
+  
   auto  ncomp = 0;
   //vec3f bbox = {0, 0, 0}, min = {0, 0, 0}, max = {0, 0, 0};
   int w, h, d;
   vector<float>  voxels;
   if (!load_yvol(filename, w, h, d, ncomp, voxels, error)) return false;
- 
+  
+  
   // usually ncomp is always =1
   // if (ncomp != 1) voxels = convert_components(voxels, ncomp, 1);
   //NSPI - TO DO: fix this
-  vol = volume_data{{w,h,d}, ncomp, voxels}; 
+  //vol = volume_data{{w,h,d}, ncomp, voxels}; 
+  vol.bbox = {w,h,d};
+  vol.components = ncomp;
+  vol.density_vol = voxels;
   cout << "riga 1001";
   cout << vol.bbox.x;
   return true;
@@ -1289,13 +1295,20 @@ bool save_volume(
 // Lookup volume
 float lookup_volume(const vector<float>& density_vol, const vec3i& ijk,
     const vec3i& bbox, bool as_linear) {
-  return density_vol[ijk.x + ijk.y * bbox.x +
-                     ijk.z * bbox.x * bbox.y];  // NSPI RICONTROLLARE
+  //cout << "bbox x: " << bbox.x << " - bbox y: " << bbox.y << " - bbox z: " << bbox.z << endl;
+  //cout << "i: " << ijk.x << " - j: " << ijk.y << " - k: " << ijk.z << endl;
+  //auto prova = density_vol[ijk.x + ijk.y * bbox.x + ijk.z * bbox.x * bbox.y];
+  //printf("dopo density_vol");
+  return density_vol[ijk.x + ijk.y * bbox.x + ijk.z * bbox.x * bbox.y];  // NSPI RICONTROLLARE
+  
+  //return density_vol[ijk];
 }
 
 // Our volume evaluation NSPI
 float eval_volume(const volume_data& vol, const vec3f& uvw, bool ldr_as_linear,
     bool no_interpolation, bool clamp_to_edge) {
+  auto x = vol.bbox.x;
+  cout << "lookup: " << &x << " " << vol.bbox.y << " " << vol.bbox.z << endl;
   if (vol.density_vol.empty()) return 0;
 
   // get coordinates normalized for tiling
@@ -3421,7 +3434,7 @@ static bool load_json_scene_version40(const string& filename,
     auto valuea = json.value(key, (array<float, 9>&)value);
     value       = *(mat3f*)&valuea;
   };
-
+ 
   // parse json reference
   auto shape_map = unordered_map<string, int>{};
   auto get_shp   = [&scene, &shape_map](
@@ -3474,20 +3487,25 @@ static bool load_json_scene_version40(const string& filename,
 
   // parse json reference NSPI
   auto volume_map = unordered_map<string, int>{};
-  auto get_volume   = [&scene, &volume_map](
+  auto get_vol   = [&scene, &volume_map](
                      const json_value& json, const string& key, int& value) {
     auto name = json.value(key, string{});
     if (name.empty()) return;
     auto it = volume_map.find(name);
     if (it != volume_map.end()) {
       value = it->second;
-    } else {
-      scene.shape_names.emplace_back(name);
-      scene.shapes.emplace_back();
+    } 
+    else {
+      throw std::out_of_range{"missing key"};
+      /*
+      scene.volume_names.emplace_back(name);
+      scene.volumes.emplace_back();
       auto volume_id   = (int)scene.volumes.size() - 1;
       volume_map[name] = volume_id;
-      value           = volume_id;
+      value            = volume_id;
+      */
     }
+    
   };
 
   // load json instance
@@ -3568,9 +3586,10 @@ static bool load_json_scene_version40(const string& filename,
         auto& material = scene.materials.emplace_back();
         scene.material_names.emplace_back(key);
         material_map[key] = (int)scene.materials.size() - 1;
-        auto type40       = material_type40::matte;
+        // TO DO: this should be material type 40 NSPI
+        auto type40       = material_type::matte;
         get_opt(element, "type", type40);
-        material.type = (material_type)type40;
+        material.type = type40;
         get_opt(element, "emission", material.emission);
         get_opt(element, "color", material.color);
         get_opt(element, "metallic", material.metallic);
@@ -3587,6 +3606,21 @@ static bool load_json_scene_version40(const string& filename,
         get_tex(element, "normal_tex", material.normal_tex);
       }
     }
+    //JSON VOLUME NSPI VERSO (TO DO: add values)
+     if (json.contains("volumes")) {
+      for (auto& [key, element] : json.at("volumes").items()) {
+        auto& volume = scene.volumes.emplace_back();
+        scene.volume_names.emplace_back(key);
+        volume_map[key] = (int)scene.volumes.size() - 1;
+        //get_opt(element, "uri", uri);
+        get_opt(element, "frame", volume.frame);
+        get_opt(element, "scale_vol", volume.scale_vol);
+        get_opt(element, "offset_vol", volume.offset_vol);
+        get_opt(element, "density_mul", volume.density_mult);
+        get_opt(element, "radiance_mul", volume.radiance_mult);
+      }
+      cout << "volumes len after volumes: " << scene.volumes.size() << endl;
+    }
     if (json.contains("instances")) {
       for (auto& [key, element] : json.at("instances").items()) {
         auto& instance = scene.instances.emplace_back();
@@ -3594,6 +3628,7 @@ static bool load_json_scene_version40(const string& filename,
         get_of3(element, "frame", instance.frame);
         get_shp(element, "shape", instance.shape);
         get_mat(element, "material", instance.material);
+        get_vol(element, "volume", instance.volume);
         if (element.contains("lookat")) {
           get_om3(element, "lookat", (mat3f&)instance.frame);
           instance.frame = lookat_frame(
@@ -3608,6 +3643,7 @@ static bool load_json_scene_version40(const string& filename,
         get_of3(element, "frame", instance.frame);
         get_shp(element, "shape", instance.shape);
         get_mat(element, "material", instance.material);
+        get_vol(element, "volume", instance.volume);
         if (element.contains("lookat")) {
           get_om3(element, "lookat", (mat3f&)instance.frame);
           instance.frame = lookat_frame(
@@ -3617,6 +3653,7 @@ static bool load_json_scene_version40(const string& filename,
           get_ist(element, "instance", instance);
         }
       }
+      
     }
     if (json.contains("subdivs")) {
       for (auto& [key, element] : json.at("subdivs").items()) {
@@ -3651,20 +3688,7 @@ static bool load_json_scene_version40(const string& filename,
       }
     }
     */
-    //JSON VOLUME NSPI VERSO (TO DO: add values)
-     if (json.contains("volumes")) {
-      for (auto& [key, element] : json.at("volumes").items()) {
-        auto& volume = scene.volumes.emplace_back();
-        scene.volume_names.emplace_back(key);
-        volume_map[key] = (int)scene.volumes.size() - 1;
-        //get_opt(element, "uri", uri);
-        get_opt(element, "frame", volume.frame);
-        get_opt(element, "scale_vol", volume.scale_vol);
-        get_opt(element, "offset_vol", volume.offset_vol);
-        get_opt(element, "density_mul", volume.density_mult);
-        get_opt(element, "radiance_mul", volume.radiance_mult);
-      }
-    }
+    
   } catch (...) {
     error = "cannot parse " + filename;
     return false;
@@ -3758,7 +3782,7 @@ static bool load_json_scene_version40(const string& filename,
                   path_join(dirname, path), ply_instance.frames, error);
             }))
       return dependent_error();
-    // load volumes
+    // load volumes NSPI
     if (!parallel_foreach(
             scene.volumes, error, [&](auto& volume, string& error) {
               auto path = find_path(
@@ -3783,6 +3807,7 @@ static bool load_json_scene_version40(const string& filename,
         ninstance.frame    = instance.frame;
         ninstance.shape    = instance.shape;
         ninstance.material = instance.material;
+        ninstance.volume = instance.volume;    //NSPI
       } else {
         auto& ply_instance = ply_instances[it->second];
         auto  instance_id  = 0;
@@ -3794,6 +3819,7 @@ static bool load_json_scene_version40(const string& filename,
           ninstance.frame    = frame * instance.frame;
           ninstance.shape    = instance.shape;
           ninstance.material = instance.material;
+          ninstance.volume = instance.volume;    //NSPI
         }
       }
     }
@@ -3803,7 +3829,7 @@ static bool load_json_scene_version40(const string& filename,
   add_missing_camera(scene);
   add_missing_radius(scene);
   trim_memory(scene);
-
+  
   // done
   return true;
 }

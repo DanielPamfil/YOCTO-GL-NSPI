@@ -40,6 +40,8 @@
 #include <string>
 #include <utility>
 #include <vector>
+#include <iostream>
+using namespace std;
 
 #include "yocto_math.h"
 #include "yocto_sampling.h"
@@ -287,7 +289,8 @@ inline float sample_phasefunction_pdf(
 
 // Evaluate density  NSPI
 inline float eval_vpt_density(const volume_data& volume, const vec3f& uvw) {
-  
+
+  cout << "eval_vpt_density" << volume.bbox.x << endl;
   if (volume.density_vol.empty()) return 0.0f;  // Give a check later
 
   auto oframe = volume.frame;
