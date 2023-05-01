@@ -208,7 +208,7 @@ struct volume_data {
     frame3f       frame         = identity3x4f; // NSPI
     vec3f         scale_vol     = {1, 1, 1};    // NSPI
     vec3f         offset_vol    = {0, 0, 0};    // NSPI
-    float         density_mult  = 1.0f;         // NSPI
+    float         density_mult  = 2.0f;         // NSPI
     float         radiance_mult = 1.0f;         // NSPI
     float         max_voxel     = 1.0f;         // NSPI   to adjust
     vec3f         scattering    = {0,0,0};      // NSPI
@@ -296,7 +296,7 @@ namespace yocto {
 struct material_point {
   material_type  type         = material_type::gltfpbr;
   vec3f          emission     = {0, 0, 0};
-  vec3f          color        = {0, 0, 0};
+  vec3f          color        = {1.0, 1.0, 1.0};
   float          opacity      = 1;
   float          roughness    = 0;
   float          metallic     = 0;

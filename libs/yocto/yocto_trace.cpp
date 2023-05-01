@@ -348,11 +348,14 @@ static material_event sample_event(float pa, float ps, float pn, float rn) {
 
 
 // NSPI: eval heterogeneus volume - TO DO: fix
-std::pair<float, vec3f> eval_unidirectional_spectral_mis_NSPI(material_point& vsdf, float max_distance, rng_state& rng, const ray3f& ray) {
+std::pair<float, vec3f> eval_unidirectional_spectral_mis_NSPI(const scene_data& scene, material_point& vsdf, float max_distance, rng_state& rng, const ray3f& ray) {
     //auto volume           = vsdf.volume;
     //auto density_vol      = volume.density_vol;
     //auto emission_vol     = volume.emission_vol;
-    auto max_density      = vsdf.volume->max_voxel * vsdf.volume->density_mult;
+    auto &volume = scene.volumes[vsdf.volume_id];
+
+    //auto max_density      = vsdf.volume->max_voxel * vsdf.volume->density_mult;
+    auto max_density      = volume.max_voxel * volume.density_mult;
     auto imax_density     = 1.0f / max_density;
     auto path_length      = 0.0f;
     auto f                = one3f;
@@ -367,9 +370,10 @@ std::pair<float, vec3f> eval_unidirectional_spectral_mis_NSPI(material_point& vs
       if (path_length >= max_distance)
 	    break;
       current_pos = ray.o + path_length * ray.d;
-      volume_data volume = *vsdf.volume;
-      cout << "eval_vpt_density tracer: : " << volume.bbox.x << endl;
-      auto d = eval_vpt_density(*vsdf.volume, current_pos);
+      
+       
+      //auto d = eval_vpt_density(*vsdf.volume, current_pos);
+      auto d = eval_vpt_density(volume, current_pos);
       //printf("eval_vpt_density\n");
       auto sigma_t     = vec3f{d, d, d};
       auto sigma_s     = sigma_t * vsdf.scattering;
@@ -1351,8 +1355,7 @@ static trace_result trace_path_volume_vpt(const scene_data& scene,
         //volume_data vol = *vsdf.volume;
         //cout << "before eval mis "<< vol.bbox.x;
         auto [t, w] = eval_unidirectional_spectral_mis_NSPI(
-            vsdf, intersection.distance, rng, ray);
-        printf("eval mis\n");
+            scene, vsdf, intersection.distance, rng, ray);
         weight *= w;
         position = ray.o + t * ray.d;
         // Handle an interaction with a medium
@@ -1369,7 +1372,8 @@ static trace_result trace_path_volume_vpt(const scene_data& scene,
               er = blackbody_to_rgb(eval_vpt_emission(vsdf, position) * 40e3);
             */
             
-            radiance += weight * er * vsdf.volume->radiance_mult;
+            //radiance += weight * er * vsdf.volume->radiance_mult;
+            radiance += weight * er * scene.volumes[vsdf.volume_id].radiance_mult;
             break;
           }
         }
@@ -1463,9 +1467,11 @@ static trace_result trace_path_volume_vpt(const scene_data& scene,
       auto  outgoing = -ray.d;
       auto  position = ray.o + ray.d * intersection.distance;
       auto& vsdf     = volume_stack.back();
-
+      
+      
       // accumulate emission
-      // radiance += weight * eval_volemission(emission, outgoing);
+      //radiance += weight * eval_volemission(emission, outgoing);
+      radiance += weight * vsdf.emission;    // TO D
 
       // next direction
       auto incoming = vec3f{0, 0, 0};
@@ -1811,6 +1817,7 @@ static trace_result trace_falsecolor(const scene_data& scene,
   return {srgb_to_rgb(result), true, material.color, normal};
 }
 
+/*
 vec3f next_event_estimation_final(const scene_data& scene,
                           const trace_lights& lights,
                           rng_state& rng, 
@@ -1942,12 +1949,12 @@ vec3f next_event_estimation_final(const scene_data& scene,
         shadow_bounces++;
 
         // Give a second check if this is needed
-        /*
+        
         if ( max_depth != -1 && bounces + shadow_bounces >= scene.options.max_depth ) {
                 // Reach the max no. of vertices
                 return make_zero_spectrum();
             }
-        */
+        
         p = p + next_t * incoming;
       }
     }
@@ -1996,7 +2003,9 @@ vec3f next_event_estimation_final(const scene_data& scene,
     }
     return zero3f;
 }
+*/
 
+/*
 // Volumetric path tracing function NSPI
 static trace_result vol_path_tracing(const scene_data& scene, const trace_bvh& bvh,
     const trace_lights& lights, const ray3f& ray_, rng_state& rng,
@@ -2016,12 +2025,7 @@ static trace_result vol_path_tracing(const scene_data& scene, const trace_bvh& b
   auto hit           = false;
 
   //printf("Using volumetric path tracing");
-  // Give a second check in case we have more volumes
-  /*
-  auto volume = scene.volumes[0];
-  auto density_vol = volume.density_vol;
-  auto max_density = volume.max_voxel * volume.density_mult;
-  */
+
 
   auto volume_stack = vector<material_point>{};
 
@@ -2054,16 +2058,7 @@ static trace_result vol_path_tracing(const scene_data& scene, const trace_bvh& b
 
     // If there are volumes in the stack, perform volume path tracing
     if (!volume_stack.empty()) {
-      /*
-      auto& vsdf        = volume_stack.back();
-      auto  distance = sample_transmittance(
-        vsdf.density, intersection.distance, rand1f(rng), rand1f(rng));
-      weight *= eval_transmittance(vsdf.density, distance) /
-                sample_transmittance_pdf(
-                    vsdf.density, distance, intersection.distance);
-      in_volume             = distance < intersection.distance;
-      intersection.distance = distance;
-      */
+
       auto& vsdf        = volume_stack.back();
       auto volume = vsdf.volume;
       auto  max_density = volume->max_voxel * volume->density_mult;
@@ -2341,12 +2336,7 @@ static trace_result vol_path_tracing(const scene_data& scene, const trace_bvh& b
       ray.d = bsdf_sample;
       // Give a second check to this part and add it if needed
       // Update ray differentials & eta_scale
-      /*
-      if (material.type == material_type::reflective) {
-        eval_reflective(material.color, normal, outgoing, incoming);
-
-      }
-      */
+    
       ray = {position, incoming};
 
       vec3f bsdf_eval = eval_bsdfcos(material, normal, outgoing, incoming);
@@ -2368,6 +2358,7 @@ static trace_result vol_path_tracing(const scene_data& scene, const trace_bvh& b
   }
   return {radiance, hit, hit_albedo, hit_normal};
 }
+*/
 
 
 

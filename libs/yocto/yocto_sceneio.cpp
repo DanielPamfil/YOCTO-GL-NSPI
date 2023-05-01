@@ -1279,8 +1279,8 @@ bool load_volume(const string& filename, volume_data& vol, string& error) {
   vol.bbox = {w,h,d};
   vol.components = ncomp;
   vol.density_vol = voxels;
-  cout << "riga 1001";
-  cout << vol.bbox.x;
+  //cout << "riga 1001";
+  //cout << vol.bbox.x;
   return true;
 }
 
@@ -1308,7 +1308,7 @@ float lookup_volume(const vector<float>& density_vol, const vec3i& ijk,
 float eval_volume(const volume_data& vol, const vec3f& uvw, bool ldr_as_linear,
     bool no_interpolation, bool clamp_to_edge) {
   auto x = vol.bbox.x;
-  cout << "lookup: " << &x << " " << vol.bbox.y << " " << vol.bbox.z << endl;
+  //cout << "lookup: " << &x << " " << vol.bbox.y << " " << vol.bbox.z << endl;
   if (vol.density_vol.empty()) return 0;
 
   // get coordinates normalized for tiling
@@ -3619,7 +3619,7 @@ static bool load_json_scene_version40(const string& filename,
         get_opt(element, "density_mul", volume.density_mult);
         get_opt(element, "radiance_mul", volume.radiance_mult);
       }
-      cout << "volumes len after volumes: " << scene.volumes.size() << endl;
+      //cout << "volumes len after volumes: " << scene.volumes.size() << endl;
     }
     if (json.contains("instances")) {
       for (auto& [key, element] : json.at("instances").items()) {
