@@ -1279,6 +1279,7 @@ bool load_volume(const string& filename, volume_data& vol, string& error) {
   vol.bbox = {w,h,d};
   vol.components = ncomp;
   vol.density_vol = voxels;
+  vol.max_voxel = *std::max_element(voxels.begin(), voxels.end());
   //cout << "riga 1001";
   //cout << vol.bbox.x;
   return true;
@@ -3612,12 +3613,28 @@ static bool load_json_scene_version40(const string& filename,
         auto& volume = scene.volumes.emplace_back();
         scene.volume_names.emplace_back(key);
         volume_map[key] = (int)scene.volumes.size() - 1;
+        /*
+        TO DO:  test
+        string density_vol_name;
+        string emission_vol_name;
+        get_opt(element, "density_vol", density_vol_name);
+        get_opt(element, "emission_vol", emission_vol_name)
+
+        if (density_vol_name != ""):
+          scene.volume_names.emplace_back(density_vol_name);
+
+        if (emission_vol_name != ""):
+          scene.volume_names.emplace_back(emission_vol_name);
+
+        */
+
         //get_opt(element, "uri", uri);
         get_opt(element, "frame", volume.frame);
         get_opt(element, "scale_vol", volume.scale_vol);
         get_opt(element, "offset_vol", volume.offset_vol);
-        get_opt(element, "density_mul", volume.density_mult);
-        get_opt(element, "radiance_mul", volume.radiance_mult);
+        get_opt(element, "density_mult", volume.density_mult);
+        
+        //cout << "density mul:" << volume.density_mult << endl;
       }
       //cout << "volumes len after volumes: " << scene.volumes.size() << endl;
     }
@@ -3747,6 +3764,13 @@ static bool load_json_scene_version40(const string& filename,
       auto path = find_path(get_volume_name(scene, volume), "volumes", {".vol"});
       if (!load_volume(path_join(dirname, path), volume, error))
         return dependent_error();
+      /*
+      TO DO:  test
+      auto path_d = find_path(get_volume_name(scene, volume), "volumes", {"_density.vol"});
+      auto path_e = find_path(get_volume_name(scene, volume), "volumes", {"_emission.vol"});
+      if (!load_volume(path_join(dirname, path_d), path_join(dirname, path_e), volume, error))
+        return dependent_error();
+      */
     }
 
   } else {

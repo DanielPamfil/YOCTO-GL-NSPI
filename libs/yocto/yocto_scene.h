@@ -208,10 +208,10 @@ struct volume_data {
     frame3f       frame         = identity3x4f; // NSPI
     vec3f         scale_vol     = {1, 1, 1};    // NSPI
     vec3f         offset_vol    = {0, 0, 0};    // NSPI
-    float         density_mult  = 2.0f;         // NSPI
+    float         density_mult  = 1.0f;         // NSPI
     float         radiance_mult = 1.0f;         // NSPI
     float         max_voxel     = 1.0f;         // NSPI   to adjust
-    vec3f         scattering    = {0,0,0};      // NSPI
+    vec3f         scattering    = {0.9,0.9,0.9};      // NSPI
 
     //vector<material_point> points = vector<material_point>{};
 };

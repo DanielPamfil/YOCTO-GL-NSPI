@@ -303,6 +303,21 @@ inline float eval_vpt_density(const volume_data& volume, const vec3f& uvw) {
          volume.density_mult;
 }
 
+// Evaluate emission  NSPI
+inline float eval_vpt_emission(const volume_data& volume, const vec3f& uvw) {
+    
+    if (volume.emission_vol.empty()) return 0.0f;
+
+    auto oframe   = volume.frame;
+    //auto vol      = volume.emission_vol;
+    auto scale    = volume.scale_vol;
+    auto offset   = volume.offset_vol;
+    auto inv_max  = 1.f / volume.max_voxel;
+
+    auto uvl = transform_point(inverse(oframe), uvw) + offset;
+    return eval_volume(volume, uvl * scale, true, false, true) * inv_max;
+  }
+
 }  // namespace yocto
 
 // -----------------------------------------------------------------------------

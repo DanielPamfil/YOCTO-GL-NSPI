@@ -362,7 +362,9 @@ std::pair<float, vec3f> eval_unidirectional_spectral_mis_NSPI(const scene_data& 
     auto p                = one3f;
     auto cc               = clamp((int)(rand1f(rng) * 3), 0, 2);
     auto current_pos      = ray.o; 
-    auto majorant_density = max_density;
+    auto majorant_density = mean(vsdf.scattering * max_density);
+    //cout << "scattering " << vsdf.scattering.x << endl;
+    //auto majorant_density = max_density;
     auto tr               = one3f;
 
     while (true) {
@@ -376,16 +378,21 @@ std::pair<float, vec3f> eval_unidirectional_spectral_mis_NSPI(const scene_data& 
       auto d = eval_vpt_density(volume, current_pos);
       //printf("eval_vpt_density\n");
       auto sigma_t     = vec3f{d, d, d};
+      //auto sigma_s     = sigma_t * vsdf.scattering;
       auto sigma_s     = sigma_t * vsdf.scattering;
-      auto sigma_a     = sigma_t - sigma_s;
+      //auto sigma_a     = sigma_t - sigma_s;
+      auto sigma_a     = sigma_t * (one3f - vsdf.scattering);
       auto sigma_n     = vec3f{max_density, max_density, max_density} - sigma_t;
-      vec3f sigma[3] = { sigma_n, sigma_s, sigma_a };
+      //vec3f sigma[3] = { sigma_n, sigma_s, sigma_a };
+      vec3f sigma[3] = { sigma_n, vsdf.scattering, 1.0 - vsdf.scattering };
  
-      tr *= exp(-sigma_t * path_length); 
+      //r *= exp(-sigma_t * path_length); 
+      tr *= one3f - sigma_t * imax_density;
       // Sample event 
+      
       material_event e = sample_event(sigma_a[cc] * imax_density,  sigma_s[cc] * imax_density, sigma_n[cc] * imax_density, rand1f(rng));
 
-      if (e == material_event::null) continue;  // TO DO: double check questo if che non mi convice
+      if (e == material_event::null) continue;  
 
       if (e == material_event::null) f *= sigma[0];
       else if (e == material_event::scatter) f *= sigma[1];
@@ -393,19 +400,21 @@ std::pair<float, vec3f> eval_unidirectional_spectral_mis_NSPI(const scene_data& 
       p  = f;
       
       // Populate vsdf with medium interaction information and return
+      if (e == material_event::absorb || e == material_event::scatter) {
       vsdf.event = e;
       vsdf.density = sigma_t;
       f *= tr;
-      f = f / mean(p);       
+      //f = f / mean(p);       
       break;
+      }
     }    
     
-    return {path_length, f };
+    return {path_length, f/mean(p) };
 }
 
   
 // Evaluate material
-void eval_volume_material(material_point& point, const scene_data& scene,
+material_point eval_volume_material(const scene_data& scene,
     const instance_data& instance, int element, const vec2f& uv) {
   
   auto& material = scene.materials[instance.material];
@@ -415,6 +424,7 @@ void eval_volume_material(material_point& point, const scene_data& scene,
   auto emission_tex = eval_texture(
       scene, material.emission_tex, texcoord, true);
   auto color_shp     = eval_color(scene, instance, element, uv);
+
   auto color_tex     = eval_texture(scene, material.color_tex, texcoord, true);
   auto roughness_tex = eval_texture(
       scene, material.roughness_tex, texcoord, false);
@@ -422,7 +432,7 @@ void eval_volume_material(material_point& point, const scene_data& scene,
       scene, material.scattering_tex, texcoord, true);
 
   // material point
-  //auto point         = material_point{};
+  auto point         = material_point{};
   point.type         = material.type;
   point.emission     = material.emission * xyz(emission_tex) * xyz(color_shp);
   point.color        = material.color * xyz(color_tex) * xyz(color_shp);
@@ -449,20 +459,21 @@ void eval_volume_material(material_point& point, const scene_data& scene,
       point.density = {0, 0, 0};
     }
   }
-  // fix roughness
-  if (point.type == material_type::matte ||
-      point.type == material_type::gltfpbr ||
-      point.type == material_type::glossy) {
-    point.roughness = clamp(point.roughness, min_roughness, 1.0f);
-  } else if (material.type == material_type::volumetric) {
-    point.roughness = 0;
-  } else {
-    if (point.roughness < min_roughness) point.roughness = 0;
-  }
+
+  //fix roughness
+  // if (point.type == material_type::matte ||
+  //     point.type == material_type::gltfpbr ||
+  //     point.type == material_type::glossy) {
+  //   point.roughness = clamp(point.roughness, min_roughness, 1.0f);
+  // } else if (material.type == material_type::volumetric) {
+  //   point.roughness = 0;
+  // } else {
+  //   if (point.roughness < min_roughness) point.roughness = 0;
+  // }
   
   //cout << "eval volume material: " <<  << " " << point.volume->bbox.y << " " << point.volume->bbox.z << endl;
   
-  //return point;
+  return point;
 }
 
 /**
@@ -517,6 +528,8 @@ const trace_params& params, rng_state& rng){
 
 }
 */
+
+
 
 static vec3f eval_scattering(const material_point& material,
     const vec3f& outgoing, const vec3f& incoming) {
@@ -1357,6 +1370,7 @@ static trace_result trace_path_volume_vpt(const scene_data& scene,
         auto [t, w] = eval_unidirectional_spectral_mis_NSPI(
             scene, vsdf, intersection.distance, rng, ray);
         weight *= w;
+        //cout<< "weight "<< weight.x << " " << weight.y << " " << weight.z << endl;
         position = ray.o + t * ray.d;
         // Handle an interaction with a medium
         if (t < intersection.distance) {
@@ -1367,11 +1381,13 @@ static trace_result trace_path_volume_vpt(const scene_data& scene,
           if (vsdf.event == material_event::absorb) {
             auto er = zero3f;
               //Check about emission
-            /*
-            if (has_emission(vsdf)) {
-              er = blackbody_to_rgb(eval_vpt_emission(vsdf, position) * 40e3);
-            */
             
+            // TO DO: check this
+
+            if (has_emission(vsdf)) {
+                er = blackbody_to_rgb(eval_vpt_emission(scene.volumes[vsdf.volume_id], position) * 40e3);
+            }
+            //er = {10, 10, 10};
             //radiance += weight * er * vsdf.volume->radiance_mult;
             radiance += weight * er * scene.volumes[vsdf.volume_id].radiance_mult;
             break;
@@ -1447,10 +1463,13 @@ static trace_result trace_path_volume_vpt(const scene_data& scene,
       // update volume stack
       if (is_volumetric(scene, intersection) &&
           dot(normal, outgoing) * dot(normal, incoming) < 0) {
+
+        if (is_volumetric(scene, intersection)) bounce -= 1;
+        
         if (volume_stack.empty()) {
           //auto material = eval_material(scene, intersection);
-          auto material = material_point{};
-          eval_volume_material(material, scene, scene.instances[intersection.instance],intersection.element, intersection.uv);
+          //auto material = material_point{};
+          auto material = eval_volume_material(scene, scene.instances[intersection.instance],intersection.element, intersection.uv);
           //volume_data vol = *material.volume;
           //cout << "bbox dopo eval volume material " << vol.bbox.x << endl;
           // TO DO : fix bbox values after eval volume
@@ -1471,24 +1490,27 @@ static trace_result trace_path_volume_vpt(const scene_data& scene,
       
       // accumulate emission
       //radiance += weight * eval_volemission(emission, outgoing);
-      radiance += weight * vsdf.emission;    // TO D
+      //radiance += weight * vsdf.emission;   
 
       // next direction
-      auto incoming = vec3f{0, 0, 0};
-      if (rand1f(rng) < 0.5f) {
-        incoming = sample_scattering(vsdf, outgoing, rand1f(rng), rand2f(rng));
-      } else {
-        incoming = sample_lights(
-            scene, lights, position, rand1f(rng), rand1f(rng), rand2f(rng));
+      hit = true;
+      if (!vsdf.htvolume) {
+        auto incoming = vec3f{0, 0, 0};
+        if (rand1f(rng) < 0.5f) {
+          incoming = sample_scattering(vsdf, outgoing, rand1f(rng), rand2f(rng));
+        } else {
+          incoming = sample_lights(
+              scene, lights, position, rand1f(rng), rand1f(rng), rand2f(rng));
+        }
+        if (incoming == vec3f{0, 0, 0}) break;
+        weight *=
+            eval_scattering(vsdf, outgoing, incoming) /
+            (0.5f * sample_scattering_pdf(vsdf, outgoing, incoming) +
+                0.5f * sample_lights_pdf(scene, bvh, lights, position, incoming));
+        
+        // setup next iteration
+        ray = {position, incoming};
       }
-      if (incoming == vec3f{0, 0, 0}) break;
-      weight *=
-          eval_scattering(vsdf, outgoing, incoming) /
-          (0.5f * sample_scattering_pdf(vsdf, outgoing, incoming) +
-              0.5f * sample_lights_pdf(scene, bvh, lights, position, incoming));
-
-      // setup next iteration
-      ray = {position, incoming};
     }
 
     // check weight
@@ -1501,10 +1523,10 @@ static trace_result trace_path_volume_vpt(const scene_data& scene,
       weight *= 1 / rr_prob;
     }
   }
+  //cout << "hit_albedo" << hit_albedo.x << endl;
   return {radiance, hit, hit_albedo, hit_normal};
 }
-
-
+    
 
 // Eyelight for quick previewing.
 static trace_result trace_eyelight(const scene_data& scene,
@@ -2417,6 +2439,7 @@ void trace_sample(trace_state& state, const scene_data& scene,
            rand2f(state.rngs[idx]), rand2f(state.rngs[idx]), params.tentfilter);
   auto [radiance, hit, albedo, normal] = sampler(
       scene, bvh, lights, ray, state.rngs[idx], params);
+  cout << "normal: " << normal.x << endl;
   if (!isfinite(radiance)) radiance = {0, 0, 0};
   if (max(radiance) > params.clamp)
     radiance = radiance * (params.clamp / max(radiance));
