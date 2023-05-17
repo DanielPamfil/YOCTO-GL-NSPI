@@ -342,7 +342,7 @@ bool is_volumetric(const material_data& material);
 bool is_volumetric(const material_point& material);
 bool is_volumetric(const scene_data& scene, const instance_data& instance);
 
-bool has_emission(const material_point& material);  // NSPI
+bool has_emission(const volume_data& volume);  // NSPI
 
 
 }  // namespace yocto

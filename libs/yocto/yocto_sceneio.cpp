@@ -1259,7 +1259,7 @@ static bool save_yvol(const string& filename, vec3f bbox, vec3f min, vec3f max,
 }
 
 // Loads volume data from binary format.
-bool load_volume(const string& filename, volume_data& vol, string& error) {
+bool load_volume(const string& filename, volume_data& vol, string& error, bool is_density) {
   auto read_error = [filename, &error]() {
     error = "cannot read " + filename;
     return false;
@@ -1271,15 +1271,19 @@ bool load_volume(const string& filename, volume_data& vol, string& error) {
   vector<float>  voxels;
   if (!load_yvol(filename, w, h, d, ncomp, voxels, error)) return false;
   
-  
   // usually ncomp is always =1
   // if (ncomp != 1) voxels = convert_components(voxels, ncomp, 1);
   //NSPI - TO DO: fix this
   //vol = volume_data{{w,h,d}, ncomp, voxels}; 
   vol.bbox = {w,h,d};
   vol.components = ncomp;
-  vol.density_vol = voxels;
   vol.max_voxel = *std::max_element(voxels.begin(), voxels.end());
+  if (is_density) {
+    vol.density_vol = voxels;
+  } else {
+    vol.emission_vol = voxels;
+  }
+  
   //cout << "riga 1001";
   //cout << vol.bbox.x;
   return true;
@@ -3613,19 +3617,19 @@ static bool load_json_scene_version40(const string& filename,
         auto& volume = scene.volumes.emplace_back();
         scene.volume_names.emplace_back(key);
         volume_map[key] = (int)scene.volumes.size() - 1;
+        
+        //TO DO:  test
         /*
-        TO DO:  test
-        string density_vol_name;
-        string emission_vol_name;
+        string density_vol_name = "";
+        string emission_vol_name = "";
         get_opt(element, "density_vol", density_vol_name);
-        get_opt(element, "emission_vol", emission_vol_name)
+        get_opt(element, "emission_vol", emission_vol_name);
 
-        if (density_vol_name != ""):
+        if (density_vol_name != "") 
           scene.volume_names.emplace_back(density_vol_name);
 
-        if (emission_vol_name != ""):
+        if (emission_vol_name != "")
           scene.volume_names.emplace_back(emission_vol_name);
-
         */
 
         //get_opt(element, "uri", uri);
@@ -3761,16 +3765,19 @@ static bool load_json_scene_version40(const string& filename,
     }
     // load volumes NSPI
     for (auto& volume : scene.volumes) {
+      /*
       auto path = find_path(get_volume_name(scene, volume), "volumes", {".vol"});
       if (!load_volume(path_join(dirname, path), volume, error))
         return dependent_error();
-      /*
-      TO DO:  test
+      */
+      
       auto path_d = find_path(get_volume_name(scene, volume), "volumes", {"_density.vol"});
       auto path_e = find_path(get_volume_name(scene, volume), "volumes", {"_emission.vol"});
-      if (!load_volume(path_join(dirname, path_d), path_join(dirname, path_e), volume, error))
+      if (!load_volume(path_join(dirname, path_d), volume, error, true))
         return dependent_error();
-      */
+      if (!load_volume(path_join(dirname, path_e), volume, error, false))
+        return dependent_error();
+      
     }
 
   } else {
@@ -3809,9 +3816,20 @@ static bool load_json_scene_version40(const string& filename,
     // load volumes NSPI
     if (!parallel_foreach(
             scene.volumes, error, [&](auto& volume, string& error) {
-              auto path = find_path(
-                  get_volume_name(scene, volume), "volumes", {".vol"});
-              return load_volume(path_join(dirname, path), volume, error);
+                //auto path = find_path(get_volume_name(scene, volume), "volumes", {".vol"});
+                  
+                //return load_volume(path_join(dirname, path), volume, error);
+                // NSPI
+               
+                auto path_d = find_path(get_volume_name(scene, volume), "volumes", {"_density.vol"});
+                
+                auto path_e = find_path(get_volume_name(scene, volume), "volumes", {"_temperature.vol"});
+                
+                bool density = load_volume(path_join(dirname, path_d), volume, error, true);
+                bool emission = load_volume(path_join(dirname, path_e), volume, error, false);
+                // cout << "density size " <<volume.density_vol.size() << endl;
+                // cout << "emission size " <<volume.emission_vol.size() << endl;
+                return (density || emission);
             }))
       return dependent_error();
   }
