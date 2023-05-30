@@ -258,18 +258,6 @@ bool is_delta(const material_data& material) {
          (material.type == material_type::volumetric);
 }
 bool is_volumetric(const material_data& material) {
-  /*
-  if(material.type == material_type::refractive) printf("refractive");
-  if(material.type == material_type::subsurface) printf("subsurface");
-  if(material.type == material_type::volumetric) printf("volumetric");
-  if(material.type == material_type::transparent) printf("transparent");
-  if(material.type == material_type::reflective) printf("reflective");
-  if(material.type == material_type::glossy) printf("glossy");
-  if(material.type == material_type::matte) printf("matte");
-  if(material.type == material_type::gltfpbr) printf("glt");
-  */
-
-  
   return material.type == material_type::refractive ||
          material.type == material_type::volumetric ||
          material.type == material_type::subsurface;

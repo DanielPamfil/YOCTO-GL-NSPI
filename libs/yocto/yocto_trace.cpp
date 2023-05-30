@@ -349,12 +349,8 @@ static material_event sample_event(float pa, float ps, float pn, float rn) {
 
 // NSPI: eval heterogeneus volume - TO DO: fix
 std::pair<float, vec3f> eval_unidirectional_spectral_mis_NSPI(const scene_data& scene, material_point& vsdf, float max_distance, rng_state& rng, const ray3f& ray) {
-    //auto volume           = vsdf.volume;
-    //auto density_vol      = volume.density_vol;
-    //auto emission_vol     = volume.emission_vol;
     auto &volume = scene.volumes[vsdf.volume_id];
 
-    //auto max_density      = vsdf.volume->max_voxel * vsdf.volume->density_mult;
     auto max_density      = volume.max_voxel * volume.density_mult;
     auto imax_density     = 1.0f / max_density;
     auto path_length      = 0.0f;
@@ -363,8 +359,6 @@ std::pair<float, vec3f> eval_unidirectional_spectral_mis_NSPI(const scene_data& 
     auto cc               = clamp((int)(rand1f(rng) * 3), 0, 2);
     auto current_pos      = ray.o; 
     auto majorant_density = mean(vsdf.scattering * max_density);
-    //cout << "scattering " << vsdf.scattering.x << endl;
-    //auto majorant_density = max_density;
     auto tr               = one3f;
 
     while (true) {
@@ -373,23 +367,17 @@ std::pair<float, vec3f> eval_unidirectional_spectral_mis_NSPI(const scene_data& 
 	    break;
       current_pos = ray.o + path_length * ray.d;
       
-       
-      //auto d = eval_vpt_density(*vsdf.volume, current_pos);
-      auto d = eval_vpt_density(volume, current_pos);
-      //printf("eval_vpt_density\n");
+
+      auto d = eval_density(volume, current_pos);
       auto sigma_t     = vec3f{d, d, d};
-      //auto sigma_s     = sigma_t * vsdf.scattering;
       auto sigma_s     = sigma_t * vsdf.scattering;
-      //auto sigma_a     = sigma_t - sigma_s;
       auto sigma_a     = sigma_t * (one3f - vsdf.scattering);
       auto sigma_n     = vec3f{max_density, max_density, max_density} - sigma_t;
-      //vec3f sigma[3] = { sigma_n, sigma_s, sigma_a };
       vec3f sigma[3] = { sigma_n, vsdf.scattering, 1.0 - vsdf.scattering };
  
-      //r *= exp(-sigma_t * path_length); 
       tr *= one3f - sigma_t * imax_density;
+
       // Sample event 
-      
       material_event e = sample_event(sigma_a[cc] * imax_density,  sigma_s[cc] * imax_density, sigma_n[cc] * imax_density, rand1f(rng));
 
       if (e == material_event::null) continue;  
@@ -404,7 +392,6 @@ std::pair<float, vec3f> eval_unidirectional_spectral_mis_NSPI(const scene_data& 
       vsdf.event = e;
       vsdf.density = sigma_t;
       f *= tr;
-      //f = f / mean(p);       
       break;
       }
     }    
@@ -447,8 +434,6 @@ material_point eval_volume_material(const scene_data& scene,
 
   // volume density
   if (instance.volume != invalidid) {
-    //auto volume = scene.volumes[instance.volume];
-  
     if (material.type == material_type::refractive ||
         material.type == material_type::volumetric ||
         material.type == material_type::subsurface) {
@@ -475,61 +460,6 @@ material_point eval_volume_material(const scene_data& scene,
   
   return point;
 }
-
-/**
-
-// OUR CODE FOR EVALUATE VOLUME NSPI
-static material_point eval_volume(const scene_data scene, const instance_data object, int element, const vec2f& uv) {
-  auto material = scene.materials[object.material];
-  // initialize factors
-  auto texcoord = eval_texcoord(scene, object, element, uv);
-  auto base     = material.color *
-              xyz(eval_texture(scene, material.color_tex, texcoord, false));
-
-  
-  
-  auto scattering = material.scattering *
-                    xyz(eval_texture(scene, material.scattering_tex, texcoord, false));
-
-  auto scanisotropy = material.scanisotropy;
-
-  auto trdepth      = material.trdepth;
-
-  auto vsdf       = ptr::vsdf{};
-  vsdf.scatter    = scattering;
-  vsdf.anisotropy = scanisotropy;
-  // If we are dealing with a real volume we look into its voxels // vpt
-  if(has_vo(object)) {
-    vsdf.htvolume = true;
-    vsdf.object = object; // link the object to the vsdf structure    
-  } else {
-    vsdf.density = (transmission && !thin)
-                    ? -log(clamp(base, 0.0001f, 1.0f)) / trdepth
-                    : zero3f;
-  }
-
-  return vsdf;
-}
-*/
-
-
-/**
-bool has_vpt_volume(const material_point& material) {
-    return (material.density != nullptr ||
-            object->emission_vol != nullptr);
-}
-*/
-
-/**
-// Implementation of sample functione ispire by Mitsuba3 VolumeMIS NSPI
-// Sampler parameter and medium are missing, trace_params used instead
-static vec3f sample_volume_nspi(const scene_data& scene, const ray3f& ray_,
-const trace_params& params, rng_state& rng){
-
-}
-*/
-
-
 
 static vec3f eval_scattering(const material_point& material,
     const vec3f& outgoing, const vec3f& incoming) {
@@ -1096,7 +1026,7 @@ static trace_result trace_pathmis(const scene_data& scene, const trace_bvh& bvh,
               emission = eval_environment(scene, incoming);
             } else {
               auto material = eval_material(scene,
-                  scene.instances[intersection.instance], intersection.element,
+                  scene.instances[intersection.instance], intersection.element, 
                   intersection.uv);
               emission      = eval_emission(material,
                        eval_shading_normal(scene,
@@ -1330,203 +1260,6 @@ static trace_result trace_naive(const scene_data& scene, const trace_bvh& bvh,
 }
 
 
-// Volume Path tracing NSPI
-static trace_result trace_path_volume_vpt(const scene_data& scene,
-    const trace_bvh& bvh, const trace_lights& lights, const ray3f& ray_,
-    rng_state& rng, const trace_params& params) {
-  // initialize
-  auto radiance      = vec3f{0, 0, 0};
-  auto weight        = vec3f{1, 1, 1};
-  auto ray           = ray_;
-  auto volume_stack  = vector<material_point>{};
-  auto max_roughness = 0.0f;
-  auto hit           = false;
-  auto hit_albedo    = vec3f{0, 0, 0};
-  auto hit_normal    = vec3f{0, 0, 0};
-  auto opbounce      = 0;
-
-  // trace  path
-  for (auto bounce = 0; bounce < params.bounces; bounce++) {
-    // intersect next point
-    auto intersection = intersect_scene(bvh, scene, ray);
-    if (!intersection.hit) {
-      if (bounce > 0 || !params.envhidden)
-        radiance += weight * eval_environment(scene, ray.d);
-      break;
-    }
-
-    // handle transmission if inside a volume
-    auto in_volume = false;
-    auto position  = vec3f{0, 0, 0};
-    auto incoming  = ray.d;
-    auto outgoing  = -ray.d;
-    if (!volume_stack.empty()) {
-      auto vsdf = volume_stack.back();
-      // heterogeneus volumes NSPI
-      
-      if (vsdf.htvolume) {
-        //volume_data vol = *vsdf.volume;
-        //cout << "before eval mis "<< vol.bbox.x;
-        auto [t, w] = eval_unidirectional_spectral_mis_NSPI(
-            scene, vsdf, intersection.distance, rng, ray);
-        weight *= w;
-        //cout<< "weight "<< weight.x << " " << weight.y << " " << weight.z << endl;
-        position = ray.o + t * ray.d;
-        // Handle an interaction with a medium
-        if (t < intersection.distance) {
-          in_volume = true;
-          if (vsdf.event == material_event::scatter)
-            incoming = sample_scattering(
-                vsdf, outgoing, rand1f(rng), rand2f(rng));
-          if (vsdf.event == material_event::absorb) {
-            auto er = zero3f;
-              //Check about emission
-            
-            // TO DO: check this
-
-            if (has_emission(scene.volumes[vsdf.volume_id])) {
-                er = blackbody_to_rgb(eval_vpt_emission(scene.volumes[vsdf.volume_id], position) * 40e3);
-            }
-            //er = {10, 10, 10};
-            //radiance += weight * er * vsdf.volume->radiance_mult;
-            radiance += weight * er * scene.volumes[vsdf.volume_id].radiance_mult;
-            break;
-          }
-        }
-      }
-      // homogeneus volumes
-      else {
-        auto distance = sample_transmittance(
-            vsdf.density, intersection.distance, rand1f(rng), rand1f(rng));
-        weight *= eval_transmittance(vsdf.density, distance) /
-                  sample_transmittance_pdf(
-                      vsdf.density, distance, intersection.distance);
-        in_volume             = distance < intersection.distance;
-        intersection.distance = distance;
-      }
-    }
-
-    // switch between surface and volume
-    if (!in_volume) {
-      // prepare shading point
-      auto outgoing = -ray.d;
-      auto position = eval_shading_position(scene, intersection, outgoing);
-      auto normal   = eval_shading_normal(scene, intersection, outgoing);
-      auto material = eval_material(scene, intersection);
-
-      // correct roughness
-      if (params.nocaustics) {
-        max_roughness      = max(material.roughness, max_roughness);
-        material.roughness = max_roughness;
-      }
-
-      // handle opacity
-      if (material.opacity < 1 && rand1f(rng) >= material.opacity) {
-        if (opbounce++ > 128) break;
-        ray = {position + ray.d * 1e-2f, ray.d};
-        bounce -= 1;
-        continue;
-      }
-
-      // set hit variables
-      if (bounce == 0) {
-        hit        = true;
-        hit_albedo = material.color;
-        hit_normal = normal;
-      }
-
-      // accumulate emission
-      radiance += weight * eval_emission(material, normal, outgoing);
-
-      // next direction
-      auto incoming = vec3f{0, 0, 0};
-      if (!is_delta(material)) {
-        if (rand1f(rng) < 0.5f) {
-          incoming = sample_bsdfcos(
-              material, normal, outgoing, rand1f(rng), rand2f(rng));
-        } else {
-          incoming = sample_lights(
-              scene, lights, position, rand1f(rng), rand1f(rng), rand2f(rng));
-        }
-        if (incoming == vec3f{0, 0, 0}) break;
-        weight *=
-            eval_bsdfcos(material, normal, outgoing, incoming) /
-            (0.5f * sample_bsdfcos_pdf(material, normal, outgoing, incoming) +
-                0.5f *
-                    sample_lights_pdf(scene, bvh, lights, position, incoming));
-      } else {
-        incoming = sample_delta(material, normal, outgoing, rand1f(rng));
-        weight *= eval_delta(material, normal, outgoing, incoming) /
-                  sample_delta_pdf(material, normal, outgoing, incoming);
-      }
-
-      // update volume stack
-      if (is_volumetric(scene, intersection) &&
-          dot(normal, outgoing) * dot(normal, incoming) < 0) {
-
-        if (is_volumetric(scene, intersection)) bounce -= 1;
-        
-        if (volume_stack.empty()) {
-          //auto material = eval_material(scene, intersection);
-          //auto material = material_point{};
-          auto material = eval_volume_material(scene, scene.instances[intersection.instance],intersection.element, intersection.uv);
-          //volume_data vol = *material.volume;
-          //cout << "bbox dopo eval volume material " << vol.bbox.x << endl;
-          // TO DO : fix bbox values after eval volume
-          volume_stack.push_back(material);
-        } else {
-          volume_stack.pop_back();
-        }
-      }
-
-      // setup next iteration
-      ray = {position, incoming};
-    } else {
-      // prepare shading point
-      auto  outgoing = -ray.d;
-      auto  position = ray.o + ray.d * intersection.distance;
-      auto& vsdf     = volume_stack.back();
-      
-      
-      // accumulate emission
-      //radiance += weight * eval_volemission(emission, outgoing);
-      //radiance += weight * vsdf.emission;   
-
-      // next direction
-      hit = true;
-      if (!vsdf.htvolume) {
-        auto incoming = vec3f{0, 0, 0};
-        if (rand1f(rng) < 0.5f) {
-          incoming = sample_scattering(vsdf, outgoing, rand1f(rng), rand2f(rng));
-        } else {
-          incoming = sample_lights(
-              scene, lights, position, rand1f(rng), rand1f(rng), rand2f(rng));
-        }
-        if (incoming == vec3f{0, 0, 0}) break;
-        weight *=
-            eval_scattering(vsdf, outgoing, incoming) /
-            (0.5f * sample_scattering_pdf(vsdf, outgoing, incoming) +
-                0.5f * sample_lights_pdf(scene, bvh, lights, position, incoming));
-        
-        // setup next iteration
-        ray = {position, incoming};
-      }
-    }
-
-    // check weight
-    if (weight == vec3f{0, 0, 0} || !isfinite(weight)) break;
-
-    // russian roulette
-    if (bounce > 3) {
-      auto rr_prob = min((float)0.99, max(weight));
-      if (rand1f(rng) >= rr_prob) break;
-      weight *= 1 / rr_prob;
-    }
-  }
-  //cout << "hit_albedo" << hit_albedo.x << endl;
-  return {radiance, hit, hit_albedo, hit_normal};
-}
-
 // Volume Path tracing NSPI with mis
 static trace_result trace_path_volume_mis(const scene_data& scene,
     const trace_bvh& bvh, const trace_lights& lights, const ray3f& ray_,
@@ -1583,12 +1316,10 @@ static trace_result trace_path_volume_mis(const scene_data& scene,
             
           if (vsdf.event == material_event::absorb) {
             auto er = zero3f;
-              //Check about emission
-            
-            // TO DO: check this
 
+            //Check about emission
             if (has_emission(scene.volumes[vsdf.volume_id])) {
-                er = blackbody_to_rgb(eval_vpt_emission(scene.volumes[vsdf.volume_id], position) * 40e3);
+                er = blackbody_to_rgb(eval_emission_nspi(scene.volumes[vsdf.volume_id], position) * 40e3);
             }
             radiance += weight * er * scene.volumes[vsdf.volume_id].radiance_mult;
             break;
@@ -1741,7 +1472,6 @@ static trace_result trace_path_volume_mis(const scene_data& scene,
       weight *= 1 / rr_prob;
     }
   }
-
   return {radiance, hit, hit_albedo, hit_normal};
 }
     
@@ -2136,7 +1866,7 @@ vec3f next_event_estimation_final(const scene_data& scene,
           if (t < dt){
             vec3f p = ray.o + incoming * accum_t;
       
-            auto density = eval_vpt_density(volume, p);  // Give a second check
+            auto density = eval_density(volume, p);  // Give a second check
             auto sigma_s = density * vsdf.scattering;  // Give a second check
             auto sigma_a = density * (1 - vsdf.scattering);  // Give a second check
             auto sigma_t = sigma_s + sigma_a;      // Give a second check
@@ -2323,7 +2053,7 @@ static trace_result vol_path_tracing(const scene_data& scene, const trace_bvh& b
         if (t < dt) {
           vec3f p = ray.o + ray.d * accum_t;
 
-          auto density = eval_vpt_density(*vsdf.volume, p);  // Give a second check
+          auto density = eval_density(*vsdf.volume, p);  // Give a second check
           auto sigma_s = density * vsdf.scattering;  // Give a second check
           auto sigma_a = density * (1 - vsdf.scattering);  // Give a second check
           auto sigma_t = sigma_s + sigma_a;      // Give a second check
@@ -2490,7 +2220,7 @@ static trace_result vol_path_tracing(const scene_data& scene, const trace_bvh& b
       // prepare shading point
       auto& vsdf     = volume_stack.back();
 
-      auto density = eval_vpt_density(*vsdf.volume, ray.o);  // Give a second check
+      auto density = eval_density(*vsdf.volume, ray.o);  // Give a second check
       auto sigma_s = density * vsdf.scattering;  // Give a second check
 
       vec3f nee = next_event_estimation_final(scene,
@@ -2591,8 +2321,8 @@ static trace_result vol_path_tracing(const scene_data& scene, const trace_bvh& b
       weight *= 1 / rr_prob;
     }
     bounces++;
-    // Check if there is a relationship between is_lights and has_vpt_emission
-    // if (has_vpt_emission(vsdf.object))
+    // Check if there is a relationship between is_lights and has_emission
+    // if (has_emission(vsdf.object))
     // if ( !scatter && intersection.hit &&
     // is_light(scene.shapes[vertex.shape_id]) ) {
   }
@@ -2617,8 +2347,6 @@ static sampler_func get_trace_sampler_func(const trace_params& params) {
     case trace_sampler_type::diagram: return trace_diagram;
     case trace_sampler_type::furnace: return trace_furnace;
     case trace_sampler_type::falsecolor: return trace_falsecolor;
-    case trace_sampler_type::vpt: return trace_path_volume_mis;
-    //case trace_sampler_type::volpath: return vol_path_tracing;
     case trace_sampler_type::volpath: return trace_path_volume_mis;
     default: {
       throw std::runtime_error("sampler unknown");
@@ -2638,7 +2366,6 @@ bool is_sampler_lit(const trace_params& params) {
     case trace_sampler_type::furnace: return true;
     case trace_sampler_type::falsecolor: return false;
     case trace_sampler_type::volpath: return true;
-    case trace_sampler_type::vpt: return true;
     default: {
       throw std::runtime_error("sampler unknown");
       return false;

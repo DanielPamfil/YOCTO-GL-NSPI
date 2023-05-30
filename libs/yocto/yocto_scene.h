@@ -140,7 +140,6 @@ struct material_data {
   float         scanisotropy = 0;
   float         trdepth      = 0.01f;
   float         opacity      = 1;
-  //volume_data   volume       = volume_data();  // NSPI TO DO: assign volume
 
   // textures
   int emission_tex   = invalidid;
@@ -195,25 +194,20 @@ struct subdiv_data {
 
 // Volume data struct // NSPI
 struct volume_data {
-    // hash_grid grid = make_hash_grid(positions, cell_size);
-    //vec3f         bbox          = {};           // NSPI
-    //vec3f         max           = {};           // NSPI
-    //vec3f         min           = {};           // NSPI
-    // from file
-    vec3i         bbox          = {};           // NSPI - contains the size
-    int           components    = 1;            // NSPI
-    vector<float> density_vol   = {};           // NSPI - voxels
-    vector<float> emission_vol  = {};           // NSPI - not used now 
+    // from .vol
+    vec3i         bbox          = {};             // NSPI - bounding box
+    int           components    = 1;              // NSPI
+    vector<float> density_vol   = {};             // NSPI - density voxels
+    vector<float> emission_vol  = {};             // NSPI - emission voxels 
     // from json
-    frame3f       frame         = identity3x4f; // NSPI
-    vec3f         scale_vol     = {1, 1, 1};    // NSPI
-    vec3f         offset_vol    = {0, 0, 0};    // NSPI
-    float         density_mult  = 1.0f;         // NSPI
-    float         radiance_mult = 1.0f;         // NSPI
-    float         max_voxel     = 1.0f;         // NSPI   to adjust
-    vec3f         scattering    = {0.9,0.9,0.9};      // NSPI
+    frame3f       frame         = identity3x4f;   // NSPI
+    vec3f         scale_vol     = {1, 1, 1};      // NSPI
+    vec3f         offset_vol    = {0, 0, 0};      // NSPI
+    float         density_mult  = 1.0f;           // NSPI
+    float         radiance_mult = 1.0f;           // NSPI
+    float         max_voxel     = 1.0f;           // NSPI  
+    vec3f         scattering    = {0.9,0.9,0.9};  // NSPI
 
-    //vector<material_point> points = vector<material_point>{};
 };
 
 // Scene comprised an array of objects whose memory is owened by the scene.
@@ -232,7 +226,7 @@ struct scene_data {
   vector<texture_data>     textures     = {};
   vector<material_data>    materials    = {};
   vector<subdiv_data>      subdivs      = {};
-  vector<volume_data>      volumes      = {};  // // NSPI
+  vector<volume_data>      volumes      = {};  // NSPI
 
   // names (this will be cleanup significantly later)
   vector<string> camera_names      = {};
@@ -242,7 +236,7 @@ struct scene_data {
   vector<string> instance_names    = {};
   vector<string> environment_names = {};
   vector<string> subdiv_names      = {};
-  vector<string> volume_names      = {};  // // NSPI
+  vector<string> volume_names      = {};  // NSPI
 
   // copyright info preserve in IO
   string copyright = "";
@@ -305,28 +299,11 @@ struct material_point {
   vec3f          scattering   = {0, 0, 0};
   float          scanisotropy = 0;
   float          trdepth      = 0.01f;
-  bool           htvolume     = false;                 // NSPI
+  bool           htvolume     = false;                 // NSPI - heterogeneus volume flag
   material_event event        = material_event::null;  // NSPI
-  int            volume_id    = invalidid;         // NSPIS
+  int            volume_id    = invalidid;             // NSPI - id of the volume
 };
 
-
-
-/*
-// vsdf 
-struct vsdf {
-    vec3f density    = {0, 0, 0};
-    vec3f scatter    = {0, 0, 0};
-    float anisotropy = 0;
-    // heterogeneous volume properties
-    bool  htvolume   = false;
-    // new heterogeneous volume properties
-    // object contains density, emission, frame, scale, offset etc
-    const trace::object* object = nullptr;
-    // Collision event (needed for spectral, maybe ?)
-    int event        = 0;
-  };
-  */
 
 // Eval material to obtain emission, brdf and opacity.
 material_point eval_material(const scene_data& scene,

@@ -288,13 +288,10 @@ inline float sample_phasefunction_pdf(
     float anisotropy, const vec3f& outgoing, const vec3f& incoming);
 
 // Evaluate density  NSPI
-inline float eval_vpt_density(const volume_data& volume, const vec3f& uvw) {
-
-  //cout << "eval_vpt_density" << volume.bbox.x << endl;
+inline float eval_density(const volume_data& volume, const vec3f& uvw) {
   if (volume.density_vol.empty()) return 0.0f;  // Give a check later
 
   auto oframe = volume.frame;
-  //auto vol    = volume.density_vol;
   auto scale  = volume.scale_vol;
   auto offset = volume.offset_vol;
 
@@ -304,12 +301,11 @@ inline float eval_vpt_density(const volume_data& volume, const vec3f& uvw) {
 }
 
 // Evaluate emission  NSPI
-inline float eval_vpt_emission(const volume_data& volume, const vec3f& uvw) {
+inline float eval_emission_nspi(const volume_data& volume, const vec3f& uvw) {
     
     if (volume.emission_vol.empty()) return 0.0f;
 
     auto oframe   = volume.frame;
-    //auto vol      = volume.emission_vol;
     auto scale    = volume.scale_vol;
     auto offset   = volume.offset_vol;
     auto inv_max  = 1.f / volume.max_voxel;

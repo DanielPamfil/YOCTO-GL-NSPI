@@ -1080,7 +1080,7 @@ static bool load_yvol(const string& filename, int& width, int& height,
   // read magic
   if (!fgets(buffer.data(), (int)buffer.size(), fs)) return parse_error();
   toks = split_string(buffer.data());
-  if (toks[0] != "YVOL") return parse_error();
+  if (toks[0] != "YVOL" ) return parse_error();
 
   // read width, height
   if (!fgets(buffer.data(), (int)buffer.size(), fs)) return parse_error();
@@ -1105,128 +1105,6 @@ static bool load_yvol(const string& filename, int& width, int& height,
   return true;
 }
 
-// Volume load
-/*
-static inline float* load_yvol_vpt(
-    const char* filename, int* w, int* h, int* d, int* nc, int req) {
-  auto fs = fopen(filename, "rb");
-  if (!fs) return nullptr;
-  auto fs_guard = std::unique_ptr<FILE, void (*)(FILE*)>{
-      fs, [](FILE* f) { fclose(f); }};
-
-  // buffer
-  auto buffer = array<char, 4096>{};
-  auto toks = std::vector<std::string>();
-
-  // read magic
-  if (!fgets(buffer.data(), (int)buffer.size(), fs)) return nullptr;
-  toks = split_string(buffer.data());
-  if (toks[0] != "YVOL") return nullptr;
-
-  // read w, h
-  if (!fgets(buffer.data(), sizeof(buffer), fs)) return nullptr;
-  toks = split_string(buffer);
-  *w   = atoi(toks[0].c_str());
-  *h   = atoi(toks[1].c_str());
-  *d   = atoi(toks[2].c_str());
-  *nc  = atoi(toks[3].c_str());
-
-  // read data
-  auto nvoxels = (size_t)(*w) * (size_t)(*h) * (size_t)(*d);
-  auto nvalues = nvoxels * (size_t)(*nc);
-  auto voxels  = std::unique_ptr<float[]>(new float[nvalues]);
-  if (fread(voxels.get(), sizeof(float), nvalues, fs) != nvalues)
-    return nullptr;
-
-  // proper number of channels
-  if (!req || *nc == req) return voxels.release();
-
-  // pack into channels
-  if (req < 0 || req > 4) {
-    return nullptr;
-  }
-  auto cvoxels = std::unique_ptr<float[]>(new float[req * nvoxels]);
-  for (auto i = 0; i < nvoxels; i++) {
-    auto vp = voxels.get() + i * (*nc);
-    auto cp = cvoxels.get() + i * req;
-    if (*nc == 1) {
-      switch (req) {
-        case 1: cp[0] = vp[0]; break;
-        case 2:
-          cp[0] = vp[0];
-          cp[1] = vp[0];
-          break;
-        case 3:
-          cp[0] = vp[0];
-          cp[1] = vp[0];
-          cp[2] = vp[0];
-          break;
-        case 4:
-          cp[0] = vp[0];
-          cp[1] = vp[0];
-          cp[2] = vp[0];
-          cp[3] = 1;
-          break;
-      }
-    } else if (*nc == 2) {
-      switch (req) {
-        case 1: cp[0] = vp[0]; break;
-        case 2:
-          cp[0] = vp[0];
-          cp[1] = vp[1];
-          break;
-        case 3:
-          cp[0] = vp[0];
-          cp[1] = vp[1];
-          break;
-        case 4:
-          cp[0] = vp[0];
-          cp[1] = vp[1];
-          break;
-      }
-    } else if (*nc == 3) {
-      switch (req) {
-        case 1: cp[0] = vp[0]; break;
-        case 2:
-          cp[0] = vp[0];
-          cp[1] = vp[1];
-          break;
-        case 3:
-          cp[0] = vp[0];
-          cp[1] = vp[1];
-          cp[2] = vp[2];
-          break;
-        case 4:
-          cp[0] = vp[0];
-          cp[1] = vp[1];
-          cp[2] = vp[2];
-          cp[3] = 1;
-          break;
-      }
-    } else if (*nc == 4) {
-      switch (req) {
-        case 1: cp[0] = vp[0]; break;
-        case 2:
-          cp[0] = vp[0];
-          cp[1] = vp[1];
-          break;
-        case 3:
-          cp[0] = vp[0];
-          cp[1] = vp[1];
-          cp[2] = vp[2];
-          break;
-        case 4:
-          cp[0] = vp[0];
-          cp[1] = vp[1];
-          cp[2] = vp[2];
-          cp[3] = vp[3];
-          break;
-      }
-    }
-  }
-  return cvoxels.release();
-}
-*/
 
 // save pfm
 static bool save_yvol(const string& filename, vec3f bbox, vec3f min, vec3f max,
@@ -1300,20 +1178,14 @@ bool save_volume(
 // Lookup volume
 float lookup_volume(const vector<float>& density_vol, const vec3i& ijk,
     const vec3i& bbox, bool as_linear) {
-  //cout << "bbox x: " << bbox.x << " - bbox y: " << bbox.y << " - bbox z: " << bbox.z << endl;
-  //cout << "i: " << ijk.x << " - j: " << ijk.y << " - k: " << ijk.z << endl;
-  //auto prova = density_vol[ijk.x + ijk.y * bbox.x + ijk.z * bbox.x * bbox.y];
-  //printf("dopo density_vol");
-  return density_vol[ijk.x + ijk.y * bbox.x + ijk.z * bbox.x * bbox.y];  // NSPI RICONTROLLARE
-  
-  //return density_vol[ijk];
+      
+  return density_vol[ijk.x + ijk.y * bbox.x + ijk.z * bbox.x * bbox.y]; 
 }
 
 // Our volume evaluation NSPI
 float eval_volume(const volume_data& vol, const vec3f& uvw, bool ldr_as_linear,
     bool no_interpolation, bool clamp_to_edge) {
-  auto x = vol.bbox.x;
-  //cout << "lookup: " << &x << " " << vol.bbox.y << " " << vol.bbox.z << endl;
+ 
   if (vol.density_vol.empty()) return 0;
 
   // get coordinates normalized for tiling
@@ -3638,9 +3510,8 @@ static bool load_json_scene_version40(const string& filename,
         get_opt(element, "offset_vol", volume.offset_vol);
         get_opt(element, "density_mult", volume.density_mult);
         
-        //cout << "density mul:" << volume.density_mult << endl;
       }
-      //cout << "volumes len after volumes: " << scene.volumes.size() << endl;
+      
     }
     if (json.contains("instances")) {
       for (auto& [key, element] : json.at("instances").items()) {
@@ -3727,6 +3598,7 @@ static bool load_json_scene_version40(const string& filename,
                        const vector<string>& extensions) {
     for (auto& extension : extensions) {
       auto path = path_join(dirname, group, name + extension);
+      //cout << "path " << path << endl; 
       if (path_exists(path)) return path_join(group, name + extension);
     }
     return path_join(group, name + extensions.front());
@@ -3772,7 +3644,8 @@ static bool load_json_scene_version40(const string& filename,
       */
       
       auto path_d = find_path(get_volume_name(scene, volume), "volumes", {"_density.vol"});
-      auto path_e = find_path(get_volume_name(scene, volume), "volumes", {"_emission.vol"});
+      auto path_e = find_path(get_volume_name(scene, volume), "volumes", {"_temperature.vol"});
+      
       if (!load_volume(path_join(dirname, path_d), volume, error, true))
         return dependent_error();
       if (!load_volume(path_join(dirname, path_e), volume, error, false))
@@ -3824,11 +3697,12 @@ static bool load_json_scene_version40(const string& filename,
                 auto path_d = find_path(get_volume_name(scene, volume), "volumes", {"_density.vol"});
                 
                 auto path_e = find_path(get_volume_name(scene, volume), "volumes", {"_temperature.vol"});
-                
+                cout << "Path_d" << path_d << endl;
                 bool density = load_volume(path_join(dirname, path_d), volume, error, true);
-                bool emission = load_volume(path_join(dirname, path_e), volume, error, false);
-                // cout << "density size " <<volume.density_vol.size() << endl;
-                // cout << "emission size " <<volume.emission_vol.size() << endl;
+                bool emission = false;
+                if (path_exists(path_join(dirname, path_e))){
+                  emission = load_volume(path_join(dirname, path_e), volume, error, false);
+                }
                 return (density || emission);
             }))
       return dependent_error();
