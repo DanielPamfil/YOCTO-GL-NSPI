@@ -53,16 +53,23 @@ After building, the program can be run from the command line in the following wa
 ## Results
 Several volumetric renderings were achieved using the new system:
 - **Volumetric Bunny** (OpenVDB sample) with low-density multiplier.
+![alt text](material/bunny_material.jpg)
 - **Volumetric Explosion** using converted OpenVDB data.
+  ![alt text](material/explosion.png)
 - **Volumetric Airstrike** rendered using OpenVDB volumetric data.
+  ![alt text](material/Airstrike.jpg)
 - **Cloud Bunny** with high-density multiplier.
+  ![alt text](material/bunny_cloud.png)
 - **Volumetric Smoke** from OpenVDB sample library.
+  ![alt text](material/smoke.png)
+- **Volumetric Eplosion** from OpenVDB sample library.
+  ![alt text](material/explosionvdb.png)
 
 ## Conclusion
 This project successfully integrates heterogeneous volumetric path tracing into Yocto-GL, enabling realistic rendering of participating media. Future work can focus on optimizing performance and extending support for additional volumetric effects.
 
 ## References
-1. Yocto-GL: A Data-Oriented Library for Physically-Based Graphics
-2. Null-Scattering Path Integral Formulation of Light Transport
-3. VDB: High-Resolution Sparse Volumes with Dynamic Topology
+1. [Yocto-GL: A Data-Oriented Library for Physically-Based Graphics](https://diglib.eg.org/items/7587e350-9350-4f63-95d2-5420a5037351)
+2. [Null-Scattering Path Integral Formulation of Light Transport](https://dl.acm.org/doi/10.1145/3306346.3323025)
+3. [VDB: High-Resolution Sparse Volumes with Dynamic Topology](https://dl.acm.org/doi/10.1145/2487228.2487235)
 
