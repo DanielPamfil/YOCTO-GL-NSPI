@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\danie\Computer_Graphics\YOCTO-GL-NSPI\build\CMakeFiles\b9c842b700183491e6d5d57898e126dd\INSTALL_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{5D761B67-702F-37AD-923D-FB61C1A159E3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

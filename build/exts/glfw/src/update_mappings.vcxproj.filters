@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\danie\Computer_Graphics\YOCTO-GL-NSPI\build\CMakeFiles\06007b4c0e9ddf5afc8d70b95bdb3b28\update_mappings.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\danie\Computer_Graphics\YOCTO-GL-NSPI\exts\glfw\src\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\danie\Computer_Graphics\YOCTO-GL-NSPI\exts\glfw\src\mappings.h.in">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="C:\Users\danie\Computer_Graphics\YOCTO-GL-NSPI\exts\glfw\CMake\GenerateMappings.cmake" />
+    <None Include="C:\Users\danie\Computer_Graphics\YOCTO-GL-NSPI\build\exts\glfw\src\CMakeFiles\update_mappings" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{5D761B67-702F-37AD-923D-FB61C1A159E3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{C372632D-5B2D-38EC-BF24-C348244BC787}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\danie\Computer_Graphics\YOCTO-GL-NSPI\exts\stb_image\stb_image\stb_image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\danie\Computer_Graphics\YOCTO-GL-NSPI\exts\stb_image\stb_image\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\danie\Computer_Graphics\YOCTO-GL-NSPI\exts\stb_image\stb_image\stb_image_write.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\danie\Computer_Graphics\YOCTO-GL-NSPI\exts\stb_image\stb_image\stb_image_resize.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\danie\Computer_Graphics\YOCTO-GL-NSPI\exts\stb_image\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{C372632D-5B2D-38EC-BF24-C348244BC787}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{3A9B2B0F-80E7-3DC9-847F-3D45E0CB758B}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

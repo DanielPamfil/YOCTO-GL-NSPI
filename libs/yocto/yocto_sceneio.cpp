@@ -1161,9 +1161,7 @@ bool load_volume(const string& filename, volume_data& vol, string& error, bool i
   } else {
     vol.emission_vol = voxels;
   }
-  
-  //cout << "riga 1001";
-  //cout << vol.bbox.x;
+
   return true;
 }
 
@@ -3598,7 +3596,6 @@ static bool load_json_scene_version40(const string& filename,
                        const vector<string>& extensions) {
     for (auto& extension : extensions) {
       auto path = path_join(dirname, group, name + extension);
-      //cout << "path " << path << endl; 
       if (path_exists(path)) return path_join(group, name + extension);
     }
     return path_join(group, name + extensions.front());
@@ -3697,7 +3694,6 @@ static bool load_json_scene_version40(const string& filename,
                 auto path_d = find_path(get_volume_name(scene, volume), "volumes", {"_density.vol"});
                 
                 auto path_e = find_path(get_volume_name(scene, volume), "volumes", {"_temperature.vol"});
-                cout << "Path_d" << path_d << endl;
                 bool density = load_volume(path_join(dirname, path_d), volume, error, true);
                 bool emission = false;
                 if (path_exists(path_join(dirname, path_e))){

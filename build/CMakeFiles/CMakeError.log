@@ -1,0 +1,57 @@
+Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
+Change Dir: C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/build/CMakeFiles/CMakeScratch/TryCompile-mlhpur
+
+Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_9b012.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:m && MSBuild version 17.4.1+9a89d02ff for .NET Framework
+  Microsoft (R) C/C++ Optimizing Compiler versione 19.34.31937 per x64
+  src.c
+  Copyright (C) Microsoft Corporation. Tutti i diritti  sono riservati.
+  cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CMAKE_HAVE_LIBC_PTHREAD /D "CMAKE_INTDIR=\"Debug\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_9b012.dir\Debug\\" /Fd"cmTC_9b012.dir\Debug\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\Users\danie\Computer_Graphics\YOCTO-GL-NSPI\build\CMakeFiles\CMakeScratch\TryCompile-mlhpur\src.c"
+C:\Users\danie\Computer_Graphics\YOCTO-GL-NSPI\build\CMakeFiles\CMakeScratch\TryCompile-mlhpur\src.c(1,10): fatal  error C1083: Non è possibile aprire il file inclusione: 'pthread.h': No such file or directory [C:\Users\danie\Computer_Graphics\YOCTO-GL-NSPI\build\CMakeFiles\CMakeScratch\TryCompile-mlhpur\cmTC_9b012.vcxproj]
+
+
+Source file was:
+#include <pthread.h>
+
+static void* test_func(void* data)
+{
+  return data;
+}
+
+int main(void)
+{
+  pthread_t thread;
+  pthread_create(&thread, NULL, test_func, NULL);
+  pthread_detach(thread);
+  pthread_cancel(thread);
+  pthread_join(thread, NULL);
+  pthread_atfork(NULL, NULL, NULL);
+  pthread_exit(NULL);
+
+  return 0;
+}
+
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/build/CMakeFiles/CMakeScratch/TryCompile-l8xr3x
+
+Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_2ad41.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:m && MSBuild version 17.4.1+9a89d02ff for .NET Framework
+  Microsoft (R) C/C++ Optimizing Compiler versione 19.34.31937 per x64
+  CheckFunctionExists.c
+  Copyright (C) Microsoft Corporation. Tutti i diritti  sono riservati.
+  cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D "CMAKE_INTDIR=\"Debug\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_2ad41.dir\Debug\\" /Fd"cmTC_2ad41.dir\Debug\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\Users\danie\Computer_Graphics\YOCTO-GL-NSPI\build\CMakeFiles\CMakeScratch\TryCompile-l8xr3x\CheckFunctionExists.c"
+LINK : fatal error LNK1104: impossibile aprire il file 'pthreads.lib' [C:\Users\danie\Computer_Graphics\YOCTO-GL-NSPI\build\CMakeFiles\CMakeScratch\TryCompile-l8xr3x\cmTC_2ad41.vcxproj]
+
+
+
+Determining if the function pthread_create exists in the pthread failed with the following output:
+Change Dir: C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/build/CMakeFiles/CMakeScratch/TryCompile-jnl1ov
+
+Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_6b2a6.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:m && MSBuild version 17.4.1+9a89d02ff for .NET Framework
+  Microsoft (R) C/C++ Optimizing Compiler versione 19.34.31937 per x64
+  CheckFunctionExists.c
+  Copyright (C) Microsoft Corporation. Tutti i diritti  sono riservati.
+  cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D "CMAKE_INTDIR=\"Debug\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_6b2a6.dir\Debug\\" /Fd"cmTC_6b2a6.dir\Debug\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\Users\danie\Computer_Graphics\YOCTO-GL-NSPI\build\CMakeFiles\CMakeScratch\TryCompile-jnl1ov\CheckFunctionExists.c"
+LINK : fatal error LNK1104: impossibile aprire il file 'pthread.lib' [C:\Users\danie\Computer_Graphics\YOCTO-GL-NSPI\build\CMakeFiles\CMakeScratch\TryCompile-jnl1ov\cmTC_6b2a6.vcxproj]
+
+
+

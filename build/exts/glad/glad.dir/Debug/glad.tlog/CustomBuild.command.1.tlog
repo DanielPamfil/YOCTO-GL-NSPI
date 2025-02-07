@@ -1,0 +1,10 @@
+^C:\USERS\DANIE\COMPUTER_GRAPHICS\YOCTO-GL-NSPI\EXTS\GLAD\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI -BC:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/build --check-stamp-file C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/build/exts/glad/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

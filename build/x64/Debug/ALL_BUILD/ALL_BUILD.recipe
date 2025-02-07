@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <ProjectOutputs>
+    <ProjectOutput>
+      <FullPath>C:\Users\danie\Computer_Graphics\YOCTO-GL-NSPI\build\x64\Debug\ZERO_CHECK</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>C:\Users\danie\Computer_Graphics\YOCTO-GL-NSPI\bin\Debug\ycolorgrade.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>C:\Users\danie\Computer_Graphics\YOCTO-GL-NSPI\bin\Debug\yconvert.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>C:\Users\danie\Computer_Graphics\YOCTO-GL-NSPI\bin\Debug\yconverts.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>C:\Users\danie\Computer_Graphics\YOCTO-GL-NSPI\bin\Debug\yimalpha.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>C:\Users\danie\Computer_Graphics\YOCTO-GL-NSPI\bin\Debug\yimdiff.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>C:\Users\danie\Computer_Graphics\YOCTO-GL-NSPI\bin\Debug\ysamples.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>C:\Users\danie\Computer_Graphics\YOCTO-GL-NSPI\bin\Debug\ytonemap.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>C:\Users\danie\Computer_Graphics\YOCTO-GL-NSPI\bin\Debug\ytrace.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>C:\Users\danie\Computer_Graphics\YOCTO-GL-NSPI\bin\Debug\yview.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>C:\Users\danie\Computer_Graphics\YOCTO-GL-NSPI\build\x64\Debug\ALL_BUILD</FullPath>
+    </ProjectOutput>
+  </ProjectOutputs>
+  <ContentFiles />
+  <SatelliteDlls />
+  <NonRecipeFileRefs />
+</Project>

@@ -1,0 +1,9 @@
+# CMake generation dependency list for this directory.
+C:/Program Files/CMake/share/cmake-3.25/Modules/CMakePackageConfigHelpers.cmake
+C:/Program Files/CMake/share/cmake-3.25/Modules/ExternalProject.cmake
+C:/Program Files/CMake/share/cmake-3.25/Modules/GNUInstallDirs.cmake
+C:/Program Files/CMake/share/cmake-3.25/Modules/WriteBasicConfigVersionFile.cmake
+C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/nlohmann_json/CMakeLists.txt
+C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/nlohmann_json/cmake/config.cmake.in
+C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/nlohmann_json/cmake/nlohmann_jsonConfigVersion.cmake.in
+C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/nlohmann_json/cmake/pkg-config.pc.in

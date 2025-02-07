@@ -348,7 +348,7 @@ static material_event sample_event(float pa, float ps, float pn, float rn) {
 
 
 // NSPI: eval heterogeneus volume - TO DO: fix
-std::pair<float, vec3f> eval_unidirectional_spectral_mis_NSPI(const scene_data& scene, material_point& vsdf, float max_distance, rng_state& rng, const ray3f& ray) {
+std::pair<float, vec3f> eval_medium_interaction(const scene_data& scene, material_point& vsdf, float max_distance, rng_state& rng, const ray3f& ray) {
     auto &volume = scene.volumes[vsdf.volume_id];
 
     auto max_density      = volume.max_voxel * volume.density_mult;
@@ -455,8 +455,7 @@ material_point eval_volume_material(const scene_data& scene,
   // } else {
   //   if (point.roughness < min_roughness) point.roughness = 0;
   // }
-  
-  //cout << "eval volume material: " <<  << " " << point.volume->bbox.y << " " << point.volume->bbox.z << endl;
+
   
   return point;
 }
@@ -1303,7 +1302,7 @@ static trace_result trace_path_volume_mis(const scene_data& scene,
     if (!volume_stack.empty()) {
       auto& vsdf     = volume_stack.back();
       if (vsdf.htvolume) {
-        auto [t, w] = eval_unidirectional_spectral_mis_NSPI(
+        auto [t, w] = eval_medium_interaction(
             scene, vsdf, intersection.distance, rng, ray);
         weight *= w;
         

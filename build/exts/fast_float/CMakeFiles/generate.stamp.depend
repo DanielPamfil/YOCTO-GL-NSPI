@@ -1,0 +1,6 @@
+# CMake generation dependency list for this directory.
+C:/Program Files/CMake/share/cmake-3.25/Modules/BasicConfigVersion-SameMajorVersion.cmake.in
+C:/Program Files/CMake/share/cmake-3.25/Modules/CMakePackageConfigHelpers.cmake
+C:/Program Files/CMake/share/cmake-3.25/Modules/WriteBasicConfigVersionFile.cmake
+C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/fast_float/CMakeLists.txt
+C:/Users/danie/Computer_Graphics/YOCTO-GL-NSPI/exts/fast_float/cmake/config.cmake.in
