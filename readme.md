@@ -1,25 +1,68 @@
-<h1>Null-scatering path integral (NSPI)</h1>
+# Null-Scattering Path Integral (NSPI)
 
-<h2>Introduction</h2>
-The goal of this project is to introduce the heterogeneous volumetric path tracing into the [Yocto/GL](https://xelatihy.github.io/yocto-gl/) Renderer. allowing accurate simulations of complex volumetric phenomena such as smoke and fog.<br />
-In order to achieve this we firsty found a way to convert the OpenVDB volumetric files into a format compatible with Yocto-GL, then implemented the code to upload them using the JSON scenes and extract the data needed to render the volumetric materials.
+## Introduction
+The goal of this project is to introduce the heterogeneous volumetric path tracing into the [Yocto/GL](https://xelatihy.github.io/yocto-gl/) Renderer, allowing accurate simulations of complex volumetric phenomena such as smoke and fog.
 
-<h2>Volumes handling</h2>
-Once we extracted the data we defined a new struct <code>volume_data</code> to collected them and modified the already existing <code>material_point</code><br />
-Since the volumetric object might be descripted by both density values and emission values for each voxel we implemented some function to evaluate these properties at a give point such as: <code>eval_density</code>, <code>eval_emission_nspi</code> and <code>eval_volume</code>
+In order to achieve this, we first found a way to convert the OpenVDB volumetric files into a format compatible with Yocto-GL, then implemented the code to upload them using the JSON scenes and extract the data needed to render the volumetric materials.
 
-<h2>The algorithm</h2>
-The last step was the implementation of the actual null-scatering path integral formulation algorith, we started from one of the path tracers that already implemented the multi importance sampling (MIS) and added the shading of heterogeneus volumes. <br />
-Since in null-scattering algorithms, we can see a heterogeneous volume as a mixture of real and fictitious particles, the main step is keeping track of which type of collision occurs, and we do that using the <code>eval_medium_interaction</code> function, as you can see in the <code>trace_path_volume_mis</code> tracer.
+## Features
+- **Support for Homogeneous and Heterogeneous Volumes**: Enables rendering of volumes with varying densities and attributes.
+- **Null-Scattering Path Integral Formulation**: Optimized approach for unbiased estimation in complex participating media.
+- **OpenVDB Integration**: Allows the use of volumetric datasets from OpenVDB for realistic rendering.
+- **Enhanced Volume Management in Yocto-GL**: Introduces new data structures for handling volumetric data.
+- **Volumetric Path Tracing Algorithm**: Implements advanced light transport techniques to simulate realistic interactions of light within media.
 
-<h2>Compilation</h2>
-This library requires a C++17 compiler and is know to compiled on OsX (Xcode >= 11), Windows (MSVC >= 2019) and Linux (gcc >= 9, clang >= 9). <br />
+## Volumes Handling
+Once we extracted the data, we defined a new struct `volume_data` to collect them and modified the already existing `material_point`.
 
-You can build the example applications using CMake with <code> mkdir build; cd build; cmake ..; cmake --build . </code> <br />
+Since the volumetric object might be described by both density values and emission values for each voxel, we implemented some functions to evaluate these properties at a given point, such as: `eval_density`, `eval_emission_nspi`, and `eval_volume`.
 
-Yocto/GL required dependencies are included in the distribution and do not need to be installed separately.  <br />
+### Volume Management in Yocto-GL
+- Modified JSON scene format to support volumetric data.
+- Implemented new data structures to store volumetric properties, including density, emission, scattering coefficients, and transformations.
 
+## The Algorithm
+The last step was the implementation of the actual null-scattering path integral formulation algorithm. We started from one of the path tracers that already implemented the multi-importance sampling (MIS) and added the shading of heterogeneous volumes.
 
-<h2>Run</H2>
-After the buildng the program can be runned by command line in the following way: <br />
-<code> ./bin/Debug/ytrace --scene tests\_version40\bunny_smoke\smoke.json --output out/lowres/smoke.jpg --samples 4096 --resolution 1280 --sampler volpath --interactive </code>
+Since in null-scattering algorithms, we can see a heterogeneous volume as a mixture of real and fictitious particles, the main step is keeping track of which type of collision occurs, and we do that using the `eval_medium_interaction` function, as seen in the `trace_path_volume_mis` tracer.
+
+### Volumetric Path Tracing
+- **Density and Emission Handling**: Functions to evaluate volumetric properties at given points.
+- **Medium Interaction Handling**: Determines scattering, absorption, and null events during light transport.
+- **Tracing Algorithm**: Integrates volumetric path tracing with multiple scattering events and Monte Carlo sampling.
+
+## Compilation
+This library requires a C++17 compiler and is known to compile on:
+- macOS (Xcode >= 11)
+- Windows (MSVC >= 2019)
+- Linux (gcc >= 9, clang >= 9)
+
+You can build the example applications using CMake with:
+```
+mkdir build; cd build; cmake ..; cmake --build .
+```
+
+Yocto/GL required dependencies are included in the distribution and do not need to be installed separately.
+
+## Run
+After building, the program can be run from the command line in the following way:
+```
+./bin/Debug/ytrace --scene tests_version40/bunny_smoke/smoke.json --output out/lowres/smoke.jpg --samples 4096 --resolution 1280 --sampler volpath --interactive
+```
+
+## Results
+Several volumetric renderings were achieved using the new system:
+- **Volumetric Bunny** (OpenVDB sample) with low-density multiplier.
+- **Volumetric Explosion** using converted OpenVDB data.
+- **Volumetric Airstrike** rendered using OpenVDB volumetric data.
+- **Cloud Bunny** with high-density multiplier.
+- **Volumetric Smoke** from OpenVDB sample library.
+
+## Conclusion
+This project successfully integrates heterogeneous volumetric path tracing into Yocto-GL, enabling realistic rendering of participating media. Future work can focus on optimizing performance and extending support for additional volumetric effects.
+
+## References
+1. Yocto-GL: A Data-Oriented Library for Physically-Based Graphics
+2. Null-Scattering Path Integral Formulation of Light Transport
+3. VDB: High-Resolution Sparse Volumes with Dynamic Topology
+
